@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Adapter</string>
+    <string name="thumbnail">thumbnail</string>
+    <string name="single_mode">Single Mode</string>
+    <string name="multiple_mode">Multiple Mode</string>
+    <string name="none">None</string>
+</resources>
