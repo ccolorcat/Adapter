@@ -136,7 +136,7 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     /**
      * 仅单选模式下才有意义
      *
-     * @return 选中的 item 的位置，如果没有 item 被选中则返回 {@link RecyclerView#NO_POSITION}
+     * @return 选中的 item 的位置，如果没有 item 被选中返回 {@link RecyclerView#NO_POSITION}
      */
     public int getSelection() {
         return mSelectedPosition;
