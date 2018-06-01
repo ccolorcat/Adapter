@@ -29,9 +29,21 @@ import android.view.ViewGroup;
  * GitHub: https://github.com/fireworld
  */
 public class LvHolder extends AdapterViewHolder {
+    int mViewType = 0;
+    int mPosition = 0;
 
     protected LvHolder(@NonNull View root) {
         super(root);
+    }
+
+    @Override
+    public int getViewType() {
+        return mViewType;
+    }
+
+    @Override
+    public int getPosition() {
+        return mPosition;
     }
 
     static LvHolder getHolder(@Nullable View convertView, @NonNull ViewGroup parent, @LayoutRes int resId) {

@@ -24,8 +24,12 @@ import android.view.View;
  * Date: 2018-5-31
  * GitHub: https://github.com/fireworld
  */
-public class AdapterViewHolder extends ViewHolder {
+public abstract class AdapterViewHolder extends ViewHolder {
     protected AdapterViewHolder(@NonNull View root) {
         super(root);
     }
+
+    public abstract int getViewType();
+
+    public abstract int getPosition();
 }

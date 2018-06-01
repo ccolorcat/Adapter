@@ -49,12 +49,14 @@ public final class RvHolder extends RecyclerView.ViewHolder {
             return mHolder;
         }
 
-        public int getPosition() {
-            return mHolder.getAdapterPosition();
-        }
-
+        @Override
         public int getViewType() {
             return mHolder.getItemViewType();
+        }
+
+        @Override
+        public int getPosition() {
+            return mHolder.getAdapterPosition();
         }
     }
 }
