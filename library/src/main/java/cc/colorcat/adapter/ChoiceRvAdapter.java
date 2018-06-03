@@ -33,7 +33,7 @@ import java.lang.annotation.RetentionPolicy;
  * <p>
  * Author: cxx
  * Date: 2018-5-31
- * GitHub: https://github.com/fireworld
+ * GitHub: https://github.com/ccolorcat
  */
 public abstract class ChoiceRvAdapter extends RvAdapter {
     @IntDef({ChoiceMode.NONE, ChoiceMode.SINGLE, ChoiceMode.MULTIPLE})

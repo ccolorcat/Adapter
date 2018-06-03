@@ -26,7 +26,7 @@ import android.widget.BaseAdapter;
 /**
  * Author: cxx
  * Date: 2018-6-1
- * GitHub: https://github.com/fireworld
+ * GitHub: https://github.com/ccolorcat
  */
 public abstract class LvAdapter extends BaseAdapter {
 

@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Author: cxx
  * Date: 2018-6-1
- * GitHub: https://github.com/fireworld
+ * GitHub: https://github.com/ccolorcat
  */
 public abstract class SimpleLvAdapter<T> extends LvAdapter {
     private final List<? extends T> mData;

@@ -37,7 +37,7 @@ import cc.colorcat.adapter.ViewHolder;
 /**
  * Author: cxx
  * Date: 2018/5/31
- * GitHub: https://github.com/fireworld
+ * GitHub: https://github.com/ccolorcat
  */
 public class ListActivity extends AppCompatActivity {
     private SwipeRefreshLayout mRefreshLayout;

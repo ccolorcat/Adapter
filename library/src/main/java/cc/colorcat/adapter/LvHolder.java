@@ -26,7 +26,7 @@ import android.view.ViewGroup;
 /**
  * Author: cxx
  * Date: 2018-6-1
- * GitHub: https://github.com/fireworld
+ * GitHub: https://github.com/ccolorcat
  */
 public class LvHolder extends AdapterViewHolder {
     int mViewType = 0;

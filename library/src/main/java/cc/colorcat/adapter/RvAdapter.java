@@ -26,7 +26,7 @@ import android.view.ViewGroup;
 /**
  * Author: cxx
  * Date: 2018-5-31
- * GitHub: https://github.com/fireworld
+ * GitHub: https://github.com/ccolorcat
  */
 public abstract class RvAdapter extends RecyclerView.Adapter<RvHolder> {
     @NonNull

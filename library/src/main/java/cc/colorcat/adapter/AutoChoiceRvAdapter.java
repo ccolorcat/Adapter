@@ -28,7 +28,7 @@ import java.util.List;
  * <p>
  * Author: cxx
  * Date: 2018-6-1
- * GitHub: https://github.com/fireworld
+ * GitHub: https://github.com/ccolorcat
  */
 public abstract class AutoChoiceRvAdapter extends ChoiceRvAdapter {
     private List<Boolean> mRecords = new ArrayList<>();

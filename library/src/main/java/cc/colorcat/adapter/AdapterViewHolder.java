@@ -22,7 +22,7 @@ import android.view.View;
 /**
  * Author: cxx
  * Date: 2018-5-31
- * GitHub: https://github.com/fireworld
+ * GitHub: https://github.com/ccolorcat
  */
 public abstract class AdapterViewHolder extends ViewHolder {
     protected AdapterViewHolder(@NonNull View root) {

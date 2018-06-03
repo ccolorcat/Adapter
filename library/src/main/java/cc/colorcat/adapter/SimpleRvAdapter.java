@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Author: cxx
  * Date: 2018-5-31
- * GitHub: https://github.com/fireworld
+ * GitHub: https://github.com/ccolorcat
  */
 public abstract class SimpleRvAdapter<T> extends RvAdapter {
     private final List<? extends T> mData;
