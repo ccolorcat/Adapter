@@ -16,23 +16,19 @@
 
 package cc.colorcat.adapter;
 
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 /**
  * Author: cxx
- * Date: 2018-6-1
+ * Date: 2018-06-04
  * GitHub: https://github.com/ccolorcat
  */
-public class LvHolder extends AdapterViewHolder {
+public final class VpHolder extends AdapterViewHolder {
     int mViewType = 0;
     int mPosition = -1;
 
-    protected LvHolder(@NonNull View root) {
+    VpHolder(@NonNull View root) {
         super(root);
     }
 
@@ -44,16 +40,5 @@ public class LvHolder extends AdapterViewHolder {
     @Override
     public int getPosition() {
         return mPosition;
-    }
-
-    static LvHolder getHolder(@Nullable View convertView, @NonNull ViewGroup parent, @LayoutRes int resId) {
-        LvHolder holder;
-        if (convertView == null) {
-            holder = new LvHolder(LayoutInflater.from(parent.getContext()).inflate(resId, parent, false));
-            holder.getRoot().setTag(holder);
-        } else {
-            holder = (LvHolder) convertView.getTag();
-        }
-        return holder;
     }
 }

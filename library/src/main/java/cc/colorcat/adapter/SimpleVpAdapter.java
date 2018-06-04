@@ -23,38 +23,38 @@ import java.util.List;
 
 /**
  * Author: cxx
- * Date: 2018-6-1
+ * Date: 2018-06-04
  * GitHub: https://github.com/ccolorcat
  */
-public abstract class SimpleAutoChoiceRvAdapter<T> extends AutoChoiceRvAdapter {
-    private final List<? extends T> mData;
+public abstract class SimpleVpAdapter<T> extends VpAdapter {
+    private List<? extends T> mData;
     @LayoutRes
-    private final int mItemLayoutResId;
+    private int mLayoutResId;
 
-    public SimpleAutoChoiceRvAdapter(@NonNull List<? extends T> data, @LayoutRes int itemLayoutResId) {
+    public SimpleVpAdapter(List<? extends T> data, @LayoutRes int layoutResId) {
         mData = data;
-        mItemLayoutResId = itemLayoutResId;
+        mLayoutResId = layoutResId;
     }
 
     @Override
-    public final int getItemViewType(int position) {
-        return super.getItemViewType(position);
-    }
-
-    @Override
-    public final int getItemCount() {
+    public final int getCount() {
         return mData.size();
     }
 
     @Override
-    public final int getLayoutResId(int viewType) {
-        return mItemLayoutResId;
+    public final int getViewType(int position) {
+        return super.getViewType(position);
     }
 
     @Override
-    public void bindView(@NonNull RvHolder holder, int position) {
+    public final int getLayoutResId(int viewType) {
+        return mLayoutResId;
+    }
+
+    @Override
+    public final void bindView(@NonNull VpHolder holder, int position) {
         bindView(holder, mData.get(position));
     }
 
-    protected abstract void bindView(@NonNull RvHolder holder, T data);
+    protected abstract void bindView(@NonNull VpHolder holder, T data);
 }

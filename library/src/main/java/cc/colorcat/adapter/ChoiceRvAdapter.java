@@ -155,7 +155,7 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     }
 
     /**
-     * 多选模式下需覆盖此方法，以记录每个位置对应的 item 是否被选中。
+     * 多选模式下需覆盖此方法，以判断每个位置对应的 item 是否被选中。
      * 默认实现仅针对单选模式。
      *
      * @see ChoiceRvAdapter#updateItem(int, boolean)

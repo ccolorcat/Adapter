@@ -49,7 +49,7 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * Author: cxx
- * Date: 2018/5/31
+ * Date: 2018-5-31
  * GitHub: https://github.com/ccolorcat
  */
 public class ViewHolder {

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,9 +8,23 @@
     tools:context=".MainActivity">
 
     <Button
+        android:id="@+id/btn_lv_adapter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lv_adapter"
+        android:textAllCaps="false" />
+
+    <Button
         android:id="@+id/btn_rv_adapter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ChoiceRvAdapter" />
+        android:text="@string/choice_rv_adapter"
+        android:textAllCaps="false" />
 
+    <Button
+        android:id="@+id/btn_vp_adapter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/VpAdapter"
+        android:textAllCaps="false" />
 </LinearLayout>

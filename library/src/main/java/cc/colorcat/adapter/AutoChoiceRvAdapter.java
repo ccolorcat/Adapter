@@ -52,12 +52,12 @@ public abstract class AutoChoiceRvAdapter extends ChoiceRvAdapter {
     }
 
     @Override
-    protected boolean isSelected(int position) {
+    protected final boolean isSelected(int position) {
         return super.isSelected(position) || mRecords.get(position);
     }
 
     @Override
-    protected void updateItem(int position, boolean selected) {
+    protected final void updateItem(int position, boolean selected) {
         super.updateItem(position, selected);
         mRecords.set(position, selected);
     }
