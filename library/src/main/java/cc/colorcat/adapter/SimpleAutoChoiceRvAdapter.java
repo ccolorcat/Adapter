@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Author: cxx
- * Date: 18-6-1
+ * Date: 2018-6-1
  * GitHub: https://github.com/ccolorcat
  */
 public abstract class SimpleAutoChoiceRvAdapter<T> extends AutoChoiceRvAdapter {
@@ -47,7 +47,7 @@ public abstract class SimpleAutoChoiceRvAdapter<T> extends AutoChoiceRvAdapter {
     }
 
     @Override
-    public int getLayoutResId(int viewType) {
+    public final int getLayoutResId(int viewType) {
         return mItemLayoutResId;
     }
 

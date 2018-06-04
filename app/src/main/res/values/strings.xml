@@ -4,4 +4,6 @@
     <string name="single_mode">Single Mode</string>
     <string name="multiple_mode">Multiple Mode</string>
     <string name="none">None</string>
+    <string name="lv_adapter">LvAdapter</string>
+    <string name="choice_rv_adapter">ChoiceRvAdapter</string>
 </resources>

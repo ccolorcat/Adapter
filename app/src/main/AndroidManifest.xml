@@ -18,7 +18,11 @@
         </activity>
 
         <activity
-            android:name=".ListActivity"
+            android:name=".ChoiceRvAdapterActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".LvAdapterActivity"
             android:screenOrientation="portrait" />
     </application>
 
