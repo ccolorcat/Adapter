@@ -73,7 +73,28 @@ mAdapter = new ChoiceRvAdapter() {
 mAdapter.setChoiceMode(ChoiceRvAdapter.ChoiceMode.MULTIPLE);
 ```
 
-## 3. 其它说明
+## 3. 使用方法
+
+(1) 在项目的 build.gradle 中配置仓库地址：
+
+```groovy
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
+(2) 添加项目依赖：
+
+```groovy
+	dependencies {
+	        implementation 'com.github.ccolorcat:Adapter:v1.0.0'
+	}
+```
+
+## 4. 其它说明
 
 * 适用于 ListView 的 LvAdapter 实现了 View 的复用，其实现使用了 LvHolder.getRoot().setTag(final Object tag)，故不应再调用此方法，但 LvHolder.getRoot.setTag(int key, final Object tag) 不受影响。
 * 含有 "Simple" 字样的 Adapter 适用于同一类数据的显示，含有 "Fixed" 字样的 Adapter 在创建时数据应已初始化，一旦创建其内部数据不可更改。
