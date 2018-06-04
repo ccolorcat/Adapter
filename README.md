@@ -1,12 +1,13 @@
 # Adapter
 
-适用 Android 开发，提供 RecyclerView 和 ListView 的通用 Adapter.
+适用 Android 开发，提供 RecyclerView, ListView 和 ViewPager 的通用 Adapter.
 
 ## 1. 特性
 
 * LvAdapter 和 SimpleLvAdapter 适用于 ListView，实现了通用的 ViewHolder 和 View 的复用。
 * RvAdapter 适用于 RecyclerView，实现了通用的 ViewHolder。
 * ChoiceRvAdapter 继承自 RvAdapter，扩展了“单选/多选”的功能。
+* VpAdapter 适用于 ViewPager，实现并扩展部分方法，使得使用方法与 RvAdapter 类似。
 
 ## 2. 用法举例
 
@@ -90,12 +91,19 @@ mAdapter.setChoiceMode(ChoiceRvAdapter.ChoiceMode.MULTIPLE);
 
 ```groovy
 	dependencies {
-	        implementation 'com.github.ccolorcat:Adapter:v1.0.0'
+	        implementation 'com.github.ccolorcat:Adapter:v1.1.0'
 	}
 ```
 
 ## 4. 其它说明
 
-* 适用于 ListView 的 LvAdapter 实现了 View 的复用，其实现使用了 LvHolder.getRoot().setTag(final Object tag)，故不应再调用此方法，但 LvHolder.getRoot.setTag(int key, final Object tag) 不受影响。
+* 适用于 ListView 的 LvAdapter 实现了 View 的复用，其实现使用了 LvHolder.getRoot().setTag(final Object tag)，故使用中不应再调用此方法，但 LvHolder.getRoot.setTag(int key, final Object tag) 不受影响。
 * 含有 "Simple" 字样的 Adapter 适用于同一类数据的显示，含有 "Fixed" 字样的 Adapter 在创建时数据应已初始化，一旦创建其内部数据不可更改。
 * 如果需要 RecyclerView 的 Adapter 的单/复选功能，而数据又无需变动，推荐优选使用 FixedSimpleChoiceRvAdapter，足够简单。
+* 继承 PagerAdapter 时，不建议在其内部缓存 View，如要避免频繁的创建/销毁 View，应考虑 ViewPager.setOffscreenPageLimit(int) 方法，且应注意数值不可过大，以避免占用过多的内存。
+
+## 5. 版本历史
+
+v1.1.0
+
+> 添加适用于 ViewPager 的 VpAdapter 和 SimpleVpAdapter.

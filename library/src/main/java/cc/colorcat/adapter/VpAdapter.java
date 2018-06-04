@@ -48,7 +48,7 @@ public abstract class VpAdapter extends PagerAdapter {
     }
 
     @NonNull
-    protected VpHolder onCreateVpHolder(@NonNull ViewGroup container, int position) {
+    private VpHolder onCreateVpHolder(@NonNull ViewGroup container, int position) {
         int viewType = getViewType(position);
         int layout = getLayoutResId(viewType);
         VpHolder holder = new VpHolder(LayoutInflater.from(container.getContext()).inflate(layout, container, false));
