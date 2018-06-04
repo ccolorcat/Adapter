@@ -24,6 +24,10 @@
         <activity
             android:name=".LvAdapterActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".VpAdapterActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

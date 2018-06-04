@@ -16,7 +16,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ViewHolder.from(this)
-                .setOnClickListener(mClick, R.id.btn_rv_adapter, R.id.btn_lv_adapter);
+                .setOnClickListener(
+                        mClick,
+                        R.id.btn_rv_adapter,
+                        R.id.btn_lv_adapter,
+                        R.id.btn_vp_adapter
+                );
     }
 
     private View.OnClickListener mClick = new View.OnClickListener() {
@@ -29,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.btn_rv_adapter:
                     navigateTo(ChoiceRvAdapterActivity.class);
                     break;
+                case R.id.btn_vp_adapter:
+                    navigateTo(VpAdapterActivity.class);
                 default:
                     break;
             }

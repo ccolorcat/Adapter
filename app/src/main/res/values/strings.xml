@@ -6,4 +6,6 @@
     <string name="none">None</string>
     <string name="lv_adapter">LvAdapter</string>
     <string name="choice_rv_adapter">ChoiceRvAdapter</string>
+    <string name="picture">picture</string>
+    <string name="VpAdapter">VpAdapter</string>
 </resources>
