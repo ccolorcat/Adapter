@@ -23,6 +23,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
@@ -416,6 +417,12 @@ public class ViewHolder {
     public ViewHolder setImageDrawable(@IdRes int imageViewId, Drawable drawable) {
         ImageView view = get(imageViewId);
         view.setImageDrawable(drawable);
+        return this;
+    }
+
+    public ViewHolder setImageUri(@IdRes int imageViewId, Uri uri) {
+        ImageView view = get(imageViewId);
+        view.setImageURI(uri);
         return this;
     }
 

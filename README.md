@@ -91,7 +91,7 @@ mAdapter.setChoiceMode(ChoiceRvAdapter.ChoiceMode.MULTIPLE);
 
 ```groovy
 	dependencies {
-	        implementation 'com.github.ccolorcat:Adapter:v1.1.0'
+	        implementation 'com.github.ccolorcat:Adapter:v1.1.1'
 	}
 ```
 
@@ -103,6 +103,12 @@ mAdapter.setChoiceMode(ChoiceRvAdapter.ChoiceMode.MULTIPLE);
 * 继承 PagerAdapter 时，不建议在其内部缓存 View，如要避免频繁的创建/销毁 View，应考虑 ViewPager.setOffscreenPageLimit(int) 方法，且应注意数值不可过大，以避免占用过多的内存。
 
 ## 5. 版本历史
+
+v1.1.1
+
+> 1. 添加 ViewHolder.setImageUri()
+>
+> 2. 升级 build.gradle
 
 v1.1.0
 
