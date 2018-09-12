@@ -146,7 +146,15 @@ public class ViewHolder {
         return this;
     }
 
+    /**
+     * @see #batchOnClick
+     */
+    @Deprecated
     public ViewHolder setOnClickListener(View.OnClickListener listener, @IdRes int... ids) {
+        return batchOnClick(listener, ids);
+    }
+
+    public ViewHolder batchOnClick(View.OnClickListener listener, @IdRes int... ids) {
         for (int id : ids) {
             get(id).setOnClickListener(listener);
         }
@@ -158,7 +166,15 @@ public class ViewHolder {
         return this;
     }
 
+    /**
+     * @see #batchOnLongClick
+     */
+    @Deprecated
     public ViewHolder setOnLongClickListener(View.OnLongClickListener listener, @IdRes int... ids) {
+        return batchOnLongClick(listener, ids);
+    }
+
+    public ViewHolder batchOnLongClick(View.OnLongClickListener listener, @IdRes int... ids) {
         for (int id : ids) {
             get(id).setOnLongClickListener(listener);
         }
@@ -170,7 +186,15 @@ public class ViewHolder {
         return this;
     }
 
+    /**
+     * @see #batchOnFocusChange
+     */
+    @Deprecated
     public ViewHolder setOnFocusChangeListener(View.OnFocusChangeListener listener, @IdRes int... ids) {
+        return batchOnFocusChange(listener, ids);
+    }
+
+    public ViewHolder batchOnFocusChange(View.OnFocusChangeListener listener, @IdRes int... ids) {
         for (int id : ids) {
             get(id).setOnFocusChangeListener(listener);
         }
@@ -182,7 +206,15 @@ public class ViewHolder {
         return this;
     }
 
+    /**
+     * @see #batchVisibility
+     */
+    @Deprecated
     public ViewHolder setVisibility(@Visibility int visibility, @IdRes int... ids) {
+        return batchVisibility(visibility, ids);
+    }
+
+    public ViewHolder batchVisibility(@Visibility int visibility, @IdRes int... ids) {
         for (int id : ids) {
             get(id).setVisibility(visibility);
         }
@@ -199,7 +231,15 @@ public class ViewHolder {
         return this;
     }
 
+    /**
+     * @see #batchEnabled
+     */
+    @Deprecated
     public ViewHolder setEnabled(boolean enabled, @IdRes int... ids) {
+        return batchEnabled(enabled, ids);
+    }
+
+    public ViewHolder batchEnabled(boolean enabled, @IdRes int... ids) {
         for (int id : ids) {
             get(id).setEnabled(enabled);
         }
@@ -346,14 +386,30 @@ public class ViewHolder {
         return this;
     }
 
+    /**
+     * @see #batchTextColor(int, int...)
+     */
+    @Deprecated
     public ViewHolder setTextColor(@ColorInt int color, @IdRes int... textViewIds) {
+        return batchTextColor(color, textViewIds);
+    }
+
+    public ViewHolder batchTextColor(@ColorInt int color, @IdRes int... textViewIds) {
         for (int id : textViewIds) {
             setTextColor(id, color);
         }
         return this;
     }
 
+    /**
+     * @see #batchTextColor(ColorStateList, int...)
+     */
+    @Deprecated
     public ViewHolder setTextColor(@NonNull ColorStateList colors, @IdRes int... textViewIds) {
+        return batchTextColor(colors, textViewIds);
+    }
+
+    public ViewHolder batchTextColor(@NonNull ColorStateList colors, @IdRes int... textViewIds) {
         for (int id : textViewIds) {
             setTextColor(id, colors);
         }
@@ -400,10 +456,17 @@ public class ViewHolder {
         return this;
     }
 
+    /**
+     * @see #batchOnCheckedChange
+     */
+    @Deprecated
     public ViewHolder setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener listener, @IdRes int... compoundButtonIds) {
+        return batchOnCheckedChange(listener, compoundButtonIds);
+    }
+
+    public ViewHolder batchOnCheckedChange(CompoundButton.OnCheckedChangeListener listener, @IdRes int... compoundButtonIds) {
         for (int id : compoundButtonIds) {
-            CompoundButton cb = get(id);
-            cb.setOnCheckedChangeListener(listener);
+            setOnCheckedChangeListener(id, listener);
         }
         return this;
     }
