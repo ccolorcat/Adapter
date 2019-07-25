@@ -93,14 +93,14 @@ public abstract class AutoChoiceRvAdapter extends ChoiceRvAdapter {
         @Override
         public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
             super.onItemRangeMoved(fromPosition, toPosition, itemCount);
-            List<Boolean> subList = mRecords.subList(fromPosition, fromPosition + itemCount);
+            List<Boolean> subList = new ArrayList<>(mRecords.subList(fromPosition, fromPosition + itemCount));
             removeRecords(fromPosition, itemCount);
             mRecords.addAll(toPosition, subList);
         }
 
         private void removeRecords(int start, int count) {
-            for (int i = start + count - 1; i >= start; --i) {
-                mRecords.remove(i);
+            if (count > 0) {
+                mRecords.subList(start, start + count).clear();
             }
         }
     };
