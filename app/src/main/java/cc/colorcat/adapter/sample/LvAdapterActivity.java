@@ -28,6 +28,7 @@ import java.util.List;
 
 import cc.colorcat.adapter.LvAdapter;
 import cc.colorcat.adapter.LvHolder;
+import cc.colorcat.adapter.SimpleLvAdapter;
 import cc.colorcat.adapter.ViewHolder;
 
 /**
@@ -38,7 +39,13 @@ import cc.colorcat.adapter.ViewHolder;
 public class LvAdapterActivity extends AppCompatActivity {
     private SwipeRefreshLayout mRefreshLayout;
     private List<String> mData = new ArrayList<>(30);
-    private LvAdapter mAdapter;
+    private LvAdapter mAdapter = new SimpleLvAdapter<String>(mData, R.layout.item_sample) {
+        @Override
+        protected void bindView(@NonNull LvHolder holder, String s) {
+            holder.setImageResource(R.id.iv_icon, R.mipmap.ic_launcher_round)
+                    .setText(R.id.tv_content, s);
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,28 +55,6 @@ public class LvAdapterActivity extends AppCompatActivity {
         ViewHolder holder = ViewHolder.from(this);
 
         ListView listView = holder.get(R.id.lv_items);
-        mAdapter = new LvAdapter() {
-            @Override
-            protected int getLayoutResId(int viewType) {
-                return R.layout.item_sample;
-            }
-
-            @Override
-            protected void bindView(@NonNull LvHolder holder, int position) {
-                holder.setImageResource(R.id.iv_icon, R.mipmap.ic_launcher_round)
-                        .setText(R.id.tv_content, mData.get(position));
-            }
-
-            @Override
-            public int getCount() {
-                return mData.size();
-            }
-
-            @Override
-            public Object getItem(int position) {
-                return mData.get(position);
-            }
-        };
         listView.setAdapter(mAdapter);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 

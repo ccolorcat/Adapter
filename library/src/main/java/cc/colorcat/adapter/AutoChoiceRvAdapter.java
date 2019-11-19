@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * 实现了自动记录 item 的选中状态的功能。
- * 如果 adapter 中的数据不存在变化，建议使用 {@link FixedSimpleChoiceRvAdapter}.
+ * 如果 adapter 中的数据不存在变化，建议使用 {@link FixedChoiceRvAdapter}.
  * <p>
  * Author: cxx
  * Date: 2018-6-1

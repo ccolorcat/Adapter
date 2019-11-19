@@ -26,14 +26,19 @@ import java.util.List;
  * Date: 2018-06-04
  * GitHub: https://github.com/ccolorcat
  */
-public abstract class SimpleVpAdapter<T> extends VpAdapter {
-    private List<? extends T> mData;
+public abstract class SimpleVpAdapter<T> extends VpAdapter implements SingleType<T> {
+    private List<T> mData;
     @LayoutRes
     private int mLayoutResId;
 
-    public SimpleVpAdapter(List<? extends T> data, @LayoutRes int layoutResId) {
+    public SimpleVpAdapter(List<T> data, @LayoutRes int layoutResId) {
         mData = Utils.requireNonNull(data, "data == null");
         mLayoutResId = layoutResId;
+    }
+
+    @Override
+    public List<T> getData() {
+        return mData;
     }
 
     @Override

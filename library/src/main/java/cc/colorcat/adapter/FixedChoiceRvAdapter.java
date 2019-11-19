@@ -20,21 +20,24 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.util.SparseBooleanArray;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * {@link FixedSimpleChoiceRvAdapter} 一旦创建，绑定的数据就不可更改，自动记录 item 的选中状态。
+ * {@link FixedChoiceRvAdapter} 一旦创建，绑定的数据就不可更改，自动记录 item 的选中状态。
  * <p>
  * Author: cxx
  * Date: 2018-6-1
  * GitHub: https://github.com/ccolorcat
  */
-public abstract class FixedSimpleChoiceRvAdapter<T> extends SimpleChoiceRvAdapter<T> {
+public abstract class FixedChoiceRvAdapter<T> extends ChoiceRvAdapter {
+    private final List<? extends T> mData;
+    @LayoutRes
+    private final int mItemLayoutResId;
     private SparseBooleanArray mRecords = new SparseBooleanArray();
 
-    public FixedSimpleChoiceRvAdapter(@NonNull List<? extends T> data, @LayoutRes int itemLayoutResId) {
-        super(new ArrayList<>(data), itemLayoutResId);
+    public FixedChoiceRvAdapter(@NonNull List<? extends T> data, @LayoutRes int itemLayoutResId) {
+        mData = Utils.requireNonNull(data, "data == null");
+        mItemLayoutResId = itemLayoutResId;
     }
 
     @Override
@@ -47,4 +50,26 @@ public abstract class FixedSimpleChoiceRvAdapter<T> extends SimpleChoiceRvAdapte
         super.updateItem(position, selected);
         mRecords.put(position, selected);
     }
+
+    @Override
+    public final int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
+
+    @Override
+    public final int getItemCount() {
+        return mData.size();
+    }
+
+    @Override
+    public final int getLayoutResId(int viewType) {
+        return mItemLayoutResId;
+    }
+
+    @Override
+    public void bindView(@NonNull RvHolder holder, int position) {
+        bindView(holder, mData.get(position));
+    }
+
+    protected abstract void bindView(@NonNull RvHolder holder, T data);
 }

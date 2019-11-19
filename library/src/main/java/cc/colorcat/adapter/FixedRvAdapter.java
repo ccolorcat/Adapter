@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 cxx
+ * Copyright 2019 cxx
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,22 +23,17 @@ import java.util.List;
 
 /**
  * Author: cxx
- * Date: 2018-6-1
+ * Date: 2019-11-19
  * GitHub: https://github.com/ccolorcat
  */
-public abstract class SimpleAutoChoiceRvAdapter<T> extends AutoChoiceRvAdapter implements SingleType<T> {
-    private final List<T> mData;
+public abstract class FixedRvAdapter<T> extends RvAdapter {
+    private final List<? extends T> mData;
     @LayoutRes
-    private final int mItemLayoutResId;
+    private final int mLayoutResId;
 
-    public SimpleAutoChoiceRvAdapter(@NonNull List<T> data, @LayoutRes int itemLayoutResId) {
+    public FixedRvAdapter(List<? extends T> data, @LayoutRes int layoutResId) {
         mData = Utils.requireNonNull(data, "data == null");
-        mItemLayoutResId = itemLayoutResId;
-    }
-
-    @Override
-    public List<T> getData() {
-        return mData;
+        mLayoutResId = layoutResId;
     }
 
     @Override
@@ -53,7 +48,7 @@ public abstract class SimpleAutoChoiceRvAdapter<T> extends AutoChoiceRvAdapter i
 
     @Override
     public final int getLayoutResId(int viewType) {
-        return mItemLayoutResId;
+        return mLayoutResId;
     }
 
     @Override
@@ -61,5 +56,5 @@ public abstract class SimpleAutoChoiceRvAdapter<T> extends AutoChoiceRvAdapter i
         bindView(holder, mData.get(position));
     }
 
-    protected abstract void bindView(@NonNull RvHolder holder, T data);
+    public abstract void bindView(@NonNull RvHolder holder, T data);
 }

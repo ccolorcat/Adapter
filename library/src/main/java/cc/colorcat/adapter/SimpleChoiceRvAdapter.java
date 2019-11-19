@@ -26,14 +26,19 @@ import java.util.List;
  * Date: 2018-6-1
  * GitHub: https://github.com/ccolorcat
  */
-public abstract class SimpleChoiceRvAdapter<T> extends ChoiceRvAdapter {
-    private final List<? extends T> mData;
+public abstract class SimpleChoiceRvAdapter<T> extends ChoiceRvAdapter implements SingleType<T> {
+    private final List<T> mData;
     @LayoutRes
     private final int mItemLayoutResId;
 
-    public SimpleChoiceRvAdapter(@NonNull List<? extends T> data, @LayoutRes int itemLayoutResId) {
+    public SimpleChoiceRvAdapter(@NonNull List<T> data, @LayoutRes int itemLayoutResId) {
         mData = Utils.requireNonNull(data, "data == null");
         mItemLayoutResId = itemLayoutResId;
+    }
+
+    @Override
+    public List<T> getData() {
+        return mData;
     }
 
     @Override

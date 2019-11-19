@@ -23,6 +23,5 @@ import java.util.List;
  * Date: 2019-11-19
  */
 public interface SingleType<T> {
-
     List<T> getData();
 }

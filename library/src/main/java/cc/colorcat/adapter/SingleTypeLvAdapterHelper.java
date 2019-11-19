@@ -17,7 +17,7 @@
 package cc.colorcat.adapter;
 
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import android.widget.BaseAdapter;
 
 import java.util.List;
 
@@ -25,14 +25,14 @@ import java.util.List;
  * Author: cxx
  * Date: 2019-11-19
  */
-class RecyclerViewSingleTypeHelper<T> extends SingleTypeHelper<T> {
-    private RecyclerView.Adapter mAdapter;
+public class SingleTypeLvAdapterHelper<T> extends SingleTypeAdapterHelper<T> {
+    private BaseAdapter mAdapter;
 
     @Override
-    boolean attachAdapter(SingleType<T> singleType) {
-        super.attachAdapter(singleType);
-        if (singleType instanceof RecyclerView.Adapter) {
-            mAdapter = (RecyclerView.Adapter) singleType;
+    boolean attachAdapter(SingleType<T> singleTypeAdapter) {
+        if (singleTypeAdapter instanceof BaseAdapter) {
+            super.attachAdapter(singleTypeAdapter);
+            mAdapter = (BaseAdapter) singleTypeAdapter;
             return true;
         }
         return false;
@@ -41,52 +41,58 @@ class RecyclerViewSingleTypeHelper<T> extends SingleTypeHelper<T> {
     @Override
     public void insertItems(int positionStart, @NonNull List<? extends T> newData) {
         super.insertItems(positionStart, newData);
-        mAdapter.notifyItemRangeInserted(positionStart, newData.size());
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void insertItem(int position, @NonNull T newData) {
         super.insertItem(position, newData);
-        mAdapter.notifyItemInserted(position);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void removeItem(int position) {
         super.removeItem(position);
-        mAdapter.notifyItemRemoved(position);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void removeItems(int positionStart, int itemCount) {
         super.removeItems(positionStart, itemCount);
-        mAdapter.notifyItemRangeRemoved(positionStart, itemCount);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void moveItem(int fromPosition, int toPosition) {
         super.moveItem(fromPosition, toPosition);
-        mAdapter.notifyItemMoved(fromPosition, toPosition);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void replaceItem(int position, T newData) {
+    public void replaceItem(int position, @NonNull T newData) {
         super.replaceItem(position, newData);
-        mAdapter.notifyItemChanged(position);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void replaceItems(int positionStart, List<? extends T> newData) {
+    public void replaceItems(int positionStart, @NonNull List<? extends T> newData) {
         super.replaceItems(positionStart, newData);
-        mAdapter.notifyItemRangeChanged(positionStart, newData.size());
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public boolean canHandle(SingleType<?> singleType) {
-        return singleType instanceof RecyclerView.Adapter;
+    public void replaceAll(@NonNull List<? extends T> newData) {
+        super.replaceAll(newData);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public SingleTypeHelper<T> clone() {
-        return new RecyclerViewSingleTypeHelper<>();
+    public boolean canHandle(SingleType<?> singleTypeAdapter) {
+        return singleTypeAdapter instanceof BaseAdapter;
+    }
+
+    @Override
+    public SingleTypeAdapterHelper<T> clone() {
+        return new SingleTypeLvAdapterHelper<>();
     }
 }

@@ -30,8 +30,12 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import cc.colorcat.adapter.AdapterHelper;
 import cc.colorcat.adapter.ChoiceRvAdapter;
 import cc.colorcat.adapter.RvHolder;
+import cc.colorcat.adapter.SimpleAutoChoiceRvAdapter;
+import cc.colorcat.adapter.SimpleChoiceRvAdapter;
+import cc.colorcat.adapter.SingleTypeAdapterHelper;
 import cc.colorcat.adapter.ViewHolder;
 
 /**
@@ -42,8 +46,16 @@ import cc.colorcat.adapter.ViewHolder;
 public class ChoiceRvAdapterActivity extends AppCompatActivity {
     private SwipeRefreshLayout mRefreshLayout;
     private List<String> mData = new ArrayList<>(30);
-    private SparseBooleanArray mRecords = new SparseBooleanArray(30);
-    private ChoiceRvAdapter mAdapter;
+    private SimpleAutoChoiceRvAdapter<String> mAdapter = new SimpleAutoChoiceRvAdapter<String>(mData, R.layout.item_sample) {
+        @Override
+        protected void bindView(@NonNull RvHolder holder, String data) {
+            holder.getHelper()
+                    .setImageResource(R.id.iv_icon, R.mipmap.ic_launcher_round)
+                    .setText(R.id.tv_content, data);
+        }
+    };
+    private SingleTypeAdapterHelper<String> mHelper = AdapterHelper.of(mAdapter);
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,34 +66,6 @@ public class ChoiceRvAdapterActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = holder.get(R.id.rv_items);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new ChoiceRvAdapter() {
-            @Override
-            public int getLayoutResId(int viewType) {
-                return R.layout.item_sample;
-            }
-
-            @Override
-            public void bindView(@NonNull RvHolder holder, int position) {
-                holder.getHelper()
-                        .setImageResource(R.id.iv_icon, R.mipmap.ic_launcher_round)
-                        .setText(R.id.tv_content, mData.get(position));
-            }
-
-            @Override
-            public int getItemCount() {
-                return mData.size();
-            }
-
-            @Override
-            protected boolean isSelected(int position) {
-                return mRecords.get(position);
-            }
-
-            @Override
-            protected void updateItem(int position, boolean selected) {
-                mRecords.put(position, selected);
-            }
-        };
         recyclerView.setAdapter(mAdapter);
 
         mRefreshLayout = holder.get(R.id.srl_root);
@@ -91,21 +75,21 @@ public class ChoiceRvAdapterActivity extends AppCompatActivity {
                 mRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        refreshData(mData.size() + 10);
+                        refreshData(5);
                     }
                 }, 1000);
             }
         });
-        refreshData(20);
+        refreshData(10);
     }
 
     private void refreshData(int size) {
-        mRecords.clear();
-        mData.clear();
+        List<String> newData = new ArrayList<>(size);
+        int num = mData.size();
         for (int i = 0; i < size; ++i) {
-            mData.add("item " + i);
+            newData.add("item " + (num + i));
         }
-        mAdapter.notifyDataSetChanged();
+        mHelper.append(newData);
         mRefreshLayout.setRefreshing(false);
     }
 
@@ -130,7 +114,6 @@ public class ChoiceRvAdapterActivity extends AppCompatActivity {
             default:
                 break;
         }
-        mRecords.clear();
         mAdapter.notifyDataSetChanged();
         return super.onOptionsItemSelected(item);
     }

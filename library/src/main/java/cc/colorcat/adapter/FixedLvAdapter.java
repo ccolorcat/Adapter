@@ -19,26 +19,32 @@ package cc.colorcat.adapter;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Author: cxx
- * Date: 2018-6-1
+ * Date: 2018-6-4
  * GitHub: https://github.com/ccolorcat
  */
-public abstract class SimpleAutoChoiceRvAdapter<T> extends AutoChoiceRvAdapter implements SingleType<T> {
-    private final List<T> mData;
+public abstract class FixedLvAdapter<T> extends LvAdapter {
+    private final List<? extends T> mData;
     @LayoutRes
     private final int mItemLayoutResId;
 
-    public SimpleAutoChoiceRvAdapter(@NonNull List<T> data, @LayoutRes int itemLayoutResId) {
-        mData = Utils.requireNonNull(data, "data == null");
+    public FixedLvAdapter(@NonNull List<? extends T> data, @LayoutRes int itemLayoutResId) {
+        mData = new ArrayList<>(data);
         mItemLayoutResId = itemLayoutResId;
     }
 
     @Override
-    public List<T> getData() {
-        return mData;
+    public final int getCount() {
+        return mData.size();
+    }
+
+    @Override
+    public final T getItem(int position) {
+        return mData.get(position);
     }
 
     @Override
@@ -47,19 +53,19 @@ public abstract class SimpleAutoChoiceRvAdapter<T> extends AutoChoiceRvAdapter i
     }
 
     @Override
-    public final int getItemCount() {
-        return mData.size();
+    public final int getViewTypeCount() {
+        return super.getViewTypeCount();
     }
 
     @Override
-    public final int getLayoutResId(int viewType) {
+    protected final int getLayoutResId(int viewType) {
         return mItemLayoutResId;
     }
 
     @Override
-    public void bindView(@NonNull RvHolder holder, int position) {
-        bindView(holder, mData.get(position));
+    protected final void bindView(@NonNull LvHolder holder, int position) {
+        bindView(holder, getItem(position));
     }
 
-    protected abstract void bindView(@NonNull RvHolder holder, T data);
+    protected abstract void bindView(@NonNull LvHolder holder, T t);
 }

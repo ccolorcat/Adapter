@@ -24,11 +24,11 @@ import java.util.List;
  * Author: cxx
  * Date: 2019-11-19
  */
-public abstract class SingleTypeHelper<T> implements Cloneable {
+public abstract class SingleTypeAdapterHelper<T> implements Cloneable {
     private List<T> mData;
 
-    boolean attachAdapter(SingleType<T> singleType) {
-        mData = singleType.getData();
+    boolean attachAdapter(SingleType<T> singleTypeAdapter) {
+        mData = singleTypeAdapter.getData();
         return true;
     }
 
@@ -71,22 +71,28 @@ public abstract class SingleTypeHelper<T> implements Cloneable {
     }
 
     public void moveItem(int fromPosition, int toPosition) {
-        T data = mData.get(fromPosition);
+        T data = mData.remove(fromPosition);
         mData.add(toPosition, data);
     }
 
-    public void replaceItem(int position, T newData) {
+    public void replaceItem(int position, @NonNull T newData) {
         mData.set(position, Utils.requireNonNull(newData, "newData == null"));
     }
 
-    public void replaceItems(int positionStart, List<? extends T> newData) {
+    public void replaceItems(int positionStart, @NonNull List<? extends T> newData) {
         Utils.check(mData, newData);
         mData.subList(positionStart, positionStart + newData.size()).clear();
         mData.addAll(positionStart, newData);
     }
 
-    public abstract boolean canHandle(SingleType<?> singleType);
+    public void replaceAll(@NonNull List<? extends T> newData) {
+        Utils.check(mData, newData);
+        mData.clear();
+        mData.addAll(newData);
+    }
+
+    public abstract boolean canHandle(SingleType<?> singleTypeAdapter);
 
     @Override
-    public abstract SingleTypeHelper<T> clone();
+    public abstract SingleTypeAdapterHelper<T> clone();
 }

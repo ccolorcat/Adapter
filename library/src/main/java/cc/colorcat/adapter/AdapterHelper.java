@@ -26,23 +26,22 @@ import java.util.List;
  * Date: 2019-11-19
  */
 public final class AdapterHelper {
-    private static final List<SingleTypeHelper<?>> HELPERS = Arrays.<SingleTypeHelper<?>>asList(
-            new RecyclerViewSingleTypeHelper<>(),
-            new ListViewSingleTypeHelper<>(),
-            new ViewPagerSingleTypeHelper<>()
+    private static final List<SingleTypeAdapterHelper<?>> HELPERS = Arrays.<SingleTypeAdapterHelper<?>>asList(
+            new SingleTypeRvAdapterHelper<>(),
+            new SingleTypeLvAdapterHelper<>(),
+            new SingleTypePagerAdapterHelper<>()
     );
 
-
     @Nullable
-    @SuppressWarnings("unchecked")
-    public static <T> SingleTypeHelper<T> get(SingleType<T> singleType) {
-        Utils.requireNonNull(singleType, "singleType == null");
-        SingleTypeHelper<?> helper;
+    public static <T> SingleTypeAdapterHelper<T> of(SingleType<T> singleTypeAdapter) {
+        Utils.requireNonNull(singleTypeAdapter, "singleTypeAdapter == null");
+        SingleTypeAdapterHelper<?> helper;
         for (int i = 0, size = HELPERS.size(); i < size; ++i) {
             helper = HELPERS.get(i);
-            if (helper.canHandle(singleType)) {
-                SingleTypeHelper<T> cloned = (SingleTypeHelper<T>) helper.clone();
-                if (cloned.attachAdapter(singleType)) {
+            if (helper.canHandle(singleTypeAdapter)) {
+                @SuppressWarnings("unchecked")
+                SingleTypeAdapterHelper<T> cloned = (SingleTypeAdapterHelper<T>) helper.clone();
+                if (cloned.attachAdapter(singleTypeAdapter)) {
                     return cloned;
                 }
             }

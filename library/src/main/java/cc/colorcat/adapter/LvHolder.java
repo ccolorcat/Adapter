@@ -46,6 +46,7 @@ public class LvHolder extends AdapterViewHolder {
         return mPosition;
     }
 
+    @NonNull
     static LvHolder getHolder(@Nullable View convertView, @NonNull ViewGroup parent, @LayoutRes int layoutId) {
         LvHolder holder;
         if (convertView == null) {

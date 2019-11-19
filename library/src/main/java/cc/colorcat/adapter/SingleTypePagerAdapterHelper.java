@@ -25,14 +25,14 @@ import java.util.List;
  * Author: cxx
  * Date: 2019-11-19
  */
-public class ViewPagerSingleTypeHelper<T> extends SingleTypeHelper<T> {
+public class SingleTypePagerAdapterHelper<T> extends SingleTypeAdapterHelper<T> {
     private PagerAdapter mAdapter;
 
     @Override
-    boolean attachAdapter(SingleType<T> singleType) {
-        super.attachAdapter(singleType);
-        if (singleType instanceof PagerAdapter) {
-            mAdapter = (PagerAdapter) singleType;
+    boolean attachAdapter(SingleType<T> singleTypeAdapter) {
+        if (singleTypeAdapter instanceof PagerAdapter) {
+            super.attachAdapter(singleTypeAdapter);
+            mAdapter = (PagerAdapter) singleTypeAdapter;
             return true;
         }
         return false;
@@ -69,24 +69,30 @@ public class ViewPagerSingleTypeHelper<T> extends SingleTypeHelper<T> {
     }
 
     @Override
-    public void replaceItem(int position, T newData) {
+    public void replaceItem(int position, @NonNull T newData) {
         super.replaceItem(position, newData);
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void replaceItems(int positionStart, List<? extends T> newData) {
+    public void replaceItems(int positionStart, @NonNull List<? extends T> newData) {
         super.replaceItems(positionStart, newData);
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public boolean canHandle(SingleType<?> singleType) {
-        return singleType instanceof PagerAdapter;
+    public void replaceAll(@NonNull List<? extends T> newData) {
+        super.replaceAll(newData);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public SingleTypeHelper<T> clone() {
-        return new ViewPagerSingleTypeHelper<>();
+    public boolean canHandle(SingleType<?> singleTypeAdapter) {
+        return singleTypeAdapter instanceof PagerAdapter;
+    }
+
+    @Override
+    public SingleTypeAdapterHelper<T> clone() {
+        return new SingleTypePagerAdapterHelper<>();
     }
 }

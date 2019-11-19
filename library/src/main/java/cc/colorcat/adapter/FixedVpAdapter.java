@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 cxx
+ * Copyright 2019 cxx
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,47 +19,43 @@ package cc.colorcat.adapter;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Author: cxx
- * Date: 2018-6-1
+ * Date: 2019-11-19
  * GitHub: https://github.com/ccolorcat
  */
-public abstract class SimpleAutoChoiceRvAdapter<T> extends AutoChoiceRvAdapter implements SingleType<T> {
-    private final List<T> mData;
+public abstract class FixedVpAdapter<T> extends VpAdapter {
+    private List<? extends T> mData;
     @LayoutRes
-    private final int mItemLayoutResId;
+    private int mLayoutResId;
 
-    public SimpleAutoChoiceRvAdapter(@NonNull List<T> data, @LayoutRes int itemLayoutResId) {
-        mData = Utils.requireNonNull(data, "data == null");
-        mItemLayoutResId = itemLayoutResId;
+    public FixedVpAdapter(List<? extends T> data, @LayoutRes int layoutResId) {
+        mData = new ArrayList<>(data);
+        mLayoutResId = layoutResId;
     }
 
     @Override
-    public List<T> getData() {
-        return mData;
-    }
-
-    @Override
-    public final int getItemViewType(int position) {
-        return super.getItemViewType(position);
-    }
-
-    @Override
-    public final int getItemCount() {
+    public final int getCount() {
         return mData.size();
     }
 
     @Override
-    public final int getLayoutResId(int viewType) {
-        return mItemLayoutResId;
+    public final int getViewType(int position) {
+        return super.getViewType(position);
     }
 
     @Override
-    public void bindView(@NonNull RvHolder holder, int position) {
+    public final int getLayoutResId(int viewType) {
+        return mLayoutResId;
+    }
+
+    @Override
+    public final void bindView(@NonNull VpHolder holder, int position) {
         bindView(holder, mData.get(position));
     }
 
-    protected abstract void bindView(@NonNull RvHolder holder, T data);
+    protected abstract void bindView(@NonNull VpHolder holder, T data);
 }
