@@ -17,9 +17,7 @@
 package cc.colorcat.adapter;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -27,32 +25,6 @@ import java.util.List;
  * Date: 2019-11-19
  */
 public abstract class SingleTypeHelper<T> implements Cloneable {
-    private static final List<SingleTypeHelper<?>> HELPER_LIST;
-
-    static {
-        HELPER_LIST = Arrays.<SingleTypeHelper<?>>asList(
-                new RecyclerViewSingleTypeHelper<>(),
-                new ListViewSingleTypeHelper<>(),
-                new ViewPagerSingleTypeHelper<>()
-        );
-    }
-
-    @Nullable
-    @SuppressWarnings("unchecked")
-    public static <T> SingleTypeHelper<T> get(SingleType<T> singleType) {
-        Utils.requireNonNull(singleType, "singleType == null");
-        for (SingleTypeHelper<?> helper : HELPER_LIST) {
-            if (helper.canHandle(singleType)) {
-                SingleTypeHelper<T> cloned = (SingleTypeHelper<T>) helper.clone();
-                if (cloned.attachAdapter(singleType)) {
-                    return cloned;
-                }
-            }
-        }
-        return null;
-    }
-
-
     private List<T> mData;
 
     boolean attachAdapter(SingleType<T> singleType) {

@@ -30,9 +30,9 @@ public class ListViewSingleTypeHelper<T> extends SingleTypeHelper<T> {
 
     @Override
     boolean attachAdapter(SingleType<T> singleType) {
-        super.attachAdapter(singleType);
         if (singleType instanceof BaseAdapter) {
             mAdapter = (BaseAdapter) singleType;
+            super.attachAdapter(singleType);
             return true;
         }
         return false;
