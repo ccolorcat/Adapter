@@ -32,7 +32,7 @@ public abstract class SimpleAutoChoiceRvAdapter<T> extends AutoChoiceRvAdapter {
     private final int mItemLayoutResId;
 
     public SimpleAutoChoiceRvAdapter(@NonNull List<? extends T> data, @LayoutRes int itemLayoutResId) {
-        mData = data;
+        mData = Utils.requireNonNull(data, "data == null");
         mItemLayoutResId = itemLayoutResId;
     }
 

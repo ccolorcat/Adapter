@@ -32,7 +32,7 @@ public abstract class SimpleVpAdapter<T> extends VpAdapter {
     private int mLayoutResId;
 
     public SimpleVpAdapter(List<? extends T> data, @LayoutRes int layoutResId) {
-        mData = data;
+        mData = Utils.requireNonNull(data, "data == null");
         mLayoutResId = layoutResId;
     }
 

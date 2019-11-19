@@ -32,7 +32,7 @@ public abstract class SimpleLvAdapter<T> extends LvAdapter {
     private final int mItemLayoutResId;
 
     public SimpleLvAdapter(@NonNull List<? extends T> data, @LayoutRes int itemLayoutResId) {
-        mData = data;
+        mData = Utils.requireNonNull(data, "data == null");
         mItemLayoutResId = itemLayoutResId;
     }
 

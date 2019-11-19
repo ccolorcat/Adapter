@@ -32,7 +32,7 @@ public abstract class SimpleRvAdapter<T> extends RvAdapter {
     private final int mLayoutResId;
 
     public SimpleRvAdapter(List<? extends T> data, @LayoutRes int layoutResId) {
-        mData = data;
+        mData = Utils.requireNonNull(data, "data == null");
         mLayoutResId = layoutResId;
     }
 

@@ -46,10 +46,10 @@ public class LvHolder extends AdapterViewHolder {
         return mPosition;
     }
 
-    static LvHolder getHolder(@Nullable View convertView, @NonNull ViewGroup parent, @LayoutRes int resId) {
+    static LvHolder getHolder(@Nullable View convertView, @NonNull ViewGroup parent, @LayoutRes int layoutId) {
         LvHolder holder;
         if (convertView == null) {
-            holder = new LvHolder(LayoutInflater.from(parent.getContext()).inflate(resId, parent, false));
+            holder = new LvHolder(LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false));
             holder.getRoot().setTag(holder);
         } else {
             holder = (LvHolder) convertView.getTag();
