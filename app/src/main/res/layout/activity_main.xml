@@ -5,31 +5,29 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
+    android:padding="32dp"
     tools:context=".MainActivity">
 
     <Button
         android:id="@+id/btn_lv_adapter"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/lv_adapter"
         android:textAllCaps="false" />
 
     <Button
         android:id="@+id/btn_rv_adapter"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="@string/choice_rv_adapter"
         android:textAllCaps="false" />
 
     <Button
         android:id="@+id/btn_vp_adapter"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="@string/VpAdapter"
         android:textAllCaps="false" />
-
-    <TextView
-        android:id="@+id/tv_test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 </LinearLayout>

@@ -18,13 +18,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ViewHolder.from(this)
-                .batchClick(
-                        mClick,
-                        R.id.btn_rv_adapter,
-                        R.id.btn_lv_adapter,
-                        R.id.btn_vp_adapter
-                );
+        ViewHolder.from(this).batchClick(
+                mClick,
+                R.id.btn_rv_adapter,
+                R.id.btn_lv_adapter,
+                R.id.btn_vp_adapter
+        );
     }
 
     private View.OnClickListener mClick = new View.OnClickListener() {
