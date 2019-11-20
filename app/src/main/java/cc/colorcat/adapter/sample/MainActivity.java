@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
                         R.id.btn_rv_adapter,
                         R.id.btn_lv_adapter,
                         R.id.btn_vp_adapter
-                ).setBackground(R.id.btn_rv_adapter, R.color.colorAccent);
+                ).setBackgroundResource(R.id.btn_rv_adapter, R.color.colorAccent);
     }
 
     private View.OnClickListener mClick = new View.OnClickListener() {

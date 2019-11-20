@@ -36,10 +36,10 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MarginLayoutParamsCompat;
 import android.support.v4.view.ViewCompat;
 import android.util.DisplayMetrics;
 import android.util.SparseArray;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,7 +101,9 @@ public class ViewHolder {
     private final SparseArray<View> mViews = new SparseArray<>();
     @NonNull
     protected final View mRoot;
+    @NonNull
     protected final Context mContext;
+    @NonNull
     protected final Resources mResources;
 
     protected ViewHolder(@NonNull View root) {
@@ -128,6 +130,12 @@ public class ViewHolder {
             throw new NullPointerException("Can't find view by viewId: " + mResources.getResourceName(viewId));
         }
         return (V) view;
+    }
+
+    @SuppressWarnings("unchecked")
+    @NonNull
+    private <T> T cast(@IdRes int viewId) {
+        return (T) get(viewId);
     }
 
     /**
@@ -266,19 +274,91 @@ public class ViewHolder {
     }
 
     @NonNull
+    public ViewHolder setPadding(@IdRes int viewId, @NonNull Integer[] ltrb) {
+        Utils.checkPaddingOrMargin(ltrb);
+        Utils.replaceNull(ltrb, Utils.getPadding(get(viewId)));
+        return setPadding(viewId, ltrb[0], ltrb[1], ltrb[2], ltrb[3]);
+    }
+
+    @NonNull
     public ViewHolder setPaddingWithDip(@IdRes int viewId, int padding) {
-        return setPaddingWithDip(viewId, padding, padding, padding, padding);
+        int p = Utils.toIntPx(mResources.getDisplayMetrics(), padding);
+        return setPadding(viewId, p, p, p, p);
     }
 
     @NonNull
     public ViewHolder setPaddingWithDip(@IdRes int viewId, int left, int top, int right, int bottom) {
         DisplayMetrics metrics = mResources.getDisplayMetrics();
-        int l = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, left, metrics);
-        int t = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, top, metrics);
-        int r = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, right, metrics);
-        int b = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, bottom, metrics);
+        int l = Utils.toIntPx(metrics, left);
+        int t = Utils.toIntPx(metrics, top);
+        int r = Utils.toIntPx(metrics, right);
+        int b = Utils.toIntPx(metrics, bottom);
         return setPadding(viewId, l, t, r, b);
     }
+
+    @NonNull
+    public ViewHolder setPaddingWithDip(@IdRes int viewId, @NonNull Integer[] ltrb) {
+        Utils.checkPaddingOrMargin(ltrb);
+        Integer[] pxs = Utils.toIntegerPx(mResources.getDisplayMetrics(), ltrb);
+        return setPadding(viewId, pxs);
+    }
+
+
+    /**
+     * @param padding the padding in pixels
+     */
+    @NonNull
+    public ViewHolder setPaddingRelative(@IdRes int viewId, int padding) {
+        return setPaddingRelative(viewId, padding, padding, padding, padding);
+    }
+
+    /**
+     * @param start  the start padding in pixels
+     * @param top    the top padding in pixels
+     * @param end    the end padding in pixels
+     * @param bottom the bottom padding in pixels
+     * @attr ref android.R.styleable#View_padding
+     * @attr ref android.R.styleable#View_paddingBottom
+     * @attr ref android.R.styleable#View_paddingStart
+     * @attr ref android.R.styleable#View_paddingEnd
+     * @attr ref android.R.styleable#View_paddingTop
+     */
+    @NonNull
+    public ViewHolder setPaddingRelative(@IdRes int viewId, int start, int top, int end, int bottom) {
+        ViewCompat.setPaddingRelative(get(viewId), start, top, end, bottom);
+        return this;
+    }
+
+    @NonNull
+    public ViewHolder setPaddingRelative(@IdRes int viewId, @NonNull Integer[] steb) {
+        Utils.checkPaddingOrMargin(steb);
+        Utils.replaceNull(steb, Utils.getRelativePadding(get(viewId)));
+        return setPaddingRelative(viewId, steb[0], steb[1], steb[2], steb[3]);
+    }
+
+    @NonNull
+    public ViewHolder setPaddingRelativeWithDip(@IdRes int viewId, int padding) {
+        int p = Utils.toIntPx(mResources.getDisplayMetrics(), padding);
+        return setPaddingRelative(viewId, p, p, p, p);
+    }
+
+    @NonNull
+    public ViewHolder setPaddingRelativeWithDip(@IdRes int viewId, int start, int top, int end, int bottom) {
+        DisplayMetrics metrics = mResources.getDisplayMetrics();
+        int s = Utils.toIntPx(metrics, start);
+        int t = Utils.toIntPx(metrics, top);
+        int e = Utils.toIntPx(metrics, end);
+        int b = Utils.toIntPx(metrics, bottom);
+        return setPaddingRelative(viewId, s, t, e, b);
+    }
+
+    @NonNull
+    public ViewHolder setPaddingRelativeWithDip(@IdRes int viewId, @NonNull Integer[] steb) {
+        Utils.checkPaddingOrMargin(steb);
+        Integer[] pxs = Utils.toIntegerPx(mResources.getDisplayMetrics(), steb);
+        return setPaddingRelative(viewId, pxs);
+    }
+
 
     @NonNull
     public ViewHolder setMargin(@IdRes int viewId, int margin) {
@@ -307,18 +387,93 @@ public class ViewHolder {
     }
 
     @NonNull
+    public ViewHolder setMargin(@IdRes int viewId, @NonNull Integer[] ltrb) {
+        Utils.checkPaddingOrMargin(ltrb);
+        ViewGroup.LayoutParams lp = get(viewId).getLayoutParams();
+        if (lp instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) lp;
+            Utils.replaceNull(ltrb, Utils.getMargin(mlp));
+            setMargin(viewId, ltrb[0], ltrb[1], ltrb[2], ltrb[3]);
+        }
+        return this;
+    }
+
+    @NonNull
     public ViewHolder setMarginWithDip(@IdRes int viewId, int margin) {
-        return setMarginWithDip(viewId, margin, margin, margin, margin);
+        int m = Utils.toIntPx(mResources.getDisplayMetrics(), margin);
+        return setMargin(viewId, m, m, m, m);
     }
 
     @NonNull
     public ViewHolder setMarginWithDip(@IdRes int viewId, int left, int top, int right, int bottom) {
         DisplayMetrics metrics = mResources.getDisplayMetrics();
-        int l = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, left, metrics);
-        int t = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, top, metrics);
-        int r = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, right, metrics);
-        int b = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, bottom, metrics);
+        int l = Utils.toIntPx(metrics, left);
+        int t = Utils.toIntPx(metrics, top);
+        int r = Utils.toIntPx(metrics, right);
+        int b = Utils.toIntPx(metrics, bottom);
         return setMargin(viewId, l, t, r, b);
+    }
+
+    @NonNull
+    public ViewHolder setMarginWithDip(@IdRes int viewId, @NonNull Integer[] ltrb) {
+        Utils.checkPaddingOrMargin(ltrb);
+        Integer[] pxs = Utils.toIntegerPx(mResources.getDisplayMetrics(), ltrb);
+        return setMargin(viewId, pxs);
+    }
+
+    @NonNull
+    public ViewHolder setMarginRelative(@IdRes int viewId, int margin) {
+        return setMarginRelative(viewId, margin, margin, margin, margin);
+    }
+
+    @NonNull
+    public ViewHolder setMarginRelative(@IdRes int viewId, int start, int top, int end, int bottom) {
+        View view = get(viewId);
+        ViewGroup.LayoutParams lp = view.getLayoutParams();
+        if (lp instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) lp;
+            MarginLayoutParamsCompat.setMarginStart(mlp, start);
+            mlp.topMargin = top;
+            MarginLayoutParamsCompat.setMarginEnd(mlp, end);
+            mlp.bottomMargin = bottom;
+            view.setLayoutParams(mlp);
+        }
+        return this;
+    }
+
+    @NonNull
+    public ViewHolder setMarginRelative(@IdRes int viewId, @NonNull Integer[] steb) {
+        Utils.checkPaddingOrMargin(steb);
+        ViewGroup.LayoutParams lp = get(viewId).getLayoutParams();
+        if (lp instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) lp;
+            Utils.replaceNull(steb, Utils.getRelativeMargin(mlp));
+            setMarginRelative(viewId, steb[0], steb[1], steb[2], steb[3]);
+        }
+        return this;
+    }
+
+    @NonNull
+    public ViewHolder setMarginRelativeWithDip(@IdRes int viewId, int margin) {
+        int m = Utils.toIntPx(mResources.getDisplayMetrics(), margin);
+        return setMarginRelative(viewId, m, m, m, m);
+    }
+
+    @NonNull
+    public ViewHolder setMarginRelativeWithDip(@IdRes int viewId, int start, int top, int end, int bottom) {
+        DisplayMetrics metrics = mResources.getDisplayMetrics();
+        int s = Utils.toIntPx(metrics, start);
+        int t = Utils.toIntPx(metrics, top);
+        int e = Utils.toIntPx(metrics, end);
+        int b = Utils.toIntPx(metrics, bottom);
+        return setMarginRelative(viewId, s, t, e, b);
+    }
+
+    @NonNull
+    public ViewHolder setMarginRelativeWithDip(@IdRes int viewId, @NonNull Integer[] steb) {
+        Utils.checkPaddingOrMargin(steb);
+        Integer[] pxs = Utils.toIntegerPx(mResources.getDisplayMetrics(), steb);
+        return setMarginRelative(viewId, pxs);
     }
 
     @NonNull
@@ -328,7 +483,7 @@ public class ViewHolder {
     }
 
     @NonNull
-    public ViewHolder setBackground(@IdRes int viewId, @DrawableRes int drawableId) {
+    public ViewHolder setBackgroundResource(@IdRes int viewId, @DrawableRes int drawableId) {
         get(viewId).setBackgroundResource(drawableId);
         return this;
     }
@@ -390,12 +545,14 @@ public class ViewHolder {
         return view.getText();
     }
 
+    @NonNull
     public String getString(@IdRes int textViewId) {
-        return getText(textViewId).toString();
+        return Utils.toString(getText(textViewId));
     }
 
+    @NonNull
     public String getTrimmedString(@IdRes int textViewId) {
-        return getText(textViewId).toString().trim();
+        return Utils.toTrimmedString(getText(textViewId));
     }
 
     @NonNull
@@ -480,16 +637,9 @@ public class ViewHolder {
     public ViewHolder batchTextColorWithRes(@ColorRes int colorId, @IdRes int... textViewIds) {
         ColorStateList stateList = ContextCompat.getColorStateList(mContext, colorId);
         if (stateList != null) {
-            for (int id : textViewIds) {
-                setTextColor(id, stateList);
-            }
-            return this;
+            return batchTextColor(stateList, textViewIds);
         }
-        int color = ContextCompat.getColor(mContext, colorId);
-        for (int id : textViewIds) {
-            setTextColor(id, color);
-        }
-        return this;
+        return batchTextColor(ContextCompat.getColor(mContext, colorId), textViewIds);
     }
 
     /**
@@ -512,7 +662,7 @@ public class ViewHolder {
 
     @NonNull
     public ViewHolder setChecked(@IdRes int checkableId, boolean checked) {
-        Checkable checkable = get(checkableId);
+        Checkable checkable = cast(checkableId);
         checkable.setChecked(checked);
         return this;
     }
@@ -526,13 +676,13 @@ public class ViewHolder {
     }
 
     public boolean isChecked(@IdRes int checkableId) {
-        Checkable checkable = get(checkableId);
+        Checkable checkable = cast(checkableId);
         return checkable.isChecked();
     }
 
     @NonNull
     public ViewHolder toggle(@IdRes int checkableId) {
-        Checkable checkable = get(checkableId);
+        Checkable checkable = cast(checkableId);
         checkable.toggle();
         return this;
     }
