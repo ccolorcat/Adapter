@@ -32,6 +32,17 @@ public final class AdapterHelper {
             new SingleTypePagerAdapterHelper<>()
     );
 
+    /**
+     * @param singleTypeAdapter must be one of
+     *                          {@link android.widget.BaseAdapter},
+     *                          {@link android.support.v7.widget.RecyclerView.Adapter},
+     *                          {@link android.support.v4.view.PagerAdapter}
+     * @see SimpleRvAdapter
+     * @see SimpleChoiceRvAdapter
+     * @see SimpleAutoChoiceRvAdapter
+     * @see SimpleLvAdapter
+     * @see SimpleVpAdapter
+     */
     @Nullable
     public static <T> SingleTypeAdapterHelper<T> of(SingleType<T> singleTypeAdapter) {
         Utils.requireNonNull(singleTypeAdapter, "singleTypeAdapter == null");

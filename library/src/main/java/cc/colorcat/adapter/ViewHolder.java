@@ -273,6 +273,10 @@ public class ViewHolder {
         return this;
     }
 
+    /**
+     * @param ltrb Padding in pixels for left, top, right, and bottom.
+     *             Use {@code null} if you want ignore the padding there.
+     */
     @NonNull
     public ViewHolder setPadding(@IdRes int viewId, @NonNull Integer[] ltrb) {
         Utils.checkPaddingOrMargin(ltrb);
@@ -280,12 +284,21 @@ public class ViewHolder {
         return setPadding(viewId, ltrb[0], ltrb[1], ltrb[2], ltrb[3]);
     }
 
+    /**
+     * @param padding the padding in dip
+     */
     @NonNull
     public ViewHolder setPaddingWithDip(@IdRes int viewId, int padding) {
         int p = Utils.toIntPx(mResources.getDisplayMetrics(), padding);
         return setPadding(viewId, p, p, p, p);
     }
 
+    /**
+     * @param left   the left padding in dip
+     * @param top    the top padding in dip
+     * @param right  the right padding in dip
+     * @param bottom the bottom padding in dip
+     */
     @NonNull
     public ViewHolder setPaddingWithDip(@IdRes int viewId, int left, int top, int right, int bottom) {
         DisplayMetrics metrics = mResources.getDisplayMetrics();
@@ -296,6 +309,10 @@ public class ViewHolder {
         return setPadding(viewId, l, t, r, b);
     }
 
+    /**
+     * @param ltrb Padding in dip for left, top, right, and bottom.
+     *             Use {@code null} if you want ignore the padding there.
+     */
     @NonNull
     public ViewHolder setPaddingWithDip(@IdRes int viewId, @NonNull Integer[] ltrb) {
         Utils.checkPaddingOrMargin(ltrb);
@@ -305,7 +322,7 @@ public class ViewHolder {
 
 
     /**
-     * @param padding the padding in pixels
+     * @param padding The padding in pixels.
      */
     @NonNull
     public ViewHolder setPaddingRelative(@IdRes int viewId, int padding) {

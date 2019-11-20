@@ -54,7 +54,7 @@ public class ChoiceRvAdapterActivity extends AppCompatActivity {
                     .setText(R.id.tv_content, data);
         }
     };
-    private SingleTypeAdapterHelper<String> mHelper = AdapterHelper.of(mAdapter);
+    private SingleTypeAdapterHelper<String> mHelper;
 
 
     @Override
@@ -67,6 +67,8 @@ public class ChoiceRvAdapterActivity extends AppCompatActivity {
         RecyclerView recyclerView = holder.get(R.id.rv_items);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mAdapter);
+        mHelper = AdapterHelper.of(mAdapter);
+        assert mHelper != null;
 
         mRefreshLayout = holder.get(R.id.srl_root);
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

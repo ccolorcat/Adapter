@@ -67,10 +67,10 @@ final class Utils {
         }
     }
 
-    static <T> void replaceNull(T[] dest, T[] src) {
-        for (int i = 0, size = dest.length; i < size; ++i) {
-            if (dest[i] == null) {
-                dest[i] = src[i];
+    static <T> void replaceNull(T[] out, T[] in) {
+        for (int i = 0, size = out.length; i < size; ++i) {
+            if (out[i] == null) {
+                out[i] = in[i];
             }
         }
     }

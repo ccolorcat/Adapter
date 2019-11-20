@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
                         R.id.btn_rv_adapter,
                         R.id.btn_lv_adapter,
                         R.id.btn_vp_adapter
-                ).setBackgroundResource(R.id.btn_rv_adapter, R.color.colorAccent);
+                );
     }
 
     private View.OnClickListener mClick = new View.OnClickListener() {
@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.btn_vp_adapter:
                     navigateTo(VpAdapterActivity.class);
+                    break;
                 default:
                     break;
             }
