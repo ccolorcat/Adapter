@@ -16,6 +16,7 @@
 
 package cc.colorcat.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import java.util.Arrays;
@@ -44,7 +45,7 @@ public final class AdapterHelper {
      * @see SimpleVpAdapter
      */
     @Nullable
-    public static <T> SingleTypeAdapterHelper<T> of(SingleType<T> singleTypeAdapter) {
+    public static <T> SingleTypeAdapterHelper<T> of(@NonNull SingleType<T> singleTypeAdapter) {
         Utils.requireNonNull(singleTypeAdapter, "singleTypeAdapter == null");
         SingleTypeAdapterHelper<?> helper;
         for (int i = 0, size = HELPERS.size(); i < size; ++i) {
