@@ -36,8 +36,8 @@ public abstract class LvAdapter extends BaseAdapter {
         int viewType = getItemViewType(position);
         int layoutId = getLayoutResId(viewType);
         LvHolder holder = LvHolder.getHolder(convertView, parent, layoutId);
-        holder.mViewType = viewType;
-        holder.mPosition = position;
+        holder.viewType = viewType;
+        holder.position = position;
         bindView(holder, position);
         return holder.getRoot();
     }

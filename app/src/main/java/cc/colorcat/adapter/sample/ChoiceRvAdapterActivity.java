@@ -92,7 +92,7 @@ public class ChoiceRvAdapterActivity extends AppCompatActivity {
         if (refresh) {
             mHelper.replaceAll(newData);
         } else {
-            mHelper.appendItems(newData);
+            mHelper.append(newData);
         }
         mRefreshLayout.setRefreshing(false);
     }

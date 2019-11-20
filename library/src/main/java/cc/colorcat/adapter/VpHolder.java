@@ -25,8 +25,8 @@ import android.view.View;
  * GitHub: https://github.com/ccolorcat
  */
 public final class VpHolder extends AdapterViewHolder {
-    int mViewType = 0;
-    int mPosition = -1;
+    int viewType = 0;
+    int position = -1;
 
     VpHolder(@NonNull View root) {
         super(root);
@@ -34,11 +34,11 @@ public final class VpHolder extends AdapterViewHolder {
 
     @Override
     public int getViewType() {
-        return mViewType;
+        return viewType;
     }
 
     @Override
     public int getPosition() {
-        return mPosition;
+        return position;
     }
 }

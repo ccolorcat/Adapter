@@ -39,44 +39,44 @@ public class SingleTypePagerAdapterHelper<T> extends SingleTypeAdapterHelper<T> 
     }
 
     @Override
-    public void insertItems(int positionStart, @NonNull List<? extends T> newData) {
-        super.insertItems(positionStart, newData);
+    public void insert(int positionStart, @NonNull List<? extends T> newData) {
+        super.insert(positionStart, newData);
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void insertItem(int position, @NonNull T newData) {
-        super.insertItem(position, newData);
+    public void insert(int position, @NonNull T newData) {
+        super.insert(position, newData);
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void removeItem(int position) {
-        super.removeItem(position);
+    public void remove(int position) {
+        super.remove(position);
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void removeItems(int positionStart, int itemCount) {
-        super.removeItems(positionStart, itemCount);
+    public void remove(int positionStart, int itemCount) {
+        super.remove(positionStart, itemCount);
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void moveItem(int fromPosition, int toPosition) {
-        super.moveItem(fromPosition, toPosition);
+    public void move(int fromPosition, int toPosition) {
+        super.move(fromPosition, toPosition);
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void replaceItem(int position, @NonNull T newData) {
-        super.replaceItem(position, newData);
+    public void replace(int position, @NonNull T newData) {
+        super.replace(position, newData);
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void replaceItems(int positionStart, @NonNull List<? extends T> newData) {
-        super.replaceItems(positionStart, newData);
+    public void replace(int positionStart, @NonNull List<? extends T> newData) {
+        super.replace(positionStart, newData);
         mAdapter.notifyDataSetChanged();
     }
 

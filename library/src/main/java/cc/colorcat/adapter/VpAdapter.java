@@ -52,8 +52,8 @@ public abstract class VpAdapter extends PagerAdapter {
         int viewType = getViewType(position);
         int layout = getLayoutResId(viewType);
         VpHolder holder = new VpHolder(LayoutInflater.from(container.getContext()).inflate(layout, container, false));
-        holder.mViewType = viewType;
-        holder.mPosition = position;
+        holder.viewType = viewType;
+        holder.position = position;
         return holder;
     }
 

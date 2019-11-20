@@ -32,54 +32,54 @@ public abstract class SingleTypeAdapterHelper<T> implements Cloneable {
         return false;
     }
 
-    public final void appendItems(@NonNull List<? extends T> newData) {
-        insertItems(mData.size(), newData);
+    public final void append(@NonNull List<? extends T> newData) {
+        insert(mData.size(), newData);
     }
 
-    public void insertItems(int positionStart, @NonNull List<? extends T> newData) {
+    public void insert(int positionStart, @NonNull List<? extends T> newData) {
         Utils.check(mData, newData);
         mData.addAll(positionStart, newData);
     }
 
-    public void insertItem(int position, @NonNull T newData) {
+    public void insert(int position, @NonNull T newData) {
         mData.add(position, Utils.requireNonNull(newData, "newData == null"));
     }
 
-    public final void removeItem(T data) {
+    public final void remove(T data) {
         int index = mData.indexOf(data);
         if (index != -1) {
-            removeItem(index);
+            remove(index);
         }
     }
 
-    public void removeItem(int position) {
+    public void remove(int position) {
         mData.remove(position);
     }
 
 
-    public void removeItems(int positionStart, int itemCount) {
+    public void remove(int positionStart, int itemCount) {
         if (positionStart + itemCount > positionStart) {
             mData.subList(positionStart, positionStart + itemCount).clear();
         }
     }
 
-    public final void moveItem(T data, int toPosition) {
+    public final void move(T data, int toPosition) {
         int index = mData.indexOf(data);
         if (index != -1 && index != toPosition) {
-            moveItem(index, toPosition);
+            move(index, toPosition);
         }
     }
 
-    public void moveItem(int fromPosition, int toPosition) {
+    public void move(int fromPosition, int toPosition) {
         T data = mData.remove(fromPosition);
         mData.add(toPosition, data);
     }
 
-    public void replaceItem(int position, @NonNull T newData) {
+    public void replace(int position, @NonNull T newData) {
         mData.set(position, Utils.requireNonNull(newData, "newData == null"));
     }
 
-    public void replaceItems(int positionStart, @NonNull List<? extends T> newData) {
+    public void replace(int positionStart, @NonNull List<? extends T> newData) {
         Utils.check(mData, newData);
         mData.subList(positionStart, positionStart + newData.size()).clear();
         mData.addAll(positionStart, newData);
