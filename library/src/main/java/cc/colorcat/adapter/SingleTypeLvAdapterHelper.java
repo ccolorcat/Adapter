@@ -29,7 +29,7 @@ public class SingleTypeLvAdapterHelper<T> extends SingleTypeAdapterHelper<T> {
     private BaseAdapter mAdapter;
 
     @Override
-    boolean attachAdapter(SingleType<T> singleTypeAdapter) {
+    boolean attachAdapter(@NonNull SingleType<T> singleTypeAdapter) {
         if (singleTypeAdapter instanceof BaseAdapter) {
             super.attachAdapter(singleTypeAdapter);
             mAdapter = (BaseAdapter) singleTypeAdapter;

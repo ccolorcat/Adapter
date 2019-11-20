@@ -29,7 +29,7 @@ public class SingleTypePagerAdapterHelper<T> extends SingleTypeAdapterHelper<T> 
     private PagerAdapter mAdapter;
 
     @Override
-    boolean attachAdapter(SingleType<T> singleTypeAdapter) {
+    boolean attachAdapter(@NonNull SingleType<T> singleTypeAdapter) {
         if (singleTypeAdapter instanceof PagerAdapter) {
             super.attachAdapter(singleTypeAdapter);
             mAdapter = (PagerAdapter) singleTypeAdapter;

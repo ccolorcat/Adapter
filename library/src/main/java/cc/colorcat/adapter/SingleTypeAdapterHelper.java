@@ -27,12 +27,12 @@ import java.util.List;
 public abstract class SingleTypeAdapterHelper<T> implements Cloneable {
     private List<T> mData;
 
-    boolean attachAdapter(SingleType<T> singleTypeAdapter) {
+    boolean attachAdapter(@NonNull SingleType<T> singleTypeAdapter) {
         mData = singleTypeAdapter.getData();
-        return true;
+        return false;
     }
 
-    public final void append(@NonNull List<? extends T> newData) {
+    public final void appendItems(@NonNull List<? extends T> newData) {
         insertItems(mData.size(), newData);
     }
 
@@ -45,8 +45,8 @@ public abstract class SingleTypeAdapterHelper<T> implements Cloneable {
         mData.add(position, Utils.requireNonNull(newData, "newData == null"));
     }
 
-    public final void removeItem(T newData) {
-        int index = mData.indexOf(newData);
+    public final void removeItem(T data) {
+        int index = mData.indexOf(data);
         if (index != -1) {
             removeItem(index);
         }
@@ -63,8 +63,8 @@ public abstract class SingleTypeAdapterHelper<T> implements Cloneable {
         }
     }
 
-    public final void moveItem(T newData, int toPosition) {
-        int index = mData.indexOf(newData);
+    public final void moveItem(T data, int toPosition) {
+        int index = mData.indexOf(data);
         if (index != -1 && index != toPosition) {
             moveItem(index, toPosition);
         }

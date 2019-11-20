@@ -29,7 +29,7 @@ class SingleTypeRvAdapterHelper<T> extends SingleTypeAdapterHelper<T> {
     private RecyclerView.Adapter mAdapter;
 
     @Override
-    boolean attachAdapter(SingleType<T> singleTypeAdapter) {
+    boolean attachAdapter(@NonNull SingleType<T> singleTypeAdapter) {
         if (singleTypeAdapter instanceof RecyclerView.Adapter) {
             super.attachAdapter(singleTypeAdapter);
             mAdapter = (RecyclerView.Adapter) singleTypeAdapter;
