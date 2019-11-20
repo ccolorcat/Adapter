@@ -20,6 +20,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.util.SparseBooleanArray;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,7 +37,7 @@ public abstract class FixedChoiceRvAdapter<T> extends ChoiceRvAdapter {
     private SparseBooleanArray mRecords = new SparseBooleanArray();
 
     public FixedChoiceRvAdapter(@NonNull List<? extends T> data, @LayoutRes int itemLayoutResId) {
-        mData = Utils.requireNonNull(data, "data == null");
+        mData = new ArrayList<>(data);
         mItemLayoutResId = itemLayoutResId;
     }
 

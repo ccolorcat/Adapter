@@ -23,7 +23,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -34,7 +33,6 @@ import cc.colorcat.adapter.AdapterHelper;
 import cc.colorcat.adapter.ChoiceRvAdapter;
 import cc.colorcat.adapter.RvHolder;
 import cc.colorcat.adapter.SimpleAutoChoiceRvAdapter;
-import cc.colorcat.adapter.SimpleChoiceRvAdapter;
 import cc.colorcat.adapter.SingleTypeAdapterHelper;
 import cc.colorcat.adapter.ViewHolder;
 
@@ -77,21 +75,25 @@ public class ChoiceRvAdapterActivity extends AppCompatActivity {
                 mRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        refreshData(5);
+                        updateData(5, mData.size() > 30);
                     }
                 }, 1000);
             }
         });
-        refreshData(10);
+        updateData(10, true);
     }
 
-    private void refreshData(int size) {
+    private void updateData(int size, boolean refresh) {
         List<String> newData = new ArrayList<>(size);
-        int num = mData.size();
+        int num = refresh ? 0 : mData.size();
         for (int i = 0; i < size; ++i) {
             newData.add("item " + (num + i));
         }
-        mHelper.append(newData);
+        if (refresh) {
+            mHelper.replaceAll(newData);
+        } else {
+            mHelper.append(newData);
+        }
         mRefreshLayout.setRefreshing(false);
     }
 

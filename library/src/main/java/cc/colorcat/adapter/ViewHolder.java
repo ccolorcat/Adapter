@@ -346,6 +346,10 @@ public class ViewHolder {
         return this;
     }
 
+    /**
+     * @param steb Padding in pixels for start, top, end, and bottom.
+     *             Use {@code null} if you want ignore the padding there.
+     */
     @NonNull
     public ViewHolder setPaddingRelative(@IdRes int viewId, @NonNull Integer[] steb) {
         Utils.checkPaddingOrMargin(steb);
@@ -369,6 +373,10 @@ public class ViewHolder {
         return setPaddingRelative(viewId, s, t, e, b);
     }
 
+    /**
+     * @param steb Padding in dip for start, top, end, and bottom.
+     *             Use {@code null} if you want ignore the padding there.
+     */
     @NonNull
     public ViewHolder setPaddingRelativeWithDip(@IdRes int viewId, @NonNull Integer[] steb) {
         Utils.checkPaddingOrMargin(steb);
@@ -403,6 +411,10 @@ public class ViewHolder {
         return this;
     }
 
+    /**
+     * @param ltrb Margin in pixels for left, top, right, and bottom.
+     *             Use {@code null} if you want ignore the padding there.
+     */
     @NonNull
     public ViewHolder setMargin(@IdRes int viewId, @NonNull Integer[] ltrb) {
         Utils.checkPaddingOrMargin(ltrb);
@@ -431,6 +443,10 @@ public class ViewHolder {
         return setMargin(viewId, l, t, r, b);
     }
 
+    /**
+     * @param ltrb Margin in dip for left, top, right, and bottom.
+     *             Use {@code null} if you want ignore the padding there.
+     */
     @NonNull
     public ViewHolder setMarginWithDip(@IdRes int viewId, @NonNull Integer[] ltrb) {
         Utils.checkPaddingOrMargin(ltrb);
@@ -458,6 +474,10 @@ public class ViewHolder {
         return this;
     }
 
+    /**
+     * @param steb Margin in pixels for start, top, end, and bottom.
+     *             Use {@code null} if you want ignore the padding there.
+     */
     @NonNull
     public ViewHolder setMarginRelative(@IdRes int viewId, @NonNull Integer[] steb) {
         Utils.checkPaddingOrMargin(steb);
@@ -486,6 +506,10 @@ public class ViewHolder {
         return setMarginRelative(viewId, s, t, e, b);
     }
 
+    /**
+     * @param steb Margin in dip for start, top, end, and bottom.
+     *             Use {@code null} if you want ignore the padding there.
+     */
     @NonNull
     public ViewHolder setMarginRelativeWithDip(@IdRes int viewId, @NonNull Integer[] steb) {
         Utils.checkPaddingOrMargin(steb);

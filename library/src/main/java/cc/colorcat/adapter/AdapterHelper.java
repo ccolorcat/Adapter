@@ -33,7 +33,7 @@ public final class AdapterHelper {
     );
 
     /**
-     * @param singleTypeAdapter must be one of
+     * @param singleTypeAdapter Must be one of
      *                          {@link android.widget.BaseAdapter},
      *                          {@link android.support.v7.widget.RecyclerView.Adapter},
      *                          {@link android.support.v4.view.PagerAdapter}

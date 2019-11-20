@@ -19,6 +19,7 @@ package cc.colorcat.adapter;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,7 +33,7 @@ public abstract class FixedRvAdapter<T> extends RvAdapter {
     private final int mLayoutResId;
 
     public FixedRvAdapter(List<? extends T> data, @LayoutRes int layoutResId) {
-        mData = Utils.requireNonNull(data, "data == null");
+        mData = new ArrayList<>(data);
         mLayoutResId = layoutResId;
     }
 
