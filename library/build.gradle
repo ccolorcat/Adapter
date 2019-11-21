@@ -29,7 +29,7 @@ android {
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -42,9 +42,9 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation rootProject.ext.supportV4
-    implementation rootProject.ext.supportDesign
-    androidTestImplementation rootProject.ext.testRunner
+    implementation rootProject.ext.recyclerview
+    implementation rootProject.ext.viewpager
+    androidTestImplementation rootProject.ext.androidJunit
     androidTestImplementation rootProject.ext.testEspresso
     testImplementation rootProject.ext.junit
 }

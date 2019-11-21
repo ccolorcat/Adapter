@@ -16,9 +16,11 @@
 
 package cc.colorcat.adapter;
 
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.PagerAdapter;
 
 import java.util.List;
 
@@ -36,8 +38,8 @@ public final class AdapterHelper {
     /**
      * @param singleTypeAdapter Must be one of
      *                          {@link android.widget.BaseAdapter},
-     *                          {@link android.support.v7.widget.RecyclerView.Adapter},
-     *                          {@link android.support.v4.view.PagerAdapter}
+     *                          {@link RecyclerView.Adapter},
+     *                          {@link PagerAdapter}
      * @see SimpleRvAdapter
      * @see SimpleChoiceRvAdapter
      * @see SimpleAutoChoiceRvAdapter

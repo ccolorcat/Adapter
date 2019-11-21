@@ -16,7 +16,7 @@
 
 package cc.colorcat.adapter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.util.List;
 
@@ -93,6 +93,7 @@ public abstract class SingleTypeAdapterHelper<T> implements Cloneable {
 
     public abstract boolean canHandle(SingleType<?> singleTypeAdapter);
 
+    @NonNull
     @Override
     public abstract SingleTypeAdapterHelper<T> clone();
 }
