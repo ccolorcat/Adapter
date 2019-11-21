@@ -97,13 +97,8 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
      * @see ChoiceMode#MULTIPLE 多选
      */
     public void setChoiceMode(@ChoiceMode int choiceMode) {
-        if (choiceMode == ChoiceMode.NONE
-                || choiceMode == ChoiceMode.SINGLE
-                || choiceMode == ChoiceMode.MULTIPLE) {
-            mChoiceMode = choiceMode;
-        } else {
-            throw new IllegalArgumentException("Illegal choiceMode, value = " + choiceMode);
-        }
+        Utils.checkChoiceMode(choiceMode);
+        mChoiceMode = choiceMode;
     }
 
     @ChoiceMode

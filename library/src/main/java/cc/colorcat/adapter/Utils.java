@@ -82,13 +82,6 @@ final class Utils {
         return t;
     }
 
-    static <T> T requireNonNull(T t) {
-        if (t == null) {
-            throw new NullPointerException();
-        }
-        return t;
-    }
-
     static void checkPaddingOrMargin(Integer[] integers) {
         if (integers == null) {
             throw new NullPointerException("the value is null");
@@ -132,6 +125,12 @@ final class Utils {
                 MarginLayoutParamsCompat.getMarginEnd(mlp),
                 mlp.bottomMargin
         };
+    }
+
+    static void checkChoiceMode(@ChoiceRvAdapter.ChoiceMode int mode) {
+        if (mode < ChoiceRvAdapter.ChoiceMode.NONE || mode > ChoiceRvAdapter.ChoiceMode.MULTIPLE) {
+            throw new IllegalArgumentException("illegal choice mode: " + mode);
+        }
     }
 
     private Utils() {
