@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -28,6 +30,8 @@ dependencies {
     implementation rootProject.ext.swiperefreshlayout
     implementation rootProject.ext.recyclerview
     implementation rootProject.ext.viewpager
+    implementation rootProject.ext.kotlin
+    implementation rootProject.ext.androidXCoreKtx
     androidTestImplementation rootProject.ext.androidJunit
     androidTestImplementation rootProject.ext.testEspresso
     testImplementation rootProject.ext.junit
