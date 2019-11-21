@@ -28,8 +28,8 @@ task clean(type: Delete) {
 }
 
 project.ext {
-    def sdkVersion = 27
-    def supportVersion = "27.1.1"
+    def sdkVersion = 28
+    def supportVersion = "28.0.0"
 
     // android
     compileSdkVersion = sdkVersion
@@ -37,8 +37,8 @@ project.ext {
     // android.defaultConfig
     minSdkVersion = 15
     targetSdkVersion = sdkVersion
-    versionCode = 4
-    versionName = "1.2.0"
+    versionCode = 5
+    versionName = "2.0.0"
 
     // dependencies
     supportAppcompat = "com.android.support:appcompat-v7:${supportVersion}"
