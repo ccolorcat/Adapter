@@ -19,7 +19,6 @@ package cc.colorcat.adapter;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,13 +26,14 @@ import java.util.List;
  * Date: 2019-11-19
  * GitHub: https://github.com/ccolorcat
  */
+@SuppressWarnings({"WeakerAccess"})
 public abstract class FixedRvAdapter<T> extends RvAdapter {
     private final List<? extends T> mData;
     @LayoutRes
     private final int mLayoutResId;
 
     public FixedRvAdapter(List<? extends T> data, @LayoutRes int layoutResId) {
-        mData = new ArrayList<>(data);
+        mData = Utils.immutableList(data);
         mLayoutResId = layoutResId;
     }
 
@@ -53,9 +53,9 @@ public abstract class FixedRvAdapter<T> extends RvAdapter {
     }
 
     @Override
-    public void bindView(@NonNull RvHolder holder, int position) {
+    protected void bindView(@NonNull RvHolder holder, int position) {
         bindView(holder, mData.get(position));
     }
 
-    public abstract void bindView(@NonNull RvHolder holder, T data);
+    protected abstract void bindView(@NonNull RvHolder holder, T data);
 }

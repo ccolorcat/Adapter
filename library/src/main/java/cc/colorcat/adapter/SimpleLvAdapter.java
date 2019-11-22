@@ -26,6 +26,7 @@ import java.util.List;
  * Date: 2018-6-1
  * GitHub: https://github.com/ccolorcat
  */
+@SuppressWarnings("WeakerAccess")
 public abstract class SimpleLvAdapter<T> extends LvAdapter implements SingleType<T> {
     private final List<T> mData;
     @LayoutRes
@@ -56,6 +57,7 @@ public abstract class SimpleLvAdapter<T> extends LvAdapter implements SingleType
         return super.getItemViewType(position);
     }
 
+    @SuppressWarnings("EmptyMethod")
     @Override
     public final int getViewTypeCount() {
         return super.getViewTypeCount();
@@ -67,7 +69,7 @@ public abstract class SimpleLvAdapter<T> extends LvAdapter implements SingleType
     }
 
     @Override
-    protected final void bindView(@NonNull LvHolder holder, int position) {
+    protected void bindView(@NonNull LvHolder holder, int position) {
         bindView(holder, getItem(position));
     }
 

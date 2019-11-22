@@ -26,6 +26,7 @@ import java.util.List;
  * Date: 2018-5-31
  * GitHub: https://github.com/ccolorcat
  */
+@SuppressWarnings("WeakerAccess")
 public abstract class SimpleRvAdapter<T> extends RvAdapter implements SingleType<T> {
     private final List<T> mData;
     @LayoutRes
@@ -57,9 +58,9 @@ public abstract class SimpleRvAdapter<T> extends RvAdapter implements SingleType
     }
 
     @Override
-    public void bindView(@NonNull RvHolder holder, int position) {
+    protected void bindView(@NonNull RvHolder holder, int position) {
         bindView(holder, mData.get(position));
     }
 
-    public abstract void bindView(@NonNull RvHolder holder, T data);
+    protected abstract void bindView(@NonNull RvHolder holder, T data);
 }

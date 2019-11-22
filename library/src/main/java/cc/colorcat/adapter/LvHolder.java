@@ -28,6 +28,7 @@ import android.view.ViewGroup;
  * Date: 2018-6-1
  * GitHub: https://github.com/ccolorcat
  */
+@SuppressWarnings("WeakerAccess")
 public class LvHolder extends AdapterViewHolder {
     int viewType = 0;
     int position = -1;

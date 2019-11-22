@@ -24,6 +24,8 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -131,6 +133,10 @@ final class Utils {
         if (mode < ChoiceRvAdapter.ChoiceMode.NONE || mode > ChoiceRvAdapter.ChoiceMode.MULTIPLE) {
             throw new IllegalArgumentException("illegal choice mode: " + mode);
         }
+    }
+
+    static <T> List<T> immutableList(@NonNull List<T> list) {
+        return Collections.unmodifiableList(new ArrayList<>(list));
     }
 
     private Utils() {

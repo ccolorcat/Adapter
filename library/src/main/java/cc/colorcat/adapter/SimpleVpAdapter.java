@@ -26,10 +26,11 @@ import java.util.List;
  * Date: 2018-06-04
  * GitHub: https://github.com/ccolorcat
  */
+@SuppressWarnings("WeakerAccess")
 public abstract class SimpleVpAdapter<T> extends VpAdapter implements SingleType<T> {
-    private List<T> mData;
+    private final List<T> mData;
     @LayoutRes
-    private int mLayoutResId;
+    private final int mLayoutResId;
 
     public SimpleVpAdapter(List<T> data, @LayoutRes int layoutResId) {
         mData = Utils.requireNonNull(data, "data == null");

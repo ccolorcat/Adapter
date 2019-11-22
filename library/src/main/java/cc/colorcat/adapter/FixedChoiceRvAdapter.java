@@ -20,7 +20,6 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.util.SparseBooleanArray;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,14 +29,15 @@ import java.util.List;
  * Date: 2018-6-1
  * GitHub: https://github.com/ccolorcat
  */
+@SuppressWarnings("WeakerAccess")
 public abstract class FixedChoiceRvAdapter<T> extends ChoiceRvAdapter {
     private final List<? extends T> mData;
     @LayoutRes
     private final int mItemLayoutResId;
-    private SparseBooleanArray mRecords = new SparseBooleanArray();
+    private final SparseBooleanArray mRecords = new SparseBooleanArray();
 
     public FixedChoiceRvAdapter(@NonNull List<? extends T> data, @LayoutRes int itemLayoutResId) {
-        mData = new ArrayList<>(data);
+        mData = Utils.immutableList(data);
         mItemLayoutResId = itemLayoutResId;
     }
 
@@ -68,7 +68,7 @@ public abstract class FixedChoiceRvAdapter<T> extends ChoiceRvAdapter {
     }
 
     @Override
-    public void bindView(@NonNull RvHolder holder, int position) {
+    protected void bindView(@NonNull RvHolder holder, int position) {
         bindView(holder, mData.get(position));
     }
 
