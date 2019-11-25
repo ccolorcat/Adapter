@@ -21,7 +21,6 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.IntDef;
-import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.core.view.GestureDetectorCompat;
 import androidx.recyclerview.widget.RecyclerView;
