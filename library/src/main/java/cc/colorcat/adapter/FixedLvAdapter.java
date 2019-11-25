@@ -19,7 +19,6 @@ package cc.colorcat.adapter;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,13 +26,14 @@ import java.util.List;
  * Date: 2018-6-4
  * GitHub: https://github.com/ccolorcat
  */
+@SuppressWarnings("WeakerAccess")
 public abstract class FixedLvAdapter<T> extends LvAdapter {
     private final List<? extends T> mData;
     @LayoutRes
     private final int mItemLayoutResId;
 
     public FixedLvAdapter(@NonNull List<? extends T> data, @LayoutRes int itemLayoutResId) {
-        mData = new ArrayList<>(data);
+        mData = Utils.immutableList(data);
         mItemLayoutResId = itemLayoutResId;
     }
 
@@ -52,6 +52,7 @@ public abstract class FixedLvAdapter<T> extends LvAdapter {
         return super.getItemViewType(position);
     }
 
+    @SuppressWarnings("EmptyMethod")
     @Override
     public final int getViewTypeCount() {
         return super.getViewTypeCount();
@@ -63,7 +64,7 @@ public abstract class FixedLvAdapter<T> extends LvAdapter {
     }
 
     @Override
-    protected final void bindView(@NonNull LvHolder holder, int position) {
+    protected void bindView(@NonNull LvHolder holder, int position) {
         bindView(holder, getItem(position));
     }
 

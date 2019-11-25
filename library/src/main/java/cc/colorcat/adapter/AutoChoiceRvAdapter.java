@@ -31,7 +31,7 @@ import java.util.List;
  * GitHub: https://github.com/ccolorcat
  */
 public abstract class AutoChoiceRvAdapter extends ChoiceRvAdapter {
-    private List<Boolean> mRecords = new ArrayList<>();
+    private final List<Boolean> mRecords = new ArrayList<>();
 
     @Override
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
@@ -62,7 +62,7 @@ public abstract class AutoChoiceRvAdapter extends ChoiceRvAdapter {
         mRecords.set(position, selected);
     }
 
-    private RecyclerView.AdapterDataObserver mObserver = new RecyclerView.AdapterDataObserver() {
+    private final RecyclerView.AdapterDataObserver mObserver = new RecyclerView.AdapterDataObserver() {
         @Override
         public void onChanged() {
             super.onChanged();
@@ -105,6 +105,7 @@ public abstract class AutoChoiceRvAdapter extends ChoiceRvAdapter {
         }
     };
 
+    @SuppressWarnings("SameParameterValue")
     private static List<Boolean> createRecords(Boolean defaultValue, int size) {
         List<Boolean> records = new ArrayList<>(size);
         for (int i = 0; i < size; ++i) {

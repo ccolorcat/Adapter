@@ -57,7 +57,7 @@ public abstract class SimpleChoiceRvAdapter<T> extends ChoiceRvAdapter implement
     }
 
     @Override
-    public void bindView(@NonNull RvHolder holder, int position) {
+    protected void bindView(@NonNull RvHolder holder, int position) {
         bindView(holder, mData.get(position));
     }
 

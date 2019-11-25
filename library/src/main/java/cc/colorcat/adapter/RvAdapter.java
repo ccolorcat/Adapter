@@ -43,7 +43,7 @@ public abstract class RvAdapter extends RecyclerView.Adapter<RvHolder> {
     }
 
     @LayoutRes
-    public abstract int getLayoutResId(int viewType);
+    protected abstract int getLayoutResId(int viewType);
 
-    public abstract void bindView(@NonNull RvHolder holder, int position);
+    protected abstract void bindView(@NonNull RvHolder holder, int position);
 }

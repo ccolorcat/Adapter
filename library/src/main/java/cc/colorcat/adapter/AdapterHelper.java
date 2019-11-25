@@ -28,6 +28,7 @@ import java.util.List;
  * Author: cxx
  * Date: 2019-11-19
  */
+@SuppressWarnings("unused")
 public final class AdapterHelper {
     private static final SingleTypeAdapterHelper<?>[] HELPERS = {
             new SingleTypeRvAdapterHelper<>(),
@@ -69,7 +70,7 @@ public final class AdapterHelper {
         Utils.requireNonNull(binder, "binder == null");
         return new SimpleRvAdapter<T>(data, itemLayout) {
             @Override
-            public void bindView(@NonNull RvHolder holder, T data) {
+            protected void bindView(@NonNull RvHolder holder, T data) {
                 binder.bindView(holder.getHelper(), data);
             }
         };
@@ -83,7 +84,7 @@ public final class AdapterHelper {
         Utils.requireNonNull(binder, "binder == null");
         return new SimpleAutoChoiceRvAdapter<T>(data, itemLayout) {
             @Override
-            public void bindView(@NonNull RvHolder holder, T data) {
+            protected void bindView(@NonNull RvHolder holder, T data) {
                 binder.bindView(holder.getHelper(), data);
             }
         };
@@ -97,7 +98,7 @@ public final class AdapterHelper {
         Utils.requireNonNull(binder, "binder == null");
         return new FixedRvAdapter<T>(data, itemLayout) {
             @Override
-            public void bindView(@NonNull RvHolder holder, T data) {
+            protected void bindView(@NonNull RvHolder holder, T data) {
                 binder.bindView(holder.getHelper(), data);
             }
         };
@@ -111,7 +112,7 @@ public final class AdapterHelper {
         Utils.requireNonNull(binder, "binder == null");
         return new FixedChoiceRvAdapter<T>(data, itemLayout) {
             @Override
-            public void bindView(@NonNull RvHolder holder, T data) {
+            protected void bindView(@NonNull RvHolder holder, T data) {
                 binder.bindView(holder.getHelper(), data);
             }
         };

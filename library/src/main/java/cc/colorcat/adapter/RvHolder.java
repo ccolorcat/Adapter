@@ -39,7 +39,7 @@ public final class RvHolder extends RecyclerView.ViewHolder {
 
 
     public static class Helper extends AdapterViewHolder {
-        private RvHolder mHolder;
+        private final RvHolder mHolder;
 
         private Helper(RvHolder holder) {
             super(holder.itemView);

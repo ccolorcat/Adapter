@@ -36,6 +36,7 @@ import java.lang.annotation.RetentionPolicy;
  * Date: 2018-5-31
  * GitHub: https://github.com/ccolorcat
  */
+@SuppressWarnings({"WeakerAccess", "unused"})
 public abstract class ChoiceRvAdapter extends RvAdapter {
     @IntDef({ChoiceMode.NONE, ChoiceMode.SINGLE, ChoiceMode.MULTIPLE})
     @Retention(RetentionPolicy.SOURCE)
@@ -178,11 +179,6 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
         return position != RecyclerView.NO_POSITION;
     }
 
-    @LayoutRes
-    public abstract int getLayoutResId(int viewType);
-
-    public abstract void bindView(@NonNull RvHolder holder, int position);
-
     private void dispatchSelect(int position, boolean selected) {
         if (mChoiceMode == ChoiceMode.SINGLE) {
             if (selected) {
@@ -234,13 +230,13 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
         private RecyclerView mRv;
 
         @Override
-        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+        public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
             mRv = rv;
             dispatchTouchEvent(e);
             return false;
         }
 
-        private void dispatchTouchEvent(MotionEvent e) {
+        private void dispatchTouchEvent(@NonNull MotionEvent e) {
             if (mDetector == null) {
                 mDetector = new GestureDetectorCompat(mRv.getContext(), new GestureDetector.SimpleOnGestureListener() {
                     @Override

@@ -19,7 +19,6 @@ package cc.colorcat.adapter;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,13 +26,14 @@ import java.util.List;
  * Date: 2019-11-19
  * GitHub: https://github.com/ccolorcat
  */
+@SuppressWarnings({"WeakerAccess"})
 public abstract class FixedVpAdapter<T> extends VpAdapter {
-    private List<? extends T> mData;
+    private final List<? extends T> mData;
     @LayoutRes
-    private int mLayoutResId;
+    private final int mLayoutResId;
 
     public FixedVpAdapter(List<? extends T> data, @LayoutRes int layoutResId) {
-        mData = new ArrayList<>(data);
+        mData = Utils.immutableList(data);
         mLayoutResId = layoutResId;
     }
 
@@ -53,7 +53,7 @@ public abstract class FixedVpAdapter<T> extends VpAdapter {
     }
 
     @Override
-    public final void bindView(@NonNull VpHolder holder, int position) {
+    public void bindView(@NonNull VpHolder holder, int position) {
         bindView(holder, mData.get(position));
     }
 

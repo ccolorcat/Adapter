@@ -59,6 +59,7 @@ import java.lang.annotation.RetentionPolicy;
  * Date: 2018-5-31
  * GitHub: https://github.com/ccolorcat
  */
+@SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
 public class ViewHolder {
     @IntDef({View.VISIBLE, View.INVISIBLE, View.GONE})
     @Retention(RetentionPolicy.SOURCE)
