@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 cxx
+ * Copyright 2018 cxx
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,6 +35,15 @@ public final class AdapterHelper {
             new SingleTypeLvAdapterHelper<>(),
             new SingleTypePagerAdapterHelper<>()
     };
+
+    @NonNull
+    public static <T> SingleTypeAdapterHelper<T> require(@NonNull SingleType<T> singleTypeAdapter) {
+        SingleTypeAdapterHelper<T> helper = of(singleTypeAdapter);
+        if (helper == null) {
+            throw new IllegalArgumentException("singleTypeAdapter must be one of android.widget.BaseAdapter, RecyclerView.Adapter or PagerAdapter");
+        }
+        return helper;
+    }
 
     /**
      * @param singleTypeAdapter Must be one of

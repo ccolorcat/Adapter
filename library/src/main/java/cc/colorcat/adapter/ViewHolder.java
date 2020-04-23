@@ -22,6 +22,7 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -336,11 +337,6 @@ public class ViewHolder {
      * @param top    the top padding in pixels
      * @param end    the end padding in pixels
      * @param bottom the bottom padding in pixels
-     * @attr ref android.R.styleable#View_padding
-     * @attr ref android.R.styleable#View_paddingBottom
-     * @attr ref android.R.styleable#View_paddingStart
-     * @attr ref android.R.styleable#View_paddingEnd
-     * @attr ref android.R.styleable#View_paddingTop
      */
     @NonNull
     public ViewHolder setPaddingRelative(@IdRes int viewId, int start, int top, int end, int bottom) {
@@ -686,9 +682,6 @@ public class ViewHolder {
     }
 
     /**
-     * Sets flags on the Paint being used to display the text and
-     * reflows the text if they are different from the old flags.
-     *
      * @see android.graphics.Paint#setFlags(int)
      */
     @NonNull
@@ -803,7 +796,8 @@ public class ViewHolder {
         ProgressBar pb = get(progressBarId);
         Drawable pd = pb.getProgressDrawable();
         if (pd != null) {
-            pd.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+//            pd.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+            pd.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP));
         }
         return this;
     }

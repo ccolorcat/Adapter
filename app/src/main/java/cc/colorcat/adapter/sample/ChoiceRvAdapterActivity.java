@@ -44,8 +44,8 @@ import cc.colorcat.adapter.ViewHolder;
  */
 public class ChoiceRvAdapterActivity extends AppCompatActivity {
     private SwipeRefreshLayout mRefreshLayout;
-    private List<String> mData = new ArrayList<>(30);
-    private SimpleAutoChoiceRvAdapter<String> mAdapter = new SimpleAutoChoiceRvAdapter<String>(mData, R.layout.item_sample) {
+    private final List<String> mData = new ArrayList<>(30);
+    private final SimpleAutoChoiceRvAdapter<String> mAdapter = new SimpleAutoChoiceRvAdapter<String>(mData, R.layout.item_sample) {
         @Override
         protected void bindView(@NonNull RvHolder holder, String data) {
             holder.getHelper()
