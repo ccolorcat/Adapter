@@ -93,7 +93,7 @@ allprojects {
 
 ```groovy
 dependencies {
-    implementation 'com.github.ccolorcat:Adapter:v1.2.0'
+    implementation 'com.github.ccolorcat:Adapter:v3.1.0'
 }
 ```
 
@@ -105,6 +105,13 @@ dependencies {
 * 继承 PagerAdapter 时，不建议在其内部缓存 View，如要避免频繁的创建/销毁 View，应考虑 ViewPager.setOffscreenPageLimit(int) 方法，且应注意数值不可过大，以避免占用过多的内存。
 
 ## 5. 版本历史
+
+v3.1.0
+
+> 1. 迁移至 AndroidX
+> 2. 重构部分代码，优化结构。
+> 3. 新增 ViewBinder 接口和 AdapterHelper 类，进一步简化 Adapter 的编写。
+> 4. 新增 SingleTypeAdapterHelper 类，辅助更新 Adapter 的数据和刷新 Adapter 的 UI.
 
 v1.2.0
 
