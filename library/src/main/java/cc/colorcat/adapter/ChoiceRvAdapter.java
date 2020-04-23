@@ -59,6 +59,7 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     @ChoiceMode
     private int mChoiceMode = ChoiceMode.NONE;
     private int mSelectedPosition = RecyclerView.NO_POSITION;
+    private OnChoiceModeChangeListener mChoiceModeListener;
     private OnItemSelectedChangeListener mSelectedListener;
     private RecyclerView mRecyclerView;
     private RvSelectHelper mSelectHelper;
@@ -99,12 +100,25 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
      */
     public final void setChoiceMode(@ChoiceMode int choiceMode) {
         Utils.checkChoiceMode(choiceMode);
-        mChoiceMode = choiceMode;
+        if (mChoiceMode != choiceMode) {
+            mChoiceMode = choiceMode;
+            if (mChoiceModeListener != null) {
+                mChoiceModeListener.onChoiceModeChanged(this, mChoiceMode);
+            }
+        }
     }
 
     @ChoiceMode
     public final int getChoiceMode() {
         return mChoiceMode;
+    }
+
+    public final void setOnChoiceModeChangeListener(OnChoiceModeChangeListener listener) {
+        mChoiceModeListener = listener;
+    }
+
+    public final OnChoiceModeChangeListener getOnChoiceModeChangeListener() {
+        return mChoiceModeListener;
     }
 
     public final void setOnItemSelectedChangeListener(OnItemSelectedChangeListener listener) {
@@ -203,6 +217,10 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
         } else {
             notifyItemChanged(position);
         }
+        notifyOnItemSelectedChangeListener(position, selected);
+    }
+
+    private void notifyOnItemSelectedChangeListener(int position, boolean selected) {
         if (mSelectedListener != null) {
             mSelectedListener.onItemSelectedChanged(position, selected);
         }
@@ -274,5 +292,9 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
 
     public interface OnItemSelectedChangeListener {
         void onItemSelectedChanged(int position, boolean selected);
+    }
+
+    public interface OnChoiceModeChangeListener {
+        void onChoiceModeChanged(@NonNull ChoiceRvAdapter adapter, @ChoiceMode int choiceMode);
     }
 }

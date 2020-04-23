@@ -69,7 +69,7 @@ allprojects {
 
 ```groovy
 dependencies {
-    implementation 'com.github.ccolorcat:Adapter:v3.2.0'
+    implementation 'com.github.ccolorcat:Adapter:v3.3.0'
 }
 ```
 
@@ -83,6 +83,12 @@ dependencies {
 * 自 3.x 版本后，提供了 SingleTypeAdapterHelper 辅助更新 Adapater 的数据和刷新 UI，所有带有 Simple 字样的 Adapter 类均可使用。
 
 ## 5. 版本历史
+
+v3.3.0
+
+> 1. 新增 OnChoiceModeChangeListener 以监听选择模式的变化。
+> 2. SingleTypeAdapterHelper 新增 clear() 和 justRefreshUI() 两个方法。
+> 3. SimpleChoiceRvAdapter 和 SimpleAutoChoiceRvAdapter 新增部分方法和内部抽象监听。
 
 v3.1.0
 

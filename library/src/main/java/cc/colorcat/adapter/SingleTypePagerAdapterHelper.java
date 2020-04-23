@@ -87,6 +87,12 @@ public class SingleTypePagerAdapterHelper<T> extends SingleTypeAdapterHelper<T> 
     }
 
     @Override
+    public void clear() {
+        super.clear();
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void justRefreshUI() {
         mAdapter.notifyDataSetChanged();
     }

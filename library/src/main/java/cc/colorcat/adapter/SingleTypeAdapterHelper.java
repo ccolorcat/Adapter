@@ -102,9 +102,9 @@ public abstract class SingleTypeAdapterHelper<T> implements Cloneable {
         mData.addAll(newData);
     }
 
-    public final void clear() {
+    @CallSuper
+    public void clear() {
         mData.clear();
-        justRefreshUI();
     }
 
     public abstract void justRefreshUI();
