@@ -16,6 +16,7 @@
 
 package cc.colorcat.adapter;
 
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 
 import java.util.List;
@@ -27,24 +28,29 @@ import java.util.List;
 public abstract class SingleTypeAdapterHelper<T> implements Cloneable {
     private List<T> mData;
 
+    @CallSuper
     boolean attachAdapter(@NonNull SingleType<T> singleTypeAdapter) {
         mData = singleTypeAdapter.getData();
         return false;
     }
 
+    @CallSuper
     public final void append(@NonNull List<? extends T> newData) {
         insert(mData.size(), newData);
     }
 
+    @CallSuper
     public void insert(int positionStart, @NonNull List<? extends T> newData) {
         Utils.check(mData, newData);
         mData.addAll(positionStart, newData);
     }
 
+    @CallSuper
     public void insert(int position, @NonNull T newData) {
         mData.add(position, Utils.requireNonNull(newData, "newData == null"));
     }
 
+    @CallSuper
     public final void remove(T data) {
         int index = mData.indexOf(data);
         if (index != -1) {
@@ -52,11 +58,12 @@ public abstract class SingleTypeAdapterHelper<T> implements Cloneable {
         }
     }
 
+    @CallSuper
     public void remove(int position) {
         mData.remove(position);
     }
 
-
+    @CallSuper
     public void remove(int positionStart, int itemCount) {
         if (positionStart + itemCount > positionStart) {
             mData.subList(positionStart, positionStart + itemCount).clear();
@@ -70,21 +77,25 @@ public abstract class SingleTypeAdapterHelper<T> implements Cloneable {
         }
     }
 
+    @CallSuper
     public void move(int fromPosition, int toPosition) {
         T data = mData.remove(fromPosition);
         mData.add(toPosition, data);
     }
 
+    @CallSuper
     public void replace(int position, @NonNull T newData) {
         mData.set(position, Utils.requireNonNull(newData, "newData == null"));
     }
 
+    @CallSuper
     public void replace(int positionStart, @NonNull List<? extends T> newData) {
         Utils.check(mData, newData);
         mData.subList(positionStart, positionStart + newData.size()).clear();
         mData.addAll(positionStart, newData);
     }
 
+    @CallSuper
     public void replaceAll(@NonNull List<? extends T> newData) {
         Utils.check(mData, newData);
         mData.clear();

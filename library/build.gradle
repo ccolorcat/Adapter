@@ -55,6 +55,7 @@ tasks.withType(JavaCompile) {
 
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
+    //noinspection GrDeprecatedAPIUsage
     classifier = 'sources'
 }
 
@@ -66,6 +67,7 @@ task javadoc(type: Javadoc) {
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
+    //noinspection GrDeprecatedAPIUsage
     classifier = 'javadoc'
     from javadoc.destinationDir
 }

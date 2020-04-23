@@ -36,6 +36,15 @@ public final class AdapterHelper {
             new SingleTypePagerAdapterHelper<>()
     };
 
+    @NonNull
+    public static <T> SingleTypeAdapterHelper<T> require(@NonNull SingleType<T> singleTypeAdapter) {
+        SingleTypeAdapterHelper<T> helper = of(singleTypeAdapter);
+        if (helper == null) {
+            throw new IllegalArgumentException("singleTypeAdapter must be one of android.widget.BaseAdapter, RecyclerView.Adapter or PagerAdapter");
+        }
+        return helper;
+    }
+
     /**
      * @param singleTypeAdapter Must be one of
      *                          {@link android.widget.BaseAdapter},

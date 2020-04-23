@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-    private View.OnClickListener mClick = new View.OnClickListener() {
+    private final View.OnClickListener mClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {

@@ -39,7 +39,7 @@ import cc.colorcat.adapter.ViewHolder;
  */
 public class LvAdapterActivity extends AppCompatActivity {
     private SwipeRefreshLayout mRefreshLayout;
-    private List<String> mData = new ArrayList<>(30);
+    private final List<String> mData = new ArrayList<>(30);
     private LvAdapter mAdapter = new SimpleLvAdapter<String>(mData, R.layout.item_sample) {
         @Override
         protected void bindView(@NonNull LvHolder holder, String s) {

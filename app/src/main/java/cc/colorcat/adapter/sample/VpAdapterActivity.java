@@ -34,7 +34,7 @@ import cc.colorcat.adapter.VpHolder;
  */
 public class VpAdapterActivity extends AppCompatActivity {
     @DrawableRes
-    private int[] mImage = {
+    private final int[] mImage = {
             R.drawable.bg_img0,
             R.drawable.bg_img1,
             R.drawable.bg_img2,

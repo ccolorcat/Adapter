@@ -21,7 +21,6 @@ import android.util.SparseBooleanArray;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
