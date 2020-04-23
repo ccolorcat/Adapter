@@ -13,67 +13,43 @@
 
 ## 2. 用法举例
 
-LvAdapter:
+RvAdapter:
 
 ```java
-mAdapter = new LvAdapter() {
-    @Override
-    protected int getLayoutResId(int viewType) {
-        return R.layout.item_sample;
-    }
-
-    @Override
-    protected void bindView(@NonNull LvHolder holder, int position) {   
-        holder.setImageResource(R.id.iv_icon, R.mipmap.ic_launcher_round)
-            .setText(R.id.tv_content, mData.get(position));
-    }
-
-    @Override
-    public int getCount() {
-        return mData.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return mData.get(position);
-    }
+new SimpleRvAdapter<Repo>(items, R.layout.item_repo) {
+  @Override
+  public void bindView(@NonNull RvHolder holder, @NonNull Repo data) {
+    holder.getHelper()
+      .setText(R.id.tv_name, data.getName())
+      .setText(R.id.tv_description, data.getDescription())
+      .setText(R.id.tv_license, data.getLicense().getName())
+      .setText(R.id.tv_html_link, Html.fromHtml(data.getHtmlUrl()));
+  }
 };
 ```
 
-ChoiceRvAdapter:
+或
 
 ```java
-private SparseBooleanArray mRecords = new SparseBooleanArray(30);
-...
-mAdapter = new ChoiceRvAdapter() {        
-    @Override
-    public int getLayoutResId(int viewType) {
-        return R.layout.item_sample;
-    }
+AdapterHelper.newSimpleRvAdapter(
+  items, 
+  new CourseViewBinder()
+);
 
-    @Override
-    public void bindView(@NonNull RvHolder holder, int position) {
-        holder.getHelper()
-            .setImageResource(R.id.iv_icon, R.mipmap.ic_launcher_round)
-            .setText(R.id.tv_content, mData.get(position));
-    }
 
-    @Override
-    public int getItemCount() {
-        return mData.size();
-    }
+public class CourseViewBinder implements ViewBinder2<Course> {
+  @Override
+  public int itemLayout() {
+    return R.layout.item_course;
+  }
 
-    @Override
-    protected boolean isSelected(int position) {
-        return mRecords.get(position);
-    }
-
-    @Override
-    protected void updateItem(int position, boolean selected) {
-        mRecords.put(position, selected);
-    }
-};
-mAdapter.setChoiceMode(ChoiceRvAdapter.ChoiceMode.MULTIPLE);
+  @Override
+  public void bindView(@NonNull AdapterViewHolder holder, Course data) {
+    holder.setText(R.id.tv_serial_number, Integer.toString(holder.getPosition()))
+      .setText(R.id.tv_name, data.getName())
+      .setText(R.id.tv_description, data.getDescription());
+  }
+}
 ```
 
 ## 3. 使用方法
@@ -93,7 +69,7 @@ allprojects {
 
 ```groovy
 dependencies {
-    implementation 'com.github.ccolorcat:Adapter:v3.1.0'
+    implementation 'com.github.ccolorcat:Adapter:v3.2.0'
 }
 ```
 
@@ -103,6 +79,8 @@ dependencies {
 * 含有 "Simple" 字样的 Adapter 适用于同一类数据的显示，含有 "Fixed" 字样的 Adapter 在创建时数据应已初始化，一旦创建其内部数据不可更改。
 * 如果需要 RecyclerView 的 Adapter 的单/复选功能，而数据又无需变动，推荐优选使用 FixedSimpleChoiceRvAdapter，足够简单。
 * 继承 PagerAdapter 时，不建议在其内部缓存 View，如要避免频繁的创建/销毁 View，应考虑 ViewPager.setOffscreenPageLimit(int) 方法，且应注意数值不可过大，以避免占用过多的内存。
+* 自 3.x 版本后添加了 AdapterHelper 类，创建单一类型的 Adapter 建议优先使用。
+* 自 3.x 版本后，提供了 SingleTypeAdapterHelper 辅助更新 Adapater 的数据和刷新 UI，所有带有 Simple 字样的 Adapter 类均可使用。
 
 ## 5. 版本历史
 
