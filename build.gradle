@@ -37,8 +37,8 @@ project.ext {
     // android.defaultConfig
     minSdkVersion = 14
     targetSdkVersion = sdkVersion
-    versionCode = 13
-    versionName = "3.1.0"
+    versionCode = 14
+    versionName = "3.2.0"
 
     // dependencies
     swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
