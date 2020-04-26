@@ -32,7 +32,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public abstract class RvAdapter extends RecyclerView.Adapter<RvHolder> {
     @NonNull
     @Override
-    public final RvHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RvHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(getLayoutResId(viewType), parent, false);
         return new RvHolder(itemView);
     }

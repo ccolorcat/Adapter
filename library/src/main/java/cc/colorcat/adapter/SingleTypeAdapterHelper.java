@@ -34,8 +34,11 @@ public abstract class SingleTypeAdapterHelper<T> implements Cloneable {
         return false;
     }
 
-    @CallSuper
     public final void append(@NonNull List<? extends T> newData) {
+        insert(mData.size(), newData);
+    }
+
+    public final void append(@NonNull T newData) {
         insert(mData.size(), newData);
     }
 
