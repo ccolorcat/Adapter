@@ -58,18 +58,88 @@ public abstract class GroupRvAdapter extends RvAdapter implements GroupableRvAda
     }
 
     @Override
-    public final void notifyGroupInserted(int groupPositionStart, int groupItemCount) {
-        mDelegate.notifyGroupInserted(groupPositionStart, groupItemCount);
+    public final void notifyGroupChanged(int groupPosition) {
+        mDelegate.notifyGroupChanged(groupPosition);
     }
 
     @Override
-    public final void notifyGroupItemInserted(int groupPosition, int groupItemPositionStart, int groupItemCount) {
-        mDelegate.notifyGroupItemInserted(groupPosition, groupItemPositionStart, groupItemCount);
+    public final void notifyGroupRangeChanged(int groupPositionStart, int groupCount) {
+        mDelegate.notifyGroupRangeChanged(groupPositionStart, groupCount);
     }
 
     @Override
-    public final void notifyGroupItemAdded(int groupPosition, int groupItemCount) {
-        mDelegate.notifyGroupItemAdded(groupPosition, groupItemCount);
+    public final void notifyGroupInserted(int groupPosition) {
+        mDelegate.notifyGroupInserted(groupPosition);
+    }
+
+    @Override
+    public final void notifyGroupRangeInserted(int groupPositionStart, int groupCount) {
+        mDelegate.notifyGroupRangeInserted(groupPositionStart, groupCount);
+    }
+
+    @Override
+    public final void notifyGroupAppended() {
+        mDelegate.notifyGroupAppended();
+    }
+
+    @Override
+    public final void notifyGroupRangeAppended(int groupCount) {
+        mDelegate.notifyGroupRangeAppended(groupCount);
+    }
+
+    @Override
+    public final void notifyGroupRemoved(int groupPosition, int groupItemCount) {
+        mDelegate.notifyGroupRemoved(groupPosition, groupItemCount);
+    }
+
+    @Override
+    public final void notifyGroupRangeRemoved(int groupPositionStart, int itemCount) {
+        mDelegate.notifyGroupRangeRemoved(groupPositionStart, itemCount);
+    }
+
+    @Override
+    public final void notifyGroupItemChanged(int groupPosition, int groupItemPosition) {
+        mDelegate.notifyGroupItemChanged(groupPosition, groupItemPosition);
+    }
+
+    @Override
+    public final void notifyGroupItemRangeChanged(int groupPosition, int groupItemPositionStart, int groupItemCount) {
+        mDelegate.notifyGroupItemRangeChanged(groupPosition, groupItemPositionStart, groupItemCount);
+    }
+
+    @Override
+    public final void notifyGroupItemInserted(int groupPosition, int groupItemPosition) {
+        mDelegate.notifyGroupItemInserted(groupPosition, groupItemPosition);
+    }
+
+    @Override
+    public final void notifyGroupItemRangeInserted(int groupPosition, int groupItemPositionStart, int groupItemCount) {
+        mDelegate.notifyGroupItemRangeInserted(groupPosition, groupItemPositionStart, groupItemCount);
+    }
+
+    @Override
+    public final void notifyGroupItemAppended(int groupPosition) {
+        mDelegate.notifyGroupItemAppended(groupPosition);
+    }
+
+    @Override
+    public final void notifyGroupItemRangeAppended(int groupPosition, int groupItemCount) {
+        mDelegate.notifyGroupItemRangeAppended(groupPosition, groupItemCount);
+    }
+
+    @Override
+    public final void notifyGroupItemRemoved(int groupPosition, int groupItemPosition) {
+        mDelegate.notifyGroupItemRemoved(groupPosition, groupItemPosition);
+    }
+
+    @Override
+    public final void notifyGroupItemRangeRemoved(int groupPosition, int groupItemPositionStart, int groupItemCount) {
+        mDelegate.notifyGroupItemRangeRemoved(groupPosition, groupItemPositionStart, groupItemCount);
+    }
+
+    @Override
+    public final void notifyGroupItemMoved(int fromGroupPosition, int fromGroupItemPosition, int toGroupPosition, int toGroupItemPosition) {
+        mDelegate.notifyGroupItemMoved(fromGroupPosition, fromGroupItemPosition, toGroupPosition, toGroupItemPosition);
     }
 
     public final boolean isGroup(int position) {
@@ -82,5 +152,9 @@ public abstract class GroupRvAdapter extends RvAdapter implements GroupableRvAda
 
     public final int calculateSize(int groupCount) {
         return mDelegate.calculateSize(groupCount);
+    }
+
+    public final int calculateSize(int groupPositionStart, int groupCount) {
+        return mDelegate.calculateSize(groupPositionStart, groupCount);
     }
 }

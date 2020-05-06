@@ -41,9 +41,43 @@ public interface GroupableRvAdapter<GroupVH extends RecyclerView.ViewHolder, Gro
 
     void bindGroupItemView(@NonNull GroupItemVH holder, int groupPosition, int groupItemPosition);
 
-    void notifyGroupInserted(int groupPositionStart, int groupItemCount);
+    void notifyGroupChanged(int groupPosition);
 
-    void notifyGroupItemInserted(int groupPosition, int groupItemPositionStart, int groupItemCount);
+    void notifyGroupRangeChanged(int groupPositionStart, int groupCount);
 
-    void notifyGroupItemAdded(int groupPosition, int groupItemCount);
+    void notifyGroupInserted(int groupPosition);
+
+    void notifyGroupRangeInserted(int groupPositionStart, int groupCount);
+
+    void notifyGroupAppended();
+
+    void notifyGroupRangeAppended(int groupCount);
+
+    void notifyGroupRemoved(int groupPosition, int groupItemCount);
+
+    /**
+     * @param itemCount the count of removed groups and their's items, call {@link GroupRvAdapter#calculateSize(int, int)}
+     *                  or {@link GroupChoiceRvAdapter#calculateSize(int, int)} to calculate the itemCount
+     * @see GroupRvAdapter#calculateSize(int, int)
+     * @see GroupChoiceRvAdapter#calculateSize(int, int)
+     */
+    void notifyGroupRangeRemoved(int groupPositionStart, int itemCount);
+
+    void notifyGroupItemChanged(int groupPosition, int groupItemPosition);
+
+    void notifyGroupItemRangeChanged(int groupPosition, int groupItemPositionStart, int groupItemCount);
+
+    void notifyGroupItemInserted(int groupPosition, int groupItemPosition);
+
+    void notifyGroupItemRangeInserted(int groupPosition, int groupItemPositionStart, int groupItemCount);
+
+    void notifyGroupItemAppended(int groupPosition);
+
+    void notifyGroupItemRangeAppended(int groupPosition, int groupItemCount);
+
+    void notifyGroupItemRemoved(int groupPosition, int groupItemPosition);
+
+    void notifyGroupItemRangeRemoved(int groupPosition, int groupItemPositionStart, int groupItemCount);
+
+    void notifyGroupItemMoved(int fromGroupPosition, int fromGroupItemPosition, int toGroupPosition, int toGroupItemPosition);
 }
