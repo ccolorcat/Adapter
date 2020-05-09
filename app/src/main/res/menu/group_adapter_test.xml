@@ -84,4 +84,20 @@
     <item
         android:id="@+id/test_group_item_moved"
         android:title="group item moved" />
+
+    <item
+        android:id="@+id/test_group_none_choice"
+        android:title="group none choice" />
+
+    <item
+        android:id="@+id/test_group_single_choice"
+        android:title="group single choice" />
+
+    <item
+        android:id="@+id/test_group_multiple_choice"
+        android:title="group multiple choice" />
+
+    <item
+        android:id="@+id/test_group_clear_selection"
+        android:title="group clear selection" />
 </menu>

@@ -20,4 +20,5 @@
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
     android:background="@drawable/bg_accent_white_selector"
-    android:gravity="center" />
+    android:gravity="center"
+    android:textSize="14sp" />

@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,9 +30,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import cc.colorcat.adapter.ChoiceRvAdapter;
 import cc.colorcat.adapter.GroupChoiceRvAdapter;
 import cc.colorcat.adapter.RvHolder;
 
@@ -41,6 +44,9 @@ import cc.colorcat.adapter.RvHolder;
  * GitHub: https://github.com/ccolorcat
  */
 public class GroupRvAdapterFragment extends BaseRvAdapterFragment<GroupChoiceRvAdapter> {
+    private static final int ITEM_TYPE_TITLE = 1;
+    private static final int ITEM_TYPE_CONTENT = 2;
+
     private final LinkedMap<Integer, List<Integer>> mData = new LinkedMap<>();
     private int mCount = 0;
     private Random mRandom = new Random();
@@ -49,6 +55,36 @@ public class GroupRvAdapterFragment extends BaseRvAdapterFragment<GroupChoiceRvA
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mRecyclerView.addItemDecoration(new StickyItemDecoration(new StickyView() {
+            @Override
+            public boolean isStickyView(RecyclerView.ViewHolder holder) {
+                return mAdapter.isGroup(holder.getAdapterPosition());
+            }
+
+//            @Override
+//            public boolean isStickyView(View view) {
+//                RecyclerView.ViewHolder holder = mRecyclerView.getChildViewHolder(view);
+//                return mAdapter.isGroup(holder.getAdapterPosition());
+//            }
+
+//            @Override
+//            public int getStickViewType() {
+//                return ITEM_TYPE_TITLE;
+//            }
+        }));
+    }
+
+    @Override
+    protected RecyclerView.RecycledViewPool getRecycledViewPool() {
+        RecyclerView.RecycledViewPool pool = new RecyclerView.RecycledViewPool();
+        pool.setMaxRecycledViews(ITEM_TYPE_TITLE, 12);
+        pool.setMaxRecycledViews(ITEM_TYPE_CONTENT, 60);
+        return pool;
     }
 
     @Override
@@ -222,6 +258,19 @@ public class GroupRvAdapterFragment extends BaseRvAdapterFragment<GroupChoiceRvA
                 mAdapter.notifyGroupItemMoved(fromGroupPosition, fromGroupItemPosition, toGroupPosition, toGroupItemPosition);
                 break;
             }
+            case R.id.test_group_none_choice:
+                mAdapter.disableChoice();
+                break;
+            case R.id.test_group_single_choice:
+                mAdapter.setChoiceMode(ChoiceRvAdapter.ChoiceMode.SINGLE);
+                break;
+            case R.id.test_group_multiple_choice:
+                mAdapter.setChoiceMode(ChoiceRvAdapter.ChoiceMode.MULTIPLE);
+                break;
+            case R.id.test_group_clear_selection: {
+                mAdapter.clearSelection();
+                break;
+            }
             default:
                 break;
         }
@@ -331,7 +380,6 @@ public class GroupRvAdapterFragment extends BaseRvAdapterFragment<GroupChoiceRvA
                         log("onGroupItemSelectedChanged" + groupPosition + ", " + groupItemPosition + ", " + selected);
                     }
                 });
-                setChoiceMode(ChoiceMode.MULTIPLE);
                 registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
                     @Override
                     public void onChanged() {
@@ -374,13 +422,12 @@ public class GroupRvAdapterFragment extends BaseRvAdapterFragment<GroupChoiceRvA
 
             @Override
             public int getGroupViewType(int groupPosition) {
-                log("getGroupViewTyp");
-                return 1;
+                return ITEM_TYPE_TITLE;
             }
 
             @Override
             public int getGroupItemViewType(int groupPosition, int groupItemPosition) {
-                return 2;
+                return ITEM_TYPE_CONTENT;
             }
 
             @Override
@@ -436,9 +483,9 @@ public class GroupRvAdapterFragment extends BaseRvAdapterFragment<GroupChoiceRvA
             @Override
             protected int getLayoutResId(int viewType) {
                 switch (viewType) {
-                    case 1:
+                    case ITEM_TYPE_TITLE:
                         return R.layout.item_title;
-                    case 2:
+                    case ITEM_TYPE_CONTENT:
                         return R.layout.item_content;
                     default:
                         throw new IllegalArgumentException("illegal viewType " + viewType);

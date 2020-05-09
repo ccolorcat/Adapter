@@ -9,6 +9,7 @@
 * ChoiceRvAdapter 继承自 RvAdapter，扩展了“单选/多选”的功能。
 * AutoChoiceRvAdapter 继承自 ChoiceRvAdapter，实现自动记录单/复选的功能。
 * VpAdapter 适用于 ViewPager，实现并扩展部分方法，使得其使用方式与 RvAdapter 类似。
+* 所有带有 Fixed 前缀的 Adapter 一旦创建，其数据便不可变更。
 * 其它的类不再一一列举，主要是扩展或简化了以上列举的类。
 
 ## 2. 用法举例
@@ -52,6 +53,96 @@ public class CourseViewBinder implements ViewBinder2<Course> {
 }
 ```
 
+分组且带单复选功能的 Adapter
+
+```java
+public class GroupChoiceDemoRvAdapter extends GroupChoiceRvAdapter {
+    public static final int TYPE_GROUP = 1;
+    public static final int TYPE_GROUP_ITEM = 2;
+
+    private final ArrayMap<Integer, List<Integer>> mData;
+    private final ArrayMap<String, Boolean> mSelectedStatus = new ArrayMap<>();
+
+    public GroupChoiceDemoRvAdapter(@NonNull ArrayMap<Integer, List<Integer>> data) {
+        mData = data;
+    }
+
+    @Override
+    public int getGroupViewType(int groupPosition) {
+        return TYPE_GROUP;
+    }
+
+    @Override
+    public int getGroupItemViewType(int groupPosition, int groupItemPosition) {
+        return TYPE_GROUP_ITEM;
+    }
+
+    @Override
+    public int getGroupCount() {
+        return mData.size();
+    }
+
+    @Override
+    public int getGroupItemCount(int groupPosition) {
+        return mData.valueAt(groupPosition).size();
+    }
+
+    @Override
+    public void bindGroupView(@NonNull RvHolder holder, int groupPosition) {
+        holder.getHelper().setText(R.id.tv_title, "group(" + groupPosition + "): " + mData.keyAt(groupPosition));
+    }
+
+    @Override
+    public void bindGroupItemView(@NonNull RvHolder holder, int groupPosition, int groupItemPosition) {
+        holder.getHelper().setText(R.id.tv_content, "(" + groupPosition + ", " + groupItemPosition + "): " + mData.valueAt(groupPosition).get(groupItemPosition));
+    }
+
+    @Override
+    protected int getLayoutResId(int viewType) {
+        switch (viewType) {
+            case TYPE_GROUP:
+                return R.layout.item_title;
+            case TYPE_GROUP_ITEM:
+                return R.layout.item_content;
+            default:
+                throw new IllegalArgumentException("illegal viewType: " + viewType);
+        }
+    }
+
+    @Override
+    public void updateGroup(int groupPosition, boolean selected) {
+        String key = groupPosition + "_NO";
+        mSelectedStatus.put(key, selected);
+    }
+
+    @Override
+    public void updateGroupItem(int groupPosition, int groupItemPosition, boolean selected) {
+        String key = groupPosition + "_" + groupItemPosition;
+        mSelectedStatus.put(key, selected);
+    }
+
+
+    @Override
+    public boolean isGroupSelected(int groupPosition) {
+        Boolean selected = mSelectedStatus.get(groupPosition + "_NO");
+        return selected != null ? selected : false;
+    }
+
+    @Override
+    public boolean isGroupItemSelected(int groupPosition, int groupItemPosition) {
+        Boolean selected = mSelectedStatus.get(groupPosition + "_" + groupItemPosition);
+        return selected != null ? selected : false;
+    }
+
+    @Override
+    public boolean isGroupSelectable(int groupPosition) {
+        return false;
+    }
+}
+```
+
+
+
 ## 3. 使用方法
 
 (1) 在项目的 build.gradle 中配置仓库地址：
@@ -69,7 +160,7 @@ allprojects {
 
 ```groovy
 dependencies {
-    implementation 'com.github.ccolorcat:Adapter:v3.3.2'
+    implementation 'com.github.ccolorcat:Adapter:v3.4.0'
 }
 ```
 
@@ -83,6 +174,11 @@ dependencies {
 * 自 3.x 版本后，提供了 SingleTypeAdapterHelper 辅助更新 Adapater 的数据和刷新 UI，所有带有 Simple 字样的 Adapter 类均可使用。
 
 ## 5. 版本历史
+
+v3.4.0
+
+> 1. 新增 GroupRvAdapter 和 GroupChoiceRvAdapter 两个类以支持分组功能。
+> 2. 对于支持单/复选功能的 Adapter，在变更选择模式时，会重置之前的所有已选。
 
 v3.3.0
 

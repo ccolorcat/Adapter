@@ -25,8 +25,6 @@ import androidx.recyclerview.widget.RecyclerView;
  * GitHub: https://github.com/ccolorcat
  */
 public abstract class GroupChoiceRvAdapter extends ChoiceRvAdapter implements GroupableChoiceRvAdapter<RvHolder, RvHolder> {
-    public static final String TAG = "GroupChoice";
-
     private final GroupChoiceRvAdapterDelegate mDelegate = new GroupChoiceRvAdapterDelegate(this);
     private OnGroupItemSelectedChangeListener mGroupItemSelectedListener;
 
@@ -57,6 +55,42 @@ public abstract class GroupChoiceRvAdapter extends ChoiceRvAdapter implements Gr
         return mGroupItemSelectedListener;
     }
 
+    public void setSelection(int groupPosition, int groupItemPosition) {
+        int position = mDelegate.calculatePosition(groupPosition, groupItemPosition);
+        super.setSelection(position);
+    }
+
+    /**
+     * 仅单选模式下才有意义
+     *
+     * @return {groupPosition, groupItemPosition}, 即选中的 item 的位置，
+     * 如果没有 item 被选中返回 {RecyclerView.NO_POSITION, RecyclerView.NO_POSITION}
+     */
+    public int[] getGroupItemSelection() {
+        int position = super.getSelection();
+        if (position == RecyclerView.NO_POSITION) {
+            return new int[]{RecyclerView.NO_POSITION, RecyclerView.NO_POSITION};
+        }
+        return calculateGroupItemPosition(position);
+    }
+
+    /**
+     * deprecated, see {@link #setSelection(int, int)}
+     */
+    @Deprecated
+    @Override
+    public final void setSelection(int position) {
+        super.setSelection(position);
+    }
+
+    /**
+     * deprecated, see {@link #getGroupItemSelection()}
+     */
+    @Deprecated
+    @Override
+    public final int getSelection() {
+        return super.getSelection();
+    }
 
     @Override
     public final int getItemViewType(int position) {

@@ -101,6 +101,7 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     public final void setChoiceMode(@ChoiceMode int choiceMode) {
         Utils.checkChoiceMode(choiceMode);
         if (mChoiceMode != choiceMode) {
+            clearSelection();
             mChoiceMode = choiceMode;
             if (mChoiceModeListener != null) {
                 mChoiceModeListener.onChoiceModeChanged(this, mChoiceMode);
@@ -130,11 +131,9 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     }
 
     /**
-     * 设置当前选中的 item
-     *
-     * @param position item 的位置
+     * 设置选中的 item
      */
-    public final void setSelection(int position) {
+    public void setSelection(int position) {
         if (inChoiceMode()
                 && checkPosition(position)
                 && isSelectable(position)
@@ -143,12 +142,38 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
         }
     }
 
+    public void clearSelection() {
+        if (mChoiceMode == ChoiceMode.SINGLE) {
+            clearSelectionWithSingleChoiceMode();
+        } else if (mChoiceMode == ChoiceMode.MULTIPLE) {
+            clearSelectionWithMultipleChoiceMode();
+        }
+    }
+
+    private void clearSelectionWithSingleChoiceMode() {
+        final int last = mSelectedPosition;
+        if (checkPosition(last)
+                && isSelectable(last)
+                && isSelectedWithChoiceMode(last)) {
+            mSelectedPosition = RecyclerView.NO_POSITION;
+            dispatchSelect(last, false);
+        }
+    }
+
+    private void clearSelectionWithMultipleChoiceMode() {
+        for (int i = 0, size = getItemCount(); i < size; ++i) {
+            if (isSelectable(i) && isSelectedWithChoiceMode(i)) {
+                dispatchSelect(i, false);
+            }
+        }
+    }
+
     /**
      * 仅单选模式下才有意义
      *
      * @return 选中的 item 的位置，如果没有 item 被选中返回 {@link RecyclerView#NO_POSITION}
      */
-    public final int getSelection() {
+    public int getSelection() {
         return mSelectedPosition;
     }
 

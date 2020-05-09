@@ -37,6 +37,7 @@ import cc.colorcat.adapter.RvAdapter;
  */
 public abstract class BaseRvAdapterFragment<Adapter extends RvAdapter> extends Fragment {
     protected SwipeRefreshLayout mRefreshLayout;
+    protected RecyclerView mRecyclerView;
     protected Adapter mAdapter;
     protected RvPreloadMoreHelper mLoadMoreHelper;
 
@@ -52,16 +53,18 @@ public abstract class BaseRvAdapterFragment<Adapter extends RvAdapter> extends F
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mAdapter = getAdapter();
-        RecyclerView rv = view.findViewById(R.id.rv_items);
-        rv.setLayoutManager(getLayoutManager());
-        rv.setAdapter(mAdapter);
+        mRecyclerView = view.findViewById(R.id.rv_items);
+        mRecyclerView.setLayoutManager(getLayoutManager());
+        RecyclerView.RecycledViewPool pool = getRecycledViewPool();
+        if (pool != null) mRecyclerView.setRecycledViewPool(pool);
+        mRecyclerView.setAdapter(mAdapter);
         mLoadMoreHelper = RvPreloadMoreHelper.newHelper(1, new RvPreloadMoreHelper.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
                 BaseRvAdapterFragment.this.onLoadMore();
             }
         });
-        rv.addOnScrollListener(mLoadMoreHelper);
+        mRecyclerView.addOnScrollListener(mLoadMoreHelper);
         mRefreshLayout = view.findViewById(R.id.srl_root);
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -73,6 +76,10 @@ public abstract class BaseRvAdapterFragment<Adapter extends RvAdapter> extends F
 
     protected RecyclerView.LayoutManager getLayoutManager() {
         return new LinearLayoutManager(requireContext());
+    }
+
+    protected RecyclerView.RecycledViewPool getRecycledViewPool() {
+        return null;
     }
 
     protected abstract Adapter getAdapter();

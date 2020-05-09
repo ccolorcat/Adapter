@@ -18,5 +18,7 @@
     android:id="@+id/tv_title"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="8dp"
-    android:background="@drawable/bg_accent_white_selector" />
+    android:background="#9C27B0"
+    android:gravity="start|center_vertical"
+    android:padding="8dp"
+    android:textSize="18sp" />
