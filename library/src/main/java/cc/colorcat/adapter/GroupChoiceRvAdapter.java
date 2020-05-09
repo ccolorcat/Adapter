@@ -297,7 +297,7 @@ public abstract class GroupChoiceRvAdapter extends ChoiceRvAdapter implements Gr
         private final GroupChoiceRvAdapterDelegate mDelegate;
         private final OnGroupItemSelectedChangeListener mListener;
 
-        public static GroupOnItemSelectedChangeListener of(
+        private static GroupOnItemSelectedChangeListener of(
                 GroupChoiceRvAdapterDelegate delegate,
                 OnGroupItemSelectedChangeListener listener
         ) {
