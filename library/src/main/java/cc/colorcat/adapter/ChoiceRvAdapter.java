@@ -67,7 +67,8 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     @Override
     public final void onBindViewHolder(@NonNull RvHolder holder, int position) {
         super.onBindViewHolder(holder, position);
-        if (inChoiceMode() && isSelectable(position)) {
+//        if (inChoiceMode() && isSelectable(position)) {
+        if (inChoiceMode()) {
             updateItemView(holder, isSelectedWithChoiceMode(position));
         }
     }
