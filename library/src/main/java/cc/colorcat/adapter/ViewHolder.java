@@ -22,22 +22,10 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.IdRes;
-import android.support.annotation.IntDef;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.annotation.StringRes;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.MarginLayoutParamsCompat;
-import android.support.v4.view.ViewCompat;
 import android.util.DisplayMetrics;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -48,6 +36,20 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.IdRes;
+import androidx.annotation.IntDef;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.MarginLayoutParamsCompat;
+import androidx.core.view.ViewCompat;
 
 import java.io.File;
 import java.lang.annotation.Retention;
@@ -99,6 +101,7 @@ public class ViewHolder {
     }
 
 
+    private SparseArray<Object> mExtras;
     private final SparseArray<View> mViews = new SparseArray<>();
     @NonNull
     protected final View mRoot;
@@ -111,6 +114,17 @@ public class ViewHolder {
         mRoot = Utils.requireNonNull(root, "root == null");
         mContext = mRoot.getContext();
         mResources = mRoot.getResources();
+    }
+
+    public final ViewHolder putExtra(int key, Object data) {
+        if (mExtras == null) mExtras = new SparseArray<>();
+        mExtras.put(key, data);
+        return this;
+    }
+
+    @SuppressWarnings("unchecked")
+    public final <T> T getExtra(int key) {
+        return mExtras == null ? null : (T) mExtras.get(key);
     }
 
     @NonNull
@@ -335,11 +349,6 @@ public class ViewHolder {
      * @param top    the top padding in pixels
      * @param end    the end padding in pixels
      * @param bottom the bottom padding in pixels
-     * @attr ref android.R.styleable#View_padding
-     * @attr ref android.R.styleable#View_paddingBottom
-     * @attr ref android.R.styleable#View_paddingStart
-     * @attr ref android.R.styleable#View_paddingEnd
-     * @attr ref android.R.styleable#View_paddingTop
      */
     @NonNull
     public ViewHolder setPaddingRelative(@IdRes int viewId, int start, int top, int end, int bottom) {
@@ -685,9 +694,6 @@ public class ViewHolder {
     }
 
     /**
-     * Sets flags on the Paint being used to display the text and
-     * reflows the text if they are different from the old flags.
-     *
      * @see android.graphics.Paint#setFlags(int)
      */
     @NonNull
@@ -802,7 +808,8 @@ public class ViewHolder {
         ProgressBar pb = get(progressBarId);
         Drawable pd = pb.getProgressDrawable();
         if (pd != null) {
-            pd.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+//            pd.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+            pd.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP));
         }
         return this;
     }

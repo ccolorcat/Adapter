@@ -16,12 +16,13 @@
 
 package cc.colorcat.adapter;
 
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Author: cxx
@@ -31,7 +32,7 @@ import android.view.ViewGroup;
 public abstract class RvAdapter extends RecyclerView.Adapter<RvHolder> {
     @NonNull
     @Override
-    public final RvHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RvHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(getLayoutResId(viewType), parent, false);
         return new RvHolder(itemView);
     }

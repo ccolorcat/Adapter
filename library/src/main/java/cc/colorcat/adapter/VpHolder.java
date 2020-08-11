@@ -16,8 +16,9 @@
 
 package cc.colorcat.adapter;
 
-import android.support.annotation.NonNull;
 import android.view.View;
+
+import androidx.annotation.NonNull;
 
 /**
  * Author: cxx

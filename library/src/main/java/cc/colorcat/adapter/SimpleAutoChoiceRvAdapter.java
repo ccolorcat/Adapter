@@ -16,8 +16,8 @@
 
 package cc.colorcat.adapter;
 
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
 
 import java.util.List;
 
@@ -63,4 +63,26 @@ public abstract class SimpleAutoChoiceRvAdapter<T> extends AutoChoiceRvAdapter i
     }
 
     protected abstract void bindView(@NonNull RvHolder holder, T data);
+
+    /**
+     * deprecated, {@link #isSelectable(int, T)}
+     */
+    @Deprecated
+    @Override
+    protected boolean isSelectable(int position) {
+        return isSelectable(position, mData.get(position));
+    }
+
+    protected boolean isSelectable(int position, T data) {
+        return super.isSelectable(position);
+    }
+
+    public abstract class SimpleOnItemSelectedChangeListener implements OnItemSelectedChangeListener {
+        @Override
+        public final void onItemSelectedChanged(int position, boolean selected) {
+            onItemSelectedChanged(position, mData.get(position), selected);
+        }
+
+        public abstract void onItemSelectedChanged(int position, T data, boolean selected);
+    }
 }

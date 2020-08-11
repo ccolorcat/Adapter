@@ -17,14 +17,15 @@
 package cc.colorcat.adapter.sample;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +44,8 @@ import cc.colorcat.adapter.ViewHolder;
  */
 public class ChoiceRvAdapterActivity extends AppCompatActivity {
     private SwipeRefreshLayout mRefreshLayout;
-    private List<String> mData = new ArrayList<>(30);
-    private SimpleAutoChoiceRvAdapter<String> mAdapter = new SimpleAutoChoiceRvAdapter<String>(mData, R.layout.item_sample) {
+    private final List<String> mData = new ArrayList<>(30);
+    private final SimpleAutoChoiceRvAdapter<String> mAdapter = new SimpleAutoChoiceRvAdapter<String>(mData, R.layout.item_sample) {
         @Override
         protected void bindView(@NonNull RvHolder holder, String data) {
             holder.getHelper()

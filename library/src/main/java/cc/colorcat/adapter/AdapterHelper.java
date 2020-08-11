@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 cxx
+ * Copyright 2018 cxx
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,11 @@
 
 package cc.colorcat.adapter;
 
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.PagerAdapter;
 
 import java.util.List;
 
@@ -34,11 +36,20 @@ public final class AdapterHelper {
             new SingleTypePagerAdapterHelper<>()
     };
 
+    @NonNull
+    public static <T> SingleTypeAdapterHelper<T> require(@NonNull SingleType<T> singleTypeAdapter) {
+        SingleTypeAdapterHelper<T> helper = of(singleTypeAdapter);
+        if (helper == null) {
+            throw new IllegalArgumentException("singleTypeAdapter must be one of android.widget.BaseAdapter, RecyclerView.Adapter or PagerAdapter");
+        }
+        return helper;
+    }
+
     /**
      * @param singleTypeAdapter Must be one of
      *                          {@link android.widget.BaseAdapter},
-     *                          {@link android.support.v7.widget.RecyclerView.Adapter},
-     *                          {@link android.support.v4.view.PagerAdapter}
+     *                          {@link RecyclerView.Adapter},
+     *                          {@link PagerAdapter}
      * @see SimpleRvAdapter
      * @see SimpleChoiceRvAdapter
      * @see SimpleAutoChoiceRvAdapter
@@ -62,6 +73,13 @@ public final class AdapterHelper {
 
     public static <T> SimpleRvAdapter<T> newSimpleRvAdapter(
             @NonNull List<T> data,
+            @NonNull final ViewBinder2<? super T> binder
+    ) {
+        return newSimpleRvAdapter(data, binder.itemLayout(), binder);
+    }
+
+    public static <T> SimpleRvAdapter<T> newSimpleRvAdapter(
+            @NonNull List<T> data,
             @LayoutRes int itemLayout,
             @NonNull final ViewBinder<? super T> binder
     ) {
@@ -72,6 +90,13 @@ public final class AdapterHelper {
                 binder.bindView(holder.getHelper(), data);
             }
         };
+    }
+
+    public static <T> SimpleAutoChoiceRvAdapter<T> newSimpleAutoChoiceRvAdapter(
+            @NonNull List<T> data,
+            @NonNull final ViewBinder2<? super T> binder
+    ) {
+        return newSimpleAutoChoiceRvAdapter(data, binder.itemLayout(), binder);
     }
 
     public static <T> SimpleAutoChoiceRvAdapter<T> newSimpleAutoChoiceRvAdapter(
@@ -90,6 +115,13 @@ public final class AdapterHelper {
 
     public static <T> FixedRvAdapter<T> newFixedRvAdapter(
             @NonNull List<T> data,
+            @NonNull final ViewBinder2<? super T> binder
+    ) {
+        return newFixedRvAdapter(data, binder.itemLayout(), binder);
+    }
+
+    public static <T> FixedRvAdapter<T> newFixedRvAdapter(
+            @NonNull List<T> data,
             @LayoutRes int itemLayout,
             @NonNull final ViewBinder<? super T> binder
     ) {
@@ -100,6 +132,13 @@ public final class AdapterHelper {
                 binder.bindView(holder.getHelper(), data);
             }
         };
+    }
+
+    public static <T> FixedChoiceRvAdapter<T> newFixedChoiceRvAdapter(
+            @NonNull List<T> data,
+            @NonNull final ViewBinder2<? super T> binder
+    ) {
+        return newFixedChoiceRvAdapter(data, binder.itemLayout(), binder);
     }
 
     public static <T> FixedChoiceRvAdapter<T> newFixedChoiceRvAdapter(
@@ -118,6 +157,13 @@ public final class AdapterHelper {
 
     public static <T> SimpleLvAdapter<T> newSimpleLvAdapter(
             @NonNull List<T> data,
+            @NonNull final ViewBinder2<? super T> binder
+    ) {
+        return newSimpleLvAdapter(data, binder.itemLayout(), binder);
+    }
+
+    public static <T> SimpleLvAdapter<T> newSimpleLvAdapter(
+            @NonNull List<T> data,
             @LayoutRes int itemLayout,
             @NonNull final ViewBinder<? super T> binder
     ) {
@@ -128,6 +174,13 @@ public final class AdapterHelper {
                 binder.bindView(holder, t);
             }
         };
+    }
+
+    public static <T> FixedLvAdapter<T> newFixedLvAdapter(
+            @NonNull List<T> data,
+            @NonNull final ViewBinder2<? super T> binder
+    ) {
+        return newFixedLvAdapter(data, binder.itemLayout(), binder);
     }
 
     public static <T> FixedLvAdapter<T> newFixedLvAdapter(
@@ -146,6 +199,13 @@ public final class AdapterHelper {
 
     public static <T> SimpleVpAdapter<T> newSimpleVpAdapter(
             @NonNull List<T> data,
+            @NonNull final ViewBinder2<? super T> binder
+    ) {
+        return newSimpleVpAdapter(data, binder.itemLayout(), binder);
+    }
+
+    public static <T> SimpleVpAdapter<T> newSimpleVpAdapter(
+            @NonNull List<T> data,
             @LayoutRes int itemLayout,
             @NonNull final ViewBinder<? super T> binder
     ) {
@@ -156,6 +216,13 @@ public final class AdapterHelper {
                 binder.bindView(holder, data);
             }
         };
+    }
+
+    public static <T> FixedVpAdapter<T> newFixedVpAdapter(
+            @NonNull List<T> data,
+            @NonNull final ViewBinder2<? super T> binder
+    ) {
+        return newFixedVpAdapter(data, binder.itemLayout(), binder);
     }
 
     public static <T> FixedVpAdapter<T> newFixedVpAdapter(

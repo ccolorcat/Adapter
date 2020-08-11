@@ -16,8 +16,9 @@
 
 package cc.colorcat.adapter;
 
-import android.support.annotation.NonNull;
 import android.widget.BaseAdapter;
+
+import androidx.annotation.NonNull;
 
 import java.util.List;
 
@@ -87,10 +88,22 @@ public class SingleTypeLvAdapterHelper<T> extends SingleTypeAdapterHelper<T> {
     }
 
     @Override
+    public void clear() {
+        super.clear();
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void justRefreshUI() {
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public boolean canHandle(SingleType<?> singleTypeAdapter) {
         return singleTypeAdapter instanceof BaseAdapter;
     }
 
+    @NonNull
     @Override
     public SingleTypeAdapterHelper<T> clone() {
         return new SingleTypeLvAdapterHelper<>();

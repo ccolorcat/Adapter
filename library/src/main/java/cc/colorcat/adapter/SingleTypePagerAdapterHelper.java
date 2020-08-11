@@ -16,8 +16,8 @@
 
 package cc.colorcat.adapter;
 
-import android.support.annotation.NonNull;
-import android.support.v4.view.PagerAdapter;
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.PagerAdapter;
 
 import java.util.List;
 
@@ -87,10 +87,22 @@ public class SingleTypePagerAdapterHelper<T> extends SingleTypeAdapterHelper<T> 
     }
 
     @Override
+    public void clear() {
+        super.clear();
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void justRefreshUI() {
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public boolean canHandle(SingleType<?> singleTypeAdapter) {
         return singleTypeAdapter instanceof PagerAdapter;
     }
 
+    @NonNull
     @Override
     public SingleTypeAdapterHelper<T> clone() {
         return new SingleTypePagerAdapterHelper<>();

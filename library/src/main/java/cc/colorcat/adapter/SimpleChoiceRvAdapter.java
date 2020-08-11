@@ -16,8 +16,8 @@
 
 package cc.colorcat.adapter;
 
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
 
 import java.util.List;
 
@@ -62,4 +62,53 @@ public abstract class SimpleChoiceRvAdapter<T> extends ChoiceRvAdapter implement
     }
 
     protected abstract void bindView(@NonNull RvHolder holder, T data);
+
+    /**
+     * deprecated, {@link #isSelected(int, T)}
+     */
+    @Deprecated
+    @Override
+    protected boolean isSelected(int position) {
+        return isSelected(position, mData.get(position));
+    }
+
+    protected boolean isSelected(int position, T data) {
+        return super.isSelected(position);
+    }
+
+    /**
+     * deprecated, {@link #updateItem(int, T, boolean)}
+     */
+    @Deprecated
+    @Override
+    protected void updateItem(int position, boolean selected) {
+        updateItem(position, mData.get(position), selected);
+    }
+
+    protected void updateItem(int position, T data, boolean selected) {
+        super.updateItem(position, selected);
+    }
+
+    /**
+     * deprecated, {@link #isSelectable(int, T)}
+     */
+    @Deprecated
+    @Override
+    protected boolean isSelectable(int position) {
+        return isSelectable(position, mData.get(position));
+    }
+
+    protected boolean isSelectable(int position, T data) {
+        return super.isSelectable(position);
+    }
+
+
+    public abstract class SimpleOnItemSelectedChangeListener implements OnItemSelectedChangeListener {
+        @Override
+        public final void onItemSelectedChanged(int position, boolean selected) {
+            onItemSelectedChanged(position, mData.get(position), selected);
+        }
+
+        public abstract void onItemSelectedChanged(int position, T data, boolean selected);
+    }
 }
