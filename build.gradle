@@ -8,7 +8,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+//        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // jitPack
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
 
@@ -45,8 +45,6 @@ project.ext {
     viewpager = "androidx.viewpager:viewpager:1.0.0"
     appcompat = "androidx.appcompat:appcompat:1.1.0"
     recyclerview = "androidx.recyclerview:recyclerview:1.1.0"
-    kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    androidXCoreKtx = "androidx.core:core-ktx:1.1.0"
     androidJunit = "androidx.test.ext:junit:1.1.1"
     testEspresso = "androidx.test.espresso:espresso-core:3.2.0"
     junit = "junit:junit:4.12"
