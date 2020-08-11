@@ -19,8 +19,6 @@ package cc.colorcat.adapter;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.Objects;
-
 /**
  * Author: cxx
  * Date: 2020-04-27
@@ -32,7 +30,7 @@ class GroupRvAdapterDelegate<Adapter extends GroupableRvAdapter<RvHolder, RvHold
     final Adapter mAdapter;
 
     GroupRvAdapterDelegate(@NonNull Adapter adapter) {
-        mAdapter = Objects.requireNonNull(adapter, "adapter == null");
+        mAdapter = Utils.requireNonNull(adapter, "adapter == null");
     }
 
     final int getItemViewType(int position) {
