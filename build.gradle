@@ -35,7 +35,7 @@ project.ext {
     compileSdkVersion = sdkVersion
 
     // android.defaultConfig
-    minSdkVersion = 19
+    minSdkVersion = 16
     targetSdkVersion = sdkVersion
     versionCode = 40
     versionName = "4.0.0"

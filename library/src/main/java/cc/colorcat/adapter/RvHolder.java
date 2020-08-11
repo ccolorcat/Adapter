@@ -38,7 +38,7 @@ public final class RvHolder extends RecyclerView.ViewHolder {
     }
 
 
-    public static class Helper extends AdapterViewHolder {
+    public final static class Helper extends AdapterViewHolder<Helper> {
         private final RvHolder mHolder;
 
         private Helper(RvHolder holder) {

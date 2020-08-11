@@ -25,7 +25,7 @@ import androidx.annotation.NonNull;
  * Date: 2018-06-04
  * GitHub: https://github.com/ccolorcat
  */
-public final class VpHolder extends AdapterViewHolder {
+public final class VpHolder extends AdapterViewHolder<VpHolder> {
     int viewType = 0;
     int position = -1;
 

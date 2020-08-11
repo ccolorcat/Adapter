@@ -26,13 +26,13 @@ import java.util.List;
  * Date: 2019-11-19
  */
 class SingleTypeRvAdapterHelper<T> extends SingleTypeAdapterHelper<T> {
-    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.Adapter<?> mAdapter;
 
     @Override
     boolean attachAdapter(@NonNull SingleType<T> singleTypeAdapter) {
         if (singleTypeAdapter instanceof RecyclerView.Adapter) {
             super.attachAdapter(singleTypeAdapter);
-            mAdapter = (RecyclerView.Adapter) singleTypeAdapter;
+            mAdapter = (RecyclerView.Adapter<?>) singleTypeAdapter;
             return true;
         }
         return false;

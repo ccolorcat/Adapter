@@ -30,11 +30,11 @@ import androidx.annotation.Nullable;
  * GitHub: https://github.com/ccolorcat
  */
 @SuppressWarnings("WeakerAccess")
-public class LvHolder extends AdapterViewHolder {
+public final class LvHolder extends AdapterViewHolder<LvHolder> {
     int viewType = 0;
     int position = -1;
 
-    protected LvHolder(@NonNull View root) {
+    private LvHolder(@NonNull View root) {
         super(root);
     }
 

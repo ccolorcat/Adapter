@@ -26,7 +26,7 @@ import androidx.annotation.NonNull;
  * GitHub: https://github.com/ccolorcat
  */
 @SuppressWarnings({"WeakerAccess"})
-public abstract class AdapterViewHolder extends ViewHolder {
+public abstract class AdapterViewHolder<VH extends AdapterViewHolder<VH>> extends ViewHolder<VH> {
     protected AdapterViewHolder(@NonNull View root) {
         super(root);
     }

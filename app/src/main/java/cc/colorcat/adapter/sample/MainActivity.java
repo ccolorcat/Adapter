@@ -23,7 +23,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import cc.colorcat.adapter.ViewHolder;
+import cc.colorcat.adapter.VHolder;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ViewHolder.from(this).batchClick(
+        VHolder.from(this).batchClick(
                 mClick,
                 R.id.btn_rv_adapter,
                 R.id.btn_lv_adapter,

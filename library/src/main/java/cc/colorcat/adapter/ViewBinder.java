@@ -24,5 +24,5 @@ import androidx.annotation.NonNull;
  * GitHub: https://github.com/ccolorcat
  */
 public interface ViewBinder<T> {
-    void bindView(@NonNull AdapterViewHolder holder, T t);
+    void bindView(@NonNull AdapterViewHolder<?> holder, T data);
 }

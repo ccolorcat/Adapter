@@ -30,7 +30,7 @@ import java.util.List;
 import cc.colorcat.adapter.LvAdapter;
 import cc.colorcat.adapter.LvHolder;
 import cc.colorcat.adapter.SimpleLvAdapter;
-import cc.colorcat.adapter.ViewHolder;
+import cc.colorcat.adapter.VHolder;
 
 /**
  * Author: cxx
@@ -53,7 +53,7 @@ public class LvAdapterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lv_adapter);
 
-        ViewHolder holder = ViewHolder.from(this);
+        VHolder holder = VHolder.from(this);
 
         ListView listView = holder.get(R.id.lv_items);
         listView.setAdapter(mAdapter);

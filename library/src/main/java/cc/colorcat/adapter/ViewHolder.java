@@ -16,7 +16,6 @@
 
 package cc.colorcat.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -28,7 +27,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.SparseArray;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Checkable;
@@ -42,7 +40,6 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.IntDef;
-import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -60,44 +57,11 @@ import java.lang.annotation.RetentionPolicy;
  * Date: 2018-5-31
  * GitHub: https://github.com/ccolorcat
  */
-@SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
-public class ViewHolder {
+@SuppressWarnings({"WeakerAccess", "UnusedReturnValue", "unused"})
+public abstract class ViewHolder<VH extends ViewHolder<VH>> {
     @IntDef({View.VISIBLE, View.INVISIBLE, View.GONE})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Visibility {
-    }
-
-    public static ViewHolder from(@NonNull Context context, @LayoutRes int layoutId) {
-        return from(LayoutInflater.from(context), layoutId);
-    }
-
-    public static ViewHolder from(@NonNull LayoutInflater inflater, @LayoutRes int layoutId) {
-        return from(inflater.inflate(layoutId, null));
-    }
-
-    public static ViewHolder from(@LayoutRes int layoutId, @NonNull ViewGroup container) {
-        return from(layoutId, container, false);
-    }
-
-    public static ViewHolder from(@LayoutRes int layoutId, @NonNull ViewGroup container, boolean attachToRoot) {
-        return from(LayoutInflater.from(container.getContext()).inflate(layoutId, container, attachToRoot));
-    }
-
-    public static ViewHolder from(@NonNull LayoutInflater inflater, @LayoutRes int layoutId, ViewGroup container) {
-        return from(inflater, layoutId, container, false);
-    }
-
-    public static ViewHolder from(@NonNull LayoutInflater inflater, @LayoutRes int layoutId, ViewGroup container, boolean attachToRoot) {
-        return from(inflater.inflate(layoutId, container, attachToRoot));
-    }
-
-    public static ViewHolder from(@NonNull Activity activity) {
-        return new ViewHolder(activity.getWindow().getDecorView());
-    }
-
-    @NonNull
-    public static ViewHolder from(@NonNull View root) {
-        return new ViewHolder(root);
     }
 
 
@@ -116,10 +80,10 @@ public class ViewHolder {
         mResources = mRoot.getResources();
     }
 
-    public final ViewHolder putExtra(int key, Object data) {
+    public final VH putExtra(int key, Object data) {
         if (mExtras == null) mExtras = new SparseArray<>();
         mExtras.put(key, data);
-        return this;
+        return self();
     }
 
     @SuppressWarnings("unchecked")
@@ -172,59 +136,59 @@ public class ViewHolder {
     }
 
     @NonNull
-    public ViewHolder setClick(@IdRes int viewId, View.OnClickListener listener) {
+    public VH setClick(@IdRes int viewId, View.OnClickListener listener) {
         get(viewId).setOnClickListener(listener);
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder batchClick(View.OnClickListener listener, @IdRes int... viewIds) {
+    public VH batchClick(View.OnClickListener listener, @IdRes int... viewIds) {
         for (int id : viewIds) {
             get(id).setOnClickListener(listener);
         }
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder setLongClick(@IdRes int viewId, View.OnLongClickListener listener) {
+    public VH setLongClick(@IdRes int viewId, View.OnLongClickListener listener) {
         get(viewId).setOnLongClickListener(listener);
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder batchLongClick(View.OnLongClickListener listener, @IdRes int... viewIds) {
+    public VH batchLongClick(View.OnLongClickListener listener, @IdRes int... viewIds) {
         for (int id : viewIds) {
             get(id).setOnLongClickListener(listener);
         }
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder setFocusChange(@IdRes int viewId, View.OnFocusChangeListener listener) {
+    public VH setFocusChange(@IdRes int viewId, View.OnFocusChangeListener listener) {
         get(viewId).setOnFocusChangeListener(listener);
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder batchFocusChange(View.OnFocusChangeListener listener, @IdRes int... viewIds) {
+    public VH batchFocusChange(View.OnFocusChangeListener listener, @IdRes int... viewIds) {
         for (int id : viewIds) {
             get(id).setOnFocusChangeListener(listener);
         }
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder setVisibility(@IdRes int viewId, @Visibility int visibility) {
+    public VH setVisibility(@IdRes int viewId, @Visibility int visibility) {
         get(viewId).setVisibility(visibility);
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder batchVisibility(@Visibility int visibility, @IdRes int... viewIds) {
+    public VH batchVisibility(@Visibility int visibility, @IdRes int... viewIds) {
         for (int id : viewIds) {
             get(id).setVisibility(visibility);
         }
-        return this;
+        return self();
     }
 
     @Visibility
@@ -233,17 +197,17 @@ public class ViewHolder {
     }
 
     @NonNull
-    public ViewHolder setEnabled(@IdRes int viewId, boolean enabled) {
+    public VH setEnabled(@IdRes int viewId, boolean enabled) {
         get(viewId).setEnabled(enabled);
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder batchEnabled(boolean enabled, @IdRes int... viewIds) {
+    public VH batchEnabled(boolean enabled, @IdRes int... viewIds) {
         for (int id : viewIds) {
             get(id).setEnabled(enabled);
         }
-        return this;
+        return self();
     }
 
     public boolean isEnabled(@IdRes int viewId) {
@@ -251,17 +215,17 @@ public class ViewHolder {
     }
 
     @NonNull
-    public ViewHolder setSelected(@IdRes int viewId, boolean selected) {
+    public VH setSelected(@IdRes int viewId, boolean selected) {
         get(viewId).setSelected(selected);
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder batchSelected(boolean selected, @IdRes int... viewIds) {
+    public VH batchSelected(boolean selected, @IdRes int... viewIds) {
         for (int id : viewIds) {
             get(id).setSelected(selected);
         }
-        return this;
+        return self();
     }
 
     public boolean isSelected(@IdRes int viewIds) {
@@ -272,7 +236,7 @@ public class ViewHolder {
      * @param padding the padding in pixels
      */
     @NonNull
-    public ViewHolder setPadding(@IdRes int viewId, int padding) {
+    public VH setPadding(@IdRes int viewId, int padding) {
         return setPadding(viewId, padding, padding, padding, padding);
     }
 
@@ -283,9 +247,9 @@ public class ViewHolder {
      * @param bottom the bottom padding in pixels
      */
     @NonNull
-    public ViewHolder setPadding(@IdRes int viewId, int left, int top, int right, int bottom) {
+    public VH setPadding(@IdRes int viewId, int left, int top, int right, int bottom) {
         get(viewId).setPadding(left, top, right, bottom);
-        return this;
+        return self();
     }
 
     /**
@@ -293,7 +257,7 @@ public class ViewHolder {
      *             Use {@code null} if you want ignore the padding there.
      */
     @NonNull
-    public ViewHolder setPadding(@IdRes int viewId, @NonNull Integer[] ltrb) {
+    public VH setPadding(@IdRes int viewId, @NonNull Integer[] ltrb) {
         Utils.checkPaddingOrMargin(ltrb);
         Utils.replaceNull(ltrb, Utils.getPadding(get(viewId)));
         return setPadding(viewId, ltrb[0], ltrb[1], ltrb[2], ltrb[3]);
@@ -303,7 +267,7 @@ public class ViewHolder {
      * @param padding the padding in dip
      */
     @NonNull
-    public ViewHolder setPaddingWithDip(@IdRes int viewId, int padding) {
+    public VH setPaddingWithDip(@IdRes int viewId, int padding) {
         int p = Utils.toIntPx(mResources.getDisplayMetrics(), padding);
         return setPadding(viewId, p, p, p, p);
     }
@@ -315,7 +279,7 @@ public class ViewHolder {
      * @param bottom the bottom padding in dip
      */
     @NonNull
-    public ViewHolder setPaddingWithDip(@IdRes int viewId, int left, int top, int right, int bottom) {
+    public VH setPaddingWithDip(@IdRes int viewId, int left, int top, int right, int bottom) {
         DisplayMetrics metrics = mResources.getDisplayMetrics();
         int l = Utils.toIntPx(metrics, left);
         int t = Utils.toIntPx(metrics, top);
@@ -329,7 +293,7 @@ public class ViewHolder {
      *             Use {@code null} if you want ignore the padding there.
      */
     @NonNull
-    public ViewHolder setPaddingWithDip(@IdRes int viewId, @NonNull Integer[] ltrb) {
+    public VH setPaddingWithDip(@IdRes int viewId, @NonNull Integer[] ltrb) {
         Utils.checkPaddingOrMargin(ltrb);
         Integer[] pxs = Utils.toIntegerPx(mResources.getDisplayMetrics(), ltrb);
         return setPadding(viewId, pxs);
@@ -340,7 +304,7 @@ public class ViewHolder {
      * @param padding The padding in pixels.
      */
     @NonNull
-    public ViewHolder setPaddingRelative(@IdRes int viewId, int padding) {
+    public VH setPaddingRelative(@IdRes int viewId, int padding) {
         return setPaddingRelative(viewId, padding, padding, padding, padding);
     }
 
@@ -351,9 +315,9 @@ public class ViewHolder {
      * @param bottom the bottom padding in pixels
      */
     @NonNull
-    public ViewHolder setPaddingRelative(@IdRes int viewId, int start, int top, int end, int bottom) {
+    public VH setPaddingRelative(@IdRes int viewId, int start, int top, int end, int bottom) {
         ViewCompat.setPaddingRelative(get(viewId), start, top, end, bottom);
-        return this;
+        return self();
     }
 
     /**
@@ -361,20 +325,20 @@ public class ViewHolder {
      *             Use {@code null} if you want ignore the padding there.
      */
     @NonNull
-    public ViewHolder setPaddingRelative(@IdRes int viewId, @NonNull Integer[] steb) {
+    public VH setPaddingRelative(@IdRes int viewId, @NonNull Integer[] steb) {
         Utils.checkPaddingOrMargin(steb);
         Utils.replaceNull(steb, Utils.getRelativePadding(get(viewId)));
         return setPaddingRelative(viewId, steb[0], steb[1], steb[2], steb[3]);
     }
 
     @NonNull
-    public ViewHolder setPaddingRelativeWithDip(@IdRes int viewId, int padding) {
+    public VH setPaddingRelativeWithDip(@IdRes int viewId, int padding) {
         int p = Utils.toIntPx(mResources.getDisplayMetrics(), padding);
         return setPaddingRelative(viewId, p, p, p, p);
     }
 
     @NonNull
-    public ViewHolder setPaddingRelativeWithDip(@IdRes int viewId, int start, int top, int end, int bottom) {
+    public VH setPaddingRelativeWithDip(@IdRes int viewId, int start, int top, int end, int bottom) {
         DisplayMetrics metrics = mResources.getDisplayMetrics();
         int s = Utils.toIntPx(metrics, start);
         int t = Utils.toIntPx(metrics, top);
@@ -388,7 +352,7 @@ public class ViewHolder {
      *             Use {@code null} if you want ignore the padding there.
      */
     @NonNull
-    public ViewHolder setPaddingRelativeWithDip(@IdRes int viewId, @NonNull Integer[] steb) {
+    public VH setPaddingRelativeWithDip(@IdRes int viewId, @NonNull Integer[] steb) {
         Utils.checkPaddingOrMargin(steb);
         Integer[] pxs = Utils.toIntegerPx(mResources.getDisplayMetrics(), steb);
         return setPaddingRelative(viewId, pxs);
@@ -396,7 +360,7 @@ public class ViewHolder {
 
 
     @NonNull
-    public ViewHolder setMargin(@IdRes int viewId, int margin) {
+    public VH setMargin(@IdRes int viewId, int margin) {
         return setMargin(viewId, margin, margin, margin, margin);
     }
 
@@ -407,7 +371,7 @@ public class ViewHolder {
      * @param bottom the bottom margin in pixels
      */
     @NonNull
-    public ViewHolder setMargin(@IdRes int viewId, int left, int top, int right, int bottom) {
+    public VH setMargin(@IdRes int viewId, int left, int top, int right, int bottom) {
         View view = get(viewId);
         ViewGroup.LayoutParams lp = view.getLayoutParams();
         if (lp instanceof ViewGroup.MarginLayoutParams) {
@@ -418,7 +382,7 @@ public class ViewHolder {
             mlp.bottomMargin = bottom;
             view.setLayoutParams(mlp);
         }
-        return this;
+        return self();
     }
 
     /**
@@ -426,7 +390,7 @@ public class ViewHolder {
      *             Use {@code null} if you want ignore the padding there.
      */
     @NonNull
-    public ViewHolder setMargin(@IdRes int viewId, @NonNull Integer[] ltrb) {
+    public VH setMargin(@IdRes int viewId, @NonNull Integer[] ltrb) {
         Utils.checkPaddingOrMargin(ltrb);
         ViewGroup.LayoutParams lp = get(viewId).getLayoutParams();
         if (lp instanceof ViewGroup.MarginLayoutParams) {
@@ -434,17 +398,17 @@ public class ViewHolder {
             Utils.replaceNull(ltrb, Utils.getMargin(mlp));
             setMargin(viewId, ltrb[0], ltrb[1], ltrb[2], ltrb[3]);
         }
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder setMarginWithDip(@IdRes int viewId, int margin) {
+    public VH setMarginWithDip(@IdRes int viewId, int margin) {
         int m = Utils.toIntPx(mResources.getDisplayMetrics(), margin);
         return setMargin(viewId, m, m, m, m);
     }
 
     @NonNull
-    public ViewHolder setMarginWithDip(@IdRes int viewId, int left, int top, int right, int bottom) {
+    public VH setMarginWithDip(@IdRes int viewId, int left, int top, int right, int bottom) {
         DisplayMetrics metrics = mResources.getDisplayMetrics();
         int l = Utils.toIntPx(metrics, left);
         int t = Utils.toIntPx(metrics, top);
@@ -458,19 +422,19 @@ public class ViewHolder {
      *             Use {@code null} if you want ignore the padding there.
      */
     @NonNull
-    public ViewHolder setMarginWithDip(@IdRes int viewId, @NonNull Integer[] ltrb) {
+    public VH setMarginWithDip(@IdRes int viewId, @NonNull Integer[] ltrb) {
         Utils.checkPaddingOrMargin(ltrb);
         Integer[] pxs = Utils.toIntegerPx(mResources.getDisplayMetrics(), ltrb);
         return setMargin(viewId, pxs);
     }
 
     @NonNull
-    public ViewHolder setMarginRelative(@IdRes int viewId, int margin) {
+    public VH setMarginRelative(@IdRes int viewId, int margin) {
         return setMarginRelative(viewId, margin, margin, margin, margin);
     }
 
     @NonNull
-    public ViewHolder setMarginRelative(@IdRes int viewId, int start, int top, int end, int bottom) {
+    public VH setMarginRelative(@IdRes int viewId, int start, int top, int end, int bottom) {
         View view = get(viewId);
         ViewGroup.LayoutParams lp = view.getLayoutParams();
         if (lp instanceof ViewGroup.MarginLayoutParams) {
@@ -481,7 +445,7 @@ public class ViewHolder {
             mlp.bottomMargin = bottom;
             view.setLayoutParams(mlp);
         }
-        return this;
+        return self();
     }
 
     /**
@@ -489,7 +453,7 @@ public class ViewHolder {
      *             Use {@code null} if you want ignore the padding there.
      */
     @NonNull
-    public ViewHolder setMarginRelative(@IdRes int viewId, @NonNull Integer[] steb) {
+    public VH setMarginRelative(@IdRes int viewId, @NonNull Integer[] steb) {
         Utils.checkPaddingOrMargin(steb);
         ViewGroup.LayoutParams lp = get(viewId).getLayoutParams();
         if (lp instanceof ViewGroup.MarginLayoutParams) {
@@ -497,17 +461,17 @@ public class ViewHolder {
             Utils.replaceNull(steb, Utils.getRelativeMargin(mlp));
             setMarginRelative(viewId, steb[0], steb[1], steb[2], steb[3]);
         }
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder setMarginRelativeWithDip(@IdRes int viewId, int margin) {
+    public VH setMarginRelativeWithDip(@IdRes int viewId, int margin) {
         int m = Utils.toIntPx(mResources.getDisplayMetrics(), margin);
         return setMarginRelative(viewId, m, m, m, m);
     }
 
     @NonNull
-    public ViewHolder setMarginRelativeWithDip(@IdRes int viewId, int start, int top, int end, int bottom) {
+    public VH setMarginRelativeWithDip(@IdRes int viewId, int start, int top, int end, int bottom) {
         DisplayMetrics metrics = mResources.getDisplayMetrics();
         int s = Utils.toIntPx(metrics, start);
         int t = Utils.toIntPx(metrics, top);
@@ -521,40 +485,40 @@ public class ViewHolder {
      *             Use {@code null} if you want ignore the padding there.
      */
     @NonNull
-    public ViewHolder setMarginRelativeWithDip(@IdRes int viewId, @NonNull Integer[] steb) {
+    public VH setMarginRelativeWithDip(@IdRes int viewId, @NonNull Integer[] steb) {
         Utils.checkPaddingOrMargin(steb);
         Integer[] pxs = Utils.toIntegerPx(mResources.getDisplayMetrics(), steb);
         return setMarginRelative(viewId, pxs);
     }
 
     @NonNull
-    public ViewHolder setBackground(@IdRes int viewId, Drawable background) {
+    public VH setBackground(@IdRes int viewId, Drawable background) {
         ViewCompat.setBackground(get(viewId), background);
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder setBackgroundResource(@IdRes int viewId, @DrawableRes int drawableId) {
+    public VH setBackgroundResource(@IdRes int viewId, @DrawableRes int drawableId) {
         get(viewId).setBackgroundResource(drawableId);
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder setBackgroundColor(@IdRes int viewId, @ColorInt int color) {
+    public VH setBackgroundColor(@IdRes int viewId, @ColorInt int color) {
         get(viewId).setBackgroundColor(color);
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder setTag(@IdRes int viewId, Object tag) {
+    public VH setTag(@IdRes int viewId, Object tag) {
         get(viewId).setTag(tag);
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder setTag(@IdRes int viewId, int key, Object tag) {
+    public VH setTag(@IdRes int viewId, int key, Object tag) {
         get(viewId).setTag(key, tag);
-        return this;
+        return self();
     }
 
     @SuppressWarnings(value = "unchecked")
@@ -568,9 +532,9 @@ public class ViewHolder {
     }
 
     @NonNull
-    public ViewHolder setLayoutParams(@IdRes int viewId, @NonNull ViewGroup.LayoutParams params) {
+    public VH setLayoutParams(@IdRes int viewId, @NonNull ViewGroup.LayoutParams params) {
         get(viewId).setLayoutParams(params);
-        return this;
+        return self();
     }
 
     public ViewGroup.LayoutParams getLayoutParams(@IdRes int viewId) {
@@ -578,17 +542,17 @@ public class ViewHolder {
     }
 
     @NonNull
-    public ViewHolder setText(@IdRes int textViewId, CharSequence text) {
+    public VH setText(@IdRes int textViewId, CharSequence text) {
         TextView view = get(textViewId);
         view.setText(text);
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder setText(@IdRes int textViewId, @StringRes int stringId) {
+    public VH setText(@IdRes int textViewId, @StringRes int stringId) {
         TextView view = get(textViewId);
         view.setText(stringId);
-        return this;
+        return self();
     }
 
     public CharSequence getText(@IdRes int textViewId) {
@@ -607,37 +571,37 @@ public class ViewHolder {
     }
 
     @NonNull
-    public ViewHolder setError(@IdRes int textViewId, @StringRes int stringId) {
+    public VH setError(@IdRes int textViewId, @StringRes int stringId) {
         return setError(textViewId, mResources.getText(stringId));
     }
 
     @NonNull
-    public ViewHolder setError(@IdRes int textViewId, CharSequence error) {
+    public VH setError(@IdRes int textViewId, CharSequence error) {
         TextView view = get(textViewId);
         view.setError(error);
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder setError(@IdRes int textViewId, @StringRes int stringId, @DrawableRes int drawableId) {
+    public VH setError(@IdRes int textViewId, @StringRes int stringId, @DrawableRes int drawableId) {
         return setError(textViewId, mResources.getText(stringId), drawableId);
     }
 
     @NonNull
-    public ViewHolder setError(@IdRes int textViewId, CharSequence error, @DrawableRes int drawableId) {
+    public VH setError(@IdRes int textViewId, CharSequence error, @DrawableRes int drawableId) {
         return setError(textViewId, error, ContextCompat.getDrawable(mContext, drawableId));
     }
 
     @NonNull
-    public ViewHolder setError(@IdRes int textViewId, @StringRes int stringId, Drawable icon) {
+    public VH setError(@IdRes int textViewId, @StringRes int stringId, Drawable icon) {
         return setError(textViewId, mResources.getText(stringId), icon);
     }
 
     @NonNull
-    public ViewHolder setError(@IdRes int textViewId, CharSequence error, Drawable icon) {
+    public VH setError(@IdRes int textViewId, CharSequence error, Drawable icon) {
         TextView view = get(textViewId);
         view.setError(error, icon);
-        return this;
+        return self();
     }
 
     public CharSequence getError(@IdRes int textViewId) {
@@ -646,7 +610,7 @@ public class ViewHolder {
     }
 
     @NonNull
-    public ViewHolder setTextColorWithRes(@IdRes int textViewId, @ColorRes int colorId) {
+    public VH setTextColorWithRes(@IdRes int textViewId, @ColorRes int colorId) {
         ColorStateList stateList = ContextCompat.getColorStateList(mContext, colorId);
         if (stateList != null) {
             return setTextColor(textViewId, stateList);
@@ -655,37 +619,37 @@ public class ViewHolder {
     }
 
     @NonNull
-    public ViewHolder setTextColor(@IdRes int textViewId, @ColorInt int color) {
+    public VH setTextColor(@IdRes int textViewId, @ColorInt int color) {
         TextView view = get(textViewId);
         view.setTextColor(color);
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder setTextColor(@IdRes int textViewId, @NonNull ColorStateList colors) {
+    public VH setTextColor(@IdRes int textViewId, @NonNull ColorStateList colors) {
         TextView view = get(textViewId);
         view.setTextColor(colors);
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder batchTextColor(@ColorInt int color, @IdRes int... textViewIds) {
+    public VH batchTextColor(@ColorInt int color, @IdRes int... textViewIds) {
         for (int id : textViewIds) {
             setTextColor(id, color);
         }
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder batchTextColor(@NonNull ColorStateList colors, @IdRes int... textViewIds) {
+    public VH batchTextColor(@NonNull ColorStateList colors, @IdRes int... textViewIds) {
         for (int id : textViewIds) {
             setTextColor(id, colors);
         }
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder batchTextColorWithRes(@ColorRes int colorId, @IdRes int... textViewIds) {
+    public VH batchTextColorWithRes(@ColorRes int colorId, @IdRes int... textViewIds) {
         ColorStateList stateList = ContextCompat.getColorStateList(mContext, colorId);
         if (stateList != null) {
             return batchTextColor(stateList, textViewIds);
@@ -697,10 +661,10 @@ public class ViewHolder {
      * @see android.graphics.Paint#setFlags(int)
      */
     @NonNull
-    public ViewHolder setPaintFlags(@IdRes int textViewId, int flags) {
+    public VH setPaintFlags(@IdRes int textViewId, int flags) {
         TextView view = get(textViewId);
         view.setPaintFlags(flags);
-        return this;
+        return self();
     }
 
     public int getPaintFlags(@IdRes int textViewId) {
@@ -709,18 +673,18 @@ public class ViewHolder {
     }
 
     @NonNull
-    public ViewHolder setChecked(@IdRes int checkableId, boolean checked) {
+    public VH setChecked(@IdRes int checkableId, boolean checked) {
         Checkable checkable = cast(checkableId);
         checkable.setChecked(checked);
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder batchChecked(boolean checked, @IdRes int... checkableIds) {
+    public VH batchChecked(boolean checked, @IdRes int... checkableIds) {
         for (int id : checkableIds) {
             setChecked(id, checked);
         }
-        return this;
+        return self();
     }
 
     public boolean isChecked(@IdRes int checkableId) {
@@ -729,88 +693,93 @@ public class ViewHolder {
     }
 
     @NonNull
-    public ViewHolder toggle(@IdRes int checkableId) {
+    public VH toggle(@IdRes int checkableId) {
         Checkable checkable = cast(checkableId);
         checkable.toggle();
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder setCheckedChange(@IdRes int compoundButtonId, CompoundButton.OnCheckedChangeListener listener) {
+    public VH setCheckedChange(@IdRes int compoundButtonId, CompoundButton.OnCheckedChangeListener listener) {
         CompoundButton cb = get(compoundButtonId);
         cb.setOnCheckedChangeListener(listener);
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder batchCheckedChange(CompoundButton.OnCheckedChangeListener listener, @IdRes int... compoundButtonIds) {
+    public VH batchCheckedChange(CompoundButton.OnCheckedChangeListener listener, @IdRes int... compoundButtonIds) {
         for (int id : compoundButtonIds) {
             setCheckedChange(id, listener);
         }
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder setImageResource(@IdRes int imageViewId, @DrawableRes int drawableId) {
+    public VH setImageResource(@IdRes int imageViewId, @DrawableRes int drawableId) {
         ImageView view = get(imageViewId);
         view.setImageResource(drawableId);
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder setImageDrawable(@IdRes int imageViewId, Drawable drawable) {
+    public VH setImageDrawable(@IdRes int imageViewId, Drawable drawable) {
         ImageView view = get(imageViewId);
         view.setImageDrawable(drawable);
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder setImageUri(@IdRes int imageViewId, Uri uri) {
+    public VH setImageUri(@IdRes int imageViewId, Uri uri) {
         ImageView view = get(imageViewId);
         view.setImageURI(uri);
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder setImageFile(@IdRes int imageViewId, @NonNull File file) {
+    public VH setImageFile(@IdRes int imageViewId, @NonNull File file) {
         return setImageUri(imageViewId, Uri.fromFile(file));
     }
 
     @NonNull
-    public ViewHolder setImagePath(@IdRes int imageViewId, @NonNull String path) {
+    public VH setImagePath(@IdRes int imageViewId, @NonNull String path) {
         return setImageFile(imageViewId, new File(path));
     }
 
     @NonNull
-    public ViewHolder setImageBitmap(@IdRes int imageViewId, Bitmap bitmap) {
+    public VH setImageBitmap(@IdRes int imageViewId, Bitmap bitmap) {
         ImageView view = get(imageViewId);
         view.setImageBitmap(bitmap);
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder setProgress(@IdRes int progressBarId, int progress) {
+    public VH setProgress(@IdRes int progressBarId, int progress) {
         ProgressBar pb = get(progressBarId);
         pb.setProgress(progress);
-        return this;
+        return self();
     }
 
     @NonNull
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public ViewHolder setProgress(@IdRes int progressBarId, int progress, boolean animate) {
+    public VH setProgress(@IdRes int progressBarId, int progress, boolean animate) {
         ProgressBar pb = get(progressBarId);
         pb.setProgress(progress, animate);
-        return this;
+        return self();
     }
 
     @NonNull
-    public ViewHolder setProgressBarColor(@IdRes int progressBarId, @ColorInt int color) {
+    public VH setProgressBarColor(@IdRes int progressBarId, @ColorInt int color) {
         ProgressBar pb = get(progressBarId);
         Drawable pd = pb.getProgressDrawable();
         if (pd != null) {
 //            pd.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
             pd.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP));
         }
-        return this;
+        return self();
+    }
+
+    @SuppressWarnings("unchecked")
+    private VH self() {
+        return (VH) this;
     }
 }
