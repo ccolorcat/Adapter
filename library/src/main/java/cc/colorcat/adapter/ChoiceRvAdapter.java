@@ -59,6 +59,7 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     @ChoiceMode
     private int mChoiceMode = ChoiceMode.NONE;
     private int mSelectedPosition = RecyclerView.NO_POSITION;
+    private OnChoiceModeChangeListener mChoiceModeListener;
     private OnItemSelectedChangeListener mSelectedListener;
     private RecyclerView mRecyclerView;
     private RvSelectHelper mSelectHelper;
@@ -66,7 +67,8 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     @Override
     public final void onBindViewHolder(@NonNull RvHolder holder, int position) {
         super.onBindViewHolder(holder, position);
-        if (inChoiceMode() && isSelectable(position)) {
+//        if (inChoiceMode() && isSelectable(position)) {
+        if (inChoiceMode()) {
             updateItemView(holder, isSelectedWithChoiceMode(position));
         }
     }
@@ -97,14 +99,28 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
      * @see ChoiceMode#SINGLE 单选
      * @see ChoiceMode#MULTIPLE 多选
      */
-    public void setChoiceMode(@ChoiceMode int choiceMode) {
+    public final void setChoiceMode(@ChoiceMode int choiceMode) {
         Utils.checkChoiceMode(choiceMode);
-        mChoiceMode = choiceMode;
+        if (mChoiceMode != choiceMode) {
+            clearSelection();
+            mChoiceMode = choiceMode;
+            if (mChoiceModeListener != null) {
+                mChoiceModeListener.onChoiceModeChanged(this, mChoiceMode);
+            }
+        }
     }
 
     @ChoiceMode
-    public int getChoiceMode() {
+    public final int getChoiceMode() {
         return mChoiceMode;
+    }
+
+    public final void setOnChoiceModeChangeListener(OnChoiceModeChangeListener listener) {
+        mChoiceModeListener = listener;
+    }
+
+    public final OnChoiceModeChangeListener getOnChoiceModeChangeListener() {
+        return mChoiceModeListener;
     }
 
     public void setOnItemSelectedChangeListener(OnItemSelectedChangeListener listener) {
@@ -116,9 +132,7 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     }
 
     /**
-     * 设置当前选中的 item
-     *
-     * @param position item 的位置
+     * 设置选中的 item
      */
     public void setSelection(int position) {
         if (inChoiceMode()
@@ -126,6 +140,32 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
                 && isSelectable(position)
                 && !isSelectedWithChoiceMode(position)) {
             dispatchSelect(position, true);
+        }
+    }
+
+    public void clearSelection() {
+        if (mChoiceMode == ChoiceMode.SINGLE) {
+            clearSelectionWithSingleChoiceMode();
+        } else if (mChoiceMode == ChoiceMode.MULTIPLE) {
+            clearSelectionWithMultipleChoiceMode();
+        }
+    }
+
+    private void clearSelectionWithSingleChoiceMode() {
+        final int last = mSelectedPosition;
+        if (checkPosition(last)
+                && isSelectable(last)
+                && isSelectedWithChoiceMode(last)) {
+            mSelectedPosition = RecyclerView.NO_POSITION;
+            dispatchSelect(last, false);
+        }
+    }
+
+    private void clearSelectionWithMultipleChoiceMode() {
+        for (int i = 0, size = getItemCount(); i < size; ++i) {
+            if (isSelectable(i) && isSelectedWithChoiceMode(i)) {
+                dispatchSelect(i, false);
+            }
         }
     }
 
@@ -203,13 +243,21 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
         } else {
             notifyItemChanged(position);
         }
+        notifyOnItemSelectedChangeListener(position, selected);
+    }
+
+    private void notifyOnItemSelectedChangeListener(int position, boolean selected) {
         if (mSelectedListener != null) {
             mSelectedListener.onItemSelectedChanged(position, selected);
         }
     }
 
-    private boolean inChoiceMode() {
+    public final boolean inChoiceMode() {
         return mChoiceMode == ChoiceMode.SINGLE || mChoiceMode == ChoiceMode.MULTIPLE;
+    }
+
+    public final void disableChoice() {
+        setChoiceMode(ChoiceMode.NONE);
     }
 
     private boolean checkPosition(int position) {
@@ -270,5 +318,9 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
 
     public interface OnItemSelectedChangeListener {
         void onItemSelectedChanged(int position, boolean selected);
+    }
+
+    public interface OnChoiceModeChangeListener {
+        void onChoiceModeChanged(@NonNull ChoiceRvAdapter adapter, @ChoiceMode int choiceMode);
     }
 }

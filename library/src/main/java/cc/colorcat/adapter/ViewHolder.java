@@ -101,6 +101,7 @@ public class ViewHolder {
     }
 
 
+    private SparseArray<Object> mExtras;
     private final SparseArray<View> mViews = new SparseArray<>();
     @NonNull
     protected final View mRoot;
@@ -113,6 +114,17 @@ public class ViewHolder {
         mRoot = Utils.requireNonNull(root, "root == null");
         mContext = mRoot.getContext();
         mResources = mRoot.getResources();
+    }
+
+    public final ViewHolder putExtra(int key, Object data) {
+        if (mExtras == null) mExtras = new SparseArray<>();
+        mExtras.put(key, data);
+        return this;
+    }
+
+    @SuppressWarnings("unchecked")
+    public final <T> T getExtra(int key) {
+        return mExtras == null ? null : (T) mExtras.get(key);
     }
 
     @NonNull

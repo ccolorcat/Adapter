@@ -14,16 +14,11 @@
   ~ limitations under the License.
   -->
 
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/srl_root"
-    android:background="#e1e1e1"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_title"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:ignore="Overdraw">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_items"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    android:layout_height="wrap_content"
+    android:background="#9C27B0"
+    android:gravity="start|center_vertical"
+    android:padding="8dp"
+    android:textSize="18sp" />

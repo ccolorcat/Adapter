@@ -40,7 +40,7 @@ import cc.colorcat.adapter.ViewHolder;
 public class LvAdapterActivity extends AppCompatActivity {
     private SwipeRefreshLayout mRefreshLayout;
     private final List<String> mData = new ArrayList<>(30);
-    private LvAdapter mAdapter = new SimpleLvAdapter<String>(mData, R.layout.item_sample) {
+    private final LvAdapter mAdapter = new SimpleLvAdapter<String>(mData, R.layout.item_sample) {
         @Override
         protected void bindView(@NonNull LvHolder holder, String s) {
             holder.setImageResource(R.id.iv_icon, R.mipmap.ic_launcher_round)

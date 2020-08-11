@@ -29,6 +29,16 @@
         <activity
             android:name=".VpAdapterActivity"
             android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".ContainerActivity"
+            android:label="AdapterTest"
+            android:screenOrientation="fullSensor">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

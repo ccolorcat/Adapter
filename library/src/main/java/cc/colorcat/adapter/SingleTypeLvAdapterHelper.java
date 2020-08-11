@@ -88,6 +88,17 @@ public class SingleTypeLvAdapterHelper<T> extends SingleTypeAdapterHelper<T> {
     }
 
     @Override
+    public void clear() {
+        super.clear();
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void justRefreshUI() {
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public boolean canHandle(SingleType<?> singleTypeAdapter) {
         return singleTypeAdapter instanceof BaseAdapter;
     }

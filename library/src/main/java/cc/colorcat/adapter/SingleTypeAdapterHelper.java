@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 cxx
+ * Copyright 2018 cxx
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,8 +34,11 @@ public abstract class SingleTypeAdapterHelper<T> implements Cloneable {
         return false;
     }
 
-    @CallSuper
     public final void append(@NonNull List<? extends T> newData) {
+        insert(mData.size(), newData);
+    }
+
+    public final void append(@NonNull T newData) {
         insert(mData.size(), newData);
     }
 
@@ -101,6 +104,13 @@ public abstract class SingleTypeAdapterHelper<T> implements Cloneable {
         mData.clear();
         mData.addAll(newData);
     }
+
+    @CallSuper
+    public void clear() {
+        mData.clear();
+    }
+
+    public abstract void justRefreshUI();
 
     public abstract boolean canHandle(SingleType<?> singleTypeAdapter);
 
