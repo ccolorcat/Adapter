@@ -30,4 +30,12 @@
         android:layout_marginTop="16dp"
         android:text="@string/VpAdapter"
         android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_group_adapter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/group_adapter"
+        android:textAllCaps="false" />
 </LinearLayout>

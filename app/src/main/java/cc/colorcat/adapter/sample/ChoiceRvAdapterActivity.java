@@ -16,6 +16,7 @@
 
 package cc.colorcat.adapter.sample;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -103,20 +104,16 @@ public class ChoiceRvAdapterActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.single:
-                mAdapter.setChoiceMode(ChoiceRvAdapter.ChoiceMode.SINGLE);
-                break;
-            case R.id.multiple:
-                mAdapter.setChoiceMode(ChoiceRvAdapter.ChoiceMode.MULTIPLE);
-                break;
-            case R.id.none:
-                mAdapter.setChoiceMode(ChoiceRvAdapter.ChoiceMode.NONE);
-                break;
-            default:
-                break;
+        int itemId = item.getItemId();
+        if (itemId == R.id.single) {
+            mAdapter.setChoiceMode(ChoiceRvAdapter.ChoiceMode.SINGLE);
+        } else if (itemId == R.id.multiple) {
+            mAdapter.setChoiceMode(ChoiceRvAdapter.ChoiceMode.MULTIPLE);
+        } else if (itemId == R.id.none) {
+            mAdapter.setChoiceMode(ChoiceRvAdapter.ChoiceMode.NONE);
         }
         mAdapter.notifyDataSetChanged();
         return super.onOptionsItemSelected(item);

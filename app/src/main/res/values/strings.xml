@@ -8,4 +8,5 @@
     <string name="choice_rv_adapter">RecyclerView</string>
     <string name="picture">picture</string>
     <string name="VpAdapter">ViewPager</string>
+    <string name="group_adapter">Group Adapter</string>
 </resources>

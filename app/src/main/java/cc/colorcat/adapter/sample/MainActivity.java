@@ -36,25 +36,23 @@ public class MainActivity extends AppCompatActivity {
                 mClick,
                 R.id.btn_rv_adapter,
                 R.id.btn_lv_adapter,
-                R.id.btn_vp_adapter
+                R.id.btn_vp_adapter,
+                R.id.btn_group_adapter
         );
     }
 
     private final View.OnClickListener mClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.btn_lv_adapter:
-                    navigateTo(LvAdapterActivity.class);
-                    break;
-                case R.id.btn_rv_adapter:
-                    navigateTo(ChoiceRvAdapterActivity.class);
-                    break;
-                case R.id.btn_vp_adapter:
-                    navigateTo(VpAdapterActivity.class);
-                    break;
-                default:
-                    break;
+            int id = v.getId();
+            if (id == R.id.btn_lv_adapter) {
+                navigateTo(LvAdapterActivity.class);
+            } else if (id == R.id.btn_rv_adapter) {
+                navigateTo(ChoiceRvAdapterActivity.class);
+            } else if (id == R.id.btn_vp_adapter) {
+                navigateTo(VpAdapterActivity.class);
+            } else if (id == R.id.btn_group_adapter) {
+                navigateTo(ContainerActivity.class);
             }
         }
     };
