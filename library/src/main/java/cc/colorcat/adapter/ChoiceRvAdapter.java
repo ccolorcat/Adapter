@@ -279,18 +279,17 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
         @Override
         public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
             mRv = rv;
-            dispatchTouchEvent(e);
-            return false;
+            return dispatchTouchEvent(e);
         }
 
-        private void dispatchTouchEvent(@NonNull MotionEvent e) {
+        private boolean dispatchTouchEvent(@NonNull MotionEvent e) {
             if (mDetector == null) {
                 mDetector = new GestureDetectorCompat(mRv.getContext(), new GestureDetector.SimpleOnGestureListener() {
                     @Override
                     public boolean onSingleTapUp(MotionEvent e) {
                         if (inChoiceMode()) {
                             RecyclerView.ViewHolder holder = findViewHolder(e);
-                            if (holder != null) {
+                            if (holder != null && !holder.itemView.dispatchTouchEvent(e)) {
                                 final int position = holder.getAdapterPosition();
                                 if (isSelectable(position)) {
                                     boolean selected = isSelectedWithChoiceMode(position);
@@ -300,13 +299,14 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
                                         dispatchSelect(position, true);
                                     }
                                 }
+                                return true;
                             }
                         }
                         return false;
                     }
                 });
             }
-            mDetector.onTouchEvent(e);
+            return mDetector.onTouchEvent(e);
         }
 
         private RecyclerView.ViewHolder findViewHolder(MotionEvent e) {

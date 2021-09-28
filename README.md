@@ -160,7 +160,7 @@ allprojects {
 
 ```groovy
 dependencies {
-    implementation 'com.github.ccolorcat:Adapter:v4.0.0'
+    implementation 'com.github.ccolorcat:Adapter:v4.1.0'
 }
 ```
 
@@ -174,6 +174,12 @@ dependencies {
 * 自 3.x 版本后，提供了 SingleTypeAdapterHelper 辅助更新 Adapater 的数据和刷新 UI，所有带有 Simple 字样的 Adapter 类均可使用。
 
 ## 5. 版本历史
+
+v4.1.0
+
+> 1. 新增 GroupChoiceRvAdapter 支持分组功能的同时，支持单/复选功能。
+> 2. 改善了单/复选的点击探测逻辑。
+> 3. 对 ViewHolder 等其它的一些优化改进。
 
 v3.4.0
 

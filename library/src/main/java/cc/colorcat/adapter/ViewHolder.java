@@ -778,6 +778,20 @@ public abstract class ViewHolder<VH extends ViewHolder<VH>> {
         return self();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @NonNull
+    public VH setForeground(@IdRes int viewId, Drawable foreground) {
+        get(viewId).setForeground(foreground);
+        return self();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @NonNull
+    public VH setForegroundResource(@IdRes int viewId, @DrawableRes int drawableId) {
+        Drawable foreground = ContextCompat.getDrawable(mContext, drawableId);
+        return setForeground(viewId, foreground);
+    }
+
     @SuppressWarnings("unchecked")
     private VH self() {
         return (VH) this;
