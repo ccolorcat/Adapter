@@ -265,14 +265,7 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     }
 
     private boolean isSelectedWithChoiceMode(int position) {
-        if (mChoiceMode == ChoiceMode.SINGLE) {
-            // 针对单选模式下，用户自行处理是否选中的情况。
-            if (isSelected(position)) {
-                mSelectedPosition = position;
-            }
-            return mSelectedPosition != RecyclerView.NO_POSITION && mSelectedPosition == position;
-        }
-        return mChoiceMode == ChoiceMode.MULTIPLE && isSelected(position);
+        return inChoiceMode() && isSelected(position);
     }
 
 
