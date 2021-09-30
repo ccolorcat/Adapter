@@ -160,7 +160,7 @@ allprojects {
 
 ```groovy
 dependencies {
-    implementation 'com.github.ccolorcat:Adapter:v4.1.0'
+    implementation 'com.github.ccolorcat:Adapter:v4.1.2'
 }
 ```
 
