@@ -41,14 +41,29 @@ public abstract class AutoChoiceRvAdapter extends ChoiceRvAdapter {
             mRecords.clear();
             mRecords.addAll(createRecords(Boolean.FALSE, size));
         }
-        registerAdapterDataObserver(mObserver);
+        unregisterObserver();
+        registerObserver();
     }
 
     @Override
     public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onDetachedFromRecyclerView(recyclerView);
         mRecords.clear();
-        unregisterAdapterDataObserver(mObserver);
+        unregisterObserver();
+    }
+
+    private void registerObserver() {
+        try {
+            registerAdapterDataObserver(mObserver);
+        } catch (Throwable ignore) {
+        }
+    }
+
+    private void unregisterObserver() {
+        try {
+            unregisterAdapterDataObserver(mObserver);
+        } catch (Throwable ignore) {
+        }
     }
 
     @Override

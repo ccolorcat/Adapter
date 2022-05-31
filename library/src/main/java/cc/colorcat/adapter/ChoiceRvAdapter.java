@@ -80,6 +80,7 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
         if (mSelectHelper == null) {
             mSelectHelper = new RvSelectHelper();
         }
+        mRecyclerView.removeOnItemTouchListener(mSelectHelper);
         mRecyclerView.addOnItemTouchListener(mSelectHelper);
     }
 
